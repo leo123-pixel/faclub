@@ -258,7 +258,7 @@ T26 → T27 → T28
 
 ---
 
-### T9: Normalizar a busca
+### T9: Normalizar a busca ✅
 
 **What**: `normalizeSearch` e `matchesSearch` ignorando maiúsculas, acentos, hífens e espaços internos de cada palavra; todas as palavras da busca precisam aparecer.
 **Where**: `src/lib/domain/search.ts`
@@ -268,9 +268,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `src/lib/domain/search.test.ts` cobre "15w40", "15W-40" e "15W40" contra "Top Turbo 15W-40"; "lubrax" contra "Lubrax"; "oleo" contra "Óleo"; "lubrax 15w40" exige as duas; busca vazia aceita tudo; SKU "LBX-1540-20" achado por "lbx154020"
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 6 tests pass
+- [x] `src/lib/domain/search.test.ts` cobre "15w40", "15W-40" e "15W40" contra "Top Turbo 15W-40"; "lubrax" contra "Lubrax"; "oleo" contra "Óleo"; "lubrax 15w40" exige as duas; busca vazia aceita tudo; SKU "LBX-1540-20" achado por "lbx154020"
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 6 tests pass
 
 **Tests**: unit
 **Gate**: quick

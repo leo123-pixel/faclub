@@ -90,7 +90,7 @@ T11 → T12 → T13
 
 ---
 
-### T2: Conteúdo dos eventos
+### T2: Conteúdo dos eventos ✅
 
 **What**: `viewItemEvent`, `addToCartEvent`, `sendOrderEvent`, `clickWhatsappEvent`, `copyCouponEvent` e `joinGroupEvent`, cada um com `{ name, params }` em reais e `currency: "BRL"`, e `WHATSAPP_LOCATIONS`.
 **Where**: `src/lib/domain/analytics-events.ts`
@@ -100,9 +100,9 @@ T11 → T12 → T13
 
 **Done when**:
 
-- [ ] `src/lib/domain/analytics-events.test.ts` cobre cada evento com os campos da spec: `view_item` com id, nome, marca e preço da primeira embalagem (promocional só em oferta); `add_to_cart` com id, embalagem, quantidade e preço; `send_order_whatsapp` com número de itens (soma das quantidades) e total; `click_whatsapp` com o local; `copy_coupon` com o código; `join_group`
-- [ ] Gate check passes: `npm run typecheck && npx vitest run`
-- [ ] Test count: 6 tests pass
+- [x] `src/lib/domain/analytics-events.test.ts` cobre cada evento com os campos da spec: `view_item` com id, nome, marca e preço da primeira embalagem (promocional só em oferta); `add_to_cart` com id, embalagem, quantidade e preço; `send_order_whatsapp` com número de itens (soma das quantidades) e total; `click_whatsapp` com o local; `copy_coupon` com o código; `join_group`
+- [x] Gate check passes: `npm run typecheck && npx vitest run`
+- [x] Test count: 6 tests pass
 
 **Tests**: unit
 **Gate**: quick

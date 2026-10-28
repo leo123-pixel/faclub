@@ -237,7 +237,7 @@ T5 → T6 → T7 → T8 → T9
 
 ---
 
-### T9: Cadastro e edição de banner
+### T9: Cadastro e edição de banner ✅
 
 **What**: `/admin/banners/novo` e `/admin/banners/[id]` com Foto (uma, até 2400 px), Título, Texto, Link, Ordem e Ativo; action `saveBanner` valida com `validateBanner`, grava, revalida e volta com "Banner salvo."; a foto que falha no envio mantém a anterior e mostra "Não foi possível enviar a foto. Tente de novo.".
 **Where**: `src/app/admin/(painel)/banners/[id]/page.tsx`
@@ -247,9 +247,9 @@ T5 → T6 → T7 → T8 → T9
 
 **Done when**:
 
-- [ ] `tests/e2e/banners.spec.ts` prova: criar um banner com foto, título "Oferta da semana", texto, link `/produtos` e ordem 1 volta à lista com "Banner salvo." e a linha nova; editar o título grava o novo título (C2); uma foto de 3000×2000 chega ao Storage como WebP de 2400×1600 (C7); salvar sem foto e sem título mostra "Campo obrigatório" nos dois
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build && npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] `tests/e2e/banners.spec.ts` prova: criar um banner com foto, título "Oferta da semana", texto, link `/produtos` e ordem 1 volta à lista com "Banner salvo." e a linha nova; editar o título grava o novo título (C2); uma foto de 3000×2000 chega ao Storage como WebP de 2400×1600 (C7); salvar sem foto e sem título mostra "Campo obrigatório" nos dois
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build && npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build

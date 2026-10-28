@@ -7,6 +7,8 @@ import { publicImageUrl } from "@/lib/storage";
 export type UploadFn = (blob: Blob, path: string) => Promise<{ ok: boolean }>;
 export type PrepareFn = (file: File) => Promise<Blob>;
 
+export const UPLOAD_FAILED = "Não foi possível enviar a foto. Tente de novo.";
+
 type Item = Photo & { status: "ok" | "uploading" | "failed"; failed?: boolean; preview?: string; blob?: Blob };
 
 type Props = {
@@ -66,9 +68,16 @@ export function PhotoUploader({ productId, photos, onChange, upload, prepare, fo
       }
       const preview = typeof URL.createObjectURL === "function" ? URL.createObjectURL(blob) : undefined;
       const item: Item = { id, path: `${dir}/${id}.webp`, isCover: false, status: "uploading", preview, blob };
+      const previous = items;
       current = withNewPhoto(current, item) as Item[];
       setItems(current);
       current = await send(current.find((i) => i.id === id)!, current);
+      // Com uma foto só (banner, logo), a troca que falha devolve a anterior.
+      if (max === 1 && current.some((i) => i.status === "failed")) {
+        setItems(previous);
+        setMessage(UPLOAD_FAILED);
+        return;
+      }
       commit(current);
     }
   }

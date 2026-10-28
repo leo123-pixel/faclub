@@ -113,4 +113,25 @@ describe("PhotoUploader", () => {
     expect(photos[0].path).not.toBe(first);
     expect(screen.getAllByRole("figure")).toHaveLength(1);
   });
+
+  it("com max 1, se o envio da nova foto falha, a anterior fica e aparece a mensagem", async () => {
+    const onChange = vi.fn<(p: Photo[]) => void>();
+    const failing: UploadFn = async () => ({ ok: false });
+    render(
+      <PhotoUploader
+        productId=""
+        folder="banners"
+        max={1}
+        photos={[{ id: "old", path: "banners/old.webp", isCover: true }]}
+        onChange={onChange}
+        upload={failing}
+        prepare={prepare}
+      />,
+    );
+    await user().upload(screen.getByLabelText("Enviar fotos"), file("novo.jpg", "image/jpeg"));
+    expect(screen.getByRole("alert")).toHaveTextContent("Não foi possível enviar a foto. Tente de novo.");
+    expect(screen.getAllByRole("figure")).toHaveLength(1);
+    expect(screen.getByRole("figure").querySelector("img")!.getAttribute("src")).toMatch(/banners\/old\.webp$/);
+    expect(onChange).not.toHaveBeenCalled();
+  });
 });

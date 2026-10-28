@@ -186,9 +186,9 @@ T17 → T18 → T19
 
 ---
 
-### T6: Revalidação manual do site
+### T6: Revalidação manual do site ✅
 
-**What**: `POST /api/revalidar` com `Authorization: Bearer <REVALIDATE_SECRET>` chama `revalidatePath('/', 'layout')`; sem o segredo certo responde 401. Helper `refreshSite()` nos testes e2e, chamado depois do seed; `REVALIDATE_SECRET` no stack local e no `.env.example`.
+**What**: `POST /api/revalidar` com `Authorization: Bearer <REVALIDATE_SECRET>` chama `revalidatePath('/', 'layout')`; sem o segredo certo responde 401. Helper `refreshSite()` nos testes e2e, chamado depois do seed; `REVALIDATE_SECRET` no stack local (o repositório não versiona `.env*`; a variável entra na configuração da Vercel na feature lancamento).
 **Where**: `src/app/api/revalidar/route.ts`
 **Depends on**: T5
 **Reuses**: `scripts/local-supabase/config.mjs`
@@ -196,9 +196,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `tests/e2e/site-revalidate.spec.ts` prova: sem cabeçalho e com segredo errado dá 401; com o segredo dá 200
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 2 e2e tests pass
+- [x] `tests/e2e/site-revalidate.spec.ts` prova: sem cabeçalho e com segredo errado dá 401; com o segredo dá 200
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 2 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

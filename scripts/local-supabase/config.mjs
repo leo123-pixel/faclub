@@ -37,11 +37,15 @@ const longLived = { iss: "supabase-local", iat: 1700000000, exp: 4900000000 };
 export const ANON_KEY = signJwt({ ...longLived, role: "anon" });
 export const SERVICE_ROLE_KEY = signJwt({ ...longLived, role: "service_role" });
 
+// Segredo de POST /api/revalidar no app de teste.
+export const REVALIDATE_SECRET = "revalidar-local";
+
 export const APP_ENV = {
   NEXT_PUBLIC_SUPABASE_URL: API_URL,
   NEXT_PUBLIC_SUPABASE_ANON_KEY: ANON_KEY,
   SUPABASE_SERVICE_ROLE_KEY: SERVICE_ROLE_KEY,
   NEXT_PUBLIC_SITE_URL: APP_URL,
+  REVALIDATE_SECRET,
 };
 
 export const MAIL_DIR = path.join(LOCAL, "mail");

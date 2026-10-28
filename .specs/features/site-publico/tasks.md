@@ -420,7 +420,7 @@ T17 → T18 → T19
 
 ---
 
-### T17: Página do produto
+### T17: Página do produto ✅
 
 **What**: `(site)/produtos/[slug]/page.tsx` com `generateStaticParams`, trilha, galeria, informações, `PurchaseBox`, bloco do cupom curto ("10% de desconto na troca feita na loja."), ficha técnica e "Combine com"; slug inexistente ou oculto dá `notFound()` com "Produto não encontrado." e "Ver todos os produtos".
 **Where**: `src/app/(site)/produtos/[slug]/page.tsx`
@@ -430,10 +430,10 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] A página do Top Turbo 15W-40 a 1440 px confere com `.specs/features/site-publico/captures/produto.png` (C43, provado no walk)
-- [ ] `tests/e2e/site-product.spec.ts` prova: um slug inventado e o slug do produto oculto respondem 404 com "Produto não encontrado." e "Ver todos os produtos" (C44); com o FACLUB10 ativo a página mostra o código e "10% de desconto na troca feita na loja." (C52); o Top Turbo em oferta mostra o selo "Oferta da semana" sobre a foto e o preço promocional ao lado do normal riscado, e o Rimula, fora de oferta, não (C49); a trilha é "Home / Produtos / Lubrax Top Turbo 15W-40" com os dois primeiros como links (C53); a 390 px a galeria fica acima das informações, numa coluna (C55); "Combine com" mostra produtos de outras categorias
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
-- [ ] Test count: 6 e2e tests pass
+- [x] A página do Top Turbo 15W-40 a 1440 px confere com `.specs/features/site-publico/captures/produto.png` (C43, provado no walk)
+- [x] `tests/e2e/site-product.spec.ts` prova: um slug inventado e o slug do produto oculto respondem 404 com "Produto não encontrado." e "Ver todos os produtos" (C44); com o FACLUB10 ativo a página mostra o código e "10% de desconto na troca feita na loja." (C52); o Top Turbo em oferta mostra o selo "Oferta da semana" sobre a foto e o preço promocional ao lado do normal riscado, e o Rimula, fora de oferta, não (C49); a trilha é "Home / Produtos / Lubrax Top Turbo 15W-40" com os dois primeiros como links (C53); a 390 px a galeria fica acima das informações, numa coluna (C55); "Combine com" mostra produtos de outras categorias
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
+- [x] Test count: 6 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build

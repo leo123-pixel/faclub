@@ -2,7 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { seedSite } from "./support/site";
 
 // Páginas públicas que o topo precisa cobrir; cresce com as tarefas do site.
-const PAGES = ["/", "/produtos"];
+const PAGES = ["/", "/produtos", "/produtos/top-turbo-15w-40"];
 
 const SCHEDULE =
   "https://wa.me/551129545764?text=" + encodeURIComponent("Olá! Quero agendar uma troca de óleo.");

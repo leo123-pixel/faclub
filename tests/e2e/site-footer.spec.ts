@@ -3,7 +3,7 @@ import { refreshSite, seedSite } from "./support/site";
 import { serviceClient } from "./support/supabase";
 
 // Páginas públicas que o rodapé precisa cobrir; cresce com as tarefas do site.
-const PAGES = ["/", "/produtos", "/politica-de-privacidade"];
+const PAGES = ["/", "/produtos", "/produtos/top-turbo-15w-40", "/politica-de-privacidade"];
 
 const footer = (page: Page) => page.getByRole("contentinfo");
 

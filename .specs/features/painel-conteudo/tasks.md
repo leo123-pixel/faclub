@@ -89,7 +89,7 @@ T5 → T6 → T7 → T8 → T9
 
 ---
 
-### T2: Validar as configurações e montar o link do WhatsApp
+### T2: Validar as configurações e montar o link do WhatsApp ✅
 
 **What**: `validateSettings` (WhatsApp com 10 ou 11 dígitos, e-mail, links `https://`) com as mensagens da spec, `onlyDigits` e `whatsappLink(digits, message)`.
 **Where**: `src/lib/domain/settings-input.ts`
@@ -99,9 +99,9 @@ T5 → T6 → T7 → T8 → T9
 
 **Done when**:
 
-- [ ] `src/lib/domain/settings-input.test.ts` cobre: 9 e 12 dígitos recusados e 10 e 11 aceitos (C15); e-mail sem `@`, sem domínio e válido (C16); grupo e Instagram com `http://`, sem protocolo e vazios (C17); "(11) 2954-5764" vira `1129545764` e `https://wa.me/551129545764?text=` com a mensagem codificada (C18)
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 5 tests pass
+- [x] `src/lib/domain/settings-input.test.ts` cobre: 9 e 12 dígitos recusados e 10 e 11 aceitos (C15); e-mail sem `@`, sem domínio e válido (C16); grupo e Instagram com `http://`, sem protocolo e vazios (C17); "(11) 2954-5764" vira `1129545764` e `https://wa.me/551129545764?text=` com a mensagem codificada (C18)
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 5 tests pass
 
 **Tests**: unit
 **Gate**: quick

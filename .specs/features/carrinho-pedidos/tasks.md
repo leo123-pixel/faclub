@@ -197,7 +197,7 @@ T13 → T14 → T15
 
 ---
 
-### T7: Envio do pedido
+### T7: Envio do pedido ✅
 
 **What**: `POST /api/pedidos`: `validateOrderInput` (400), `take_order_slot` com o HMAC do IP (429), `priceCart` sem indisponíveis (só indisponíveis dá 400), cupom gravado só se marcado e ativo, insert em `orders` com a chave de serviço e resposta com número, itens e total.
 **Where**: `src/app/api/pedidos/route.ts`
@@ -207,9 +207,9 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `tests/e2e/cart-api.spec.ts` prova: 31 linhas, quantidade 0 e quantidade 100 respondem 400 e nada é gravado (C20); um envio válido grava o pedido com o preço do banco e devolve o número; o 6º envio em 10 minutos responde 429
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] `tests/e2e/cart-api.spec.ts` prova: 31 linhas, quantidade 0 e quantidade 100 respondem 400 e nada é gravado (C20); um envio válido grava o pedido com o preço do banco e devolve o número; o 6º envio em 10 minutos responde 429
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build

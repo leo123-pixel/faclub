@@ -1,6 +1,6 @@
 # painel-catalogo proofs
 
-**HEAD**: 2e7e854
+**HEAD**: 3fa0abf
 **Tree**: clean
 **Result**: 61 pass, 0 fail; mutations 3 killed, 0 not
 

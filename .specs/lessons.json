@@ -1,0 +1,171 @@
+{
+  "schema": 1,
+  "promote_threshold": 2,
+  "window_days": 45,
+  "quarantine_threshold": 2,
+  "next_id": 10,
+  "lessons": [
+    {
+      "id": "L-001",
+      "key": "surviving_mutant::test access rules with a user who sets the privileged claim in a field they control such as user metadata",
+      "text": "Test access rules with a user who sets the privileged claim in a field they control, such as user_metadata",
+      "signal": "surviving_mutant",
+      "scope": "rls",
+      "status": "candidate",
+      "features": [
+        "painel-catalogo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "supabase/migrations/20261028000200_rls.sql:8 (rls)"
+      ],
+      "created": "2026-10-28T12:56:07Z",
+      "last_seen": "2026-10-28T12:56:07Z"
+    },
+    {
+      "id": "L-002",
+      "key": "surviving_mutant::prove each boundary comparison with the equal value not only a value past it",
+      "text": "Prove each boundary comparison with the equal value, not only a value past it",
+      "signal": "surviving_mutant",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "painel-catalogo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/product-input.ts:83 (domain)"
+      ],
+      "created": "2026-10-28T12:56:08Z",
+      "last_seen": "2026-10-28T12:56:08Z"
+    },
+    {
+      "id": "L-003",
+      "key": "surviving_mutant::exercise optimistic ui state across two consecutive actions so a revert to the initial value is caught",
+      "text": "Exercise optimistic UI state across two consecutive actions so a revert to the initial value is caught",
+      "signal": "surviving_mutant",
+      "scope": "components",
+      "status": "candidate",
+      "features": [
+        "painel-catalogo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/components/admin/RowToggle.tsx:30 (components)"
+      ],
+      "created": "2026-10-28T12:56:08Z",
+      "last_seen": "2026-10-28T12:56:08Z"
+    },
+    {
+      "id": "L-004",
+      "key": "spec_precision_gap::prove time window filters with records on both sides of the boundary through the data layer not only the aggregation function",
+      "text": "Prove time-window filters with records on both sides of the boundary through the data layer, not only the aggregation function",
+      "signal": "spec_precision_gap",
+      "scope": "data-layer",
+      "status": "candidate",
+      "features": [
+        "painel-catalogo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "C20 (data-layer)"
+      ],
+      "created": "2026-10-28T12:56:08Z",
+      "last_seen": "2026-10-28T12:56:08Z"
+    },
+    {
+      "id": "L-005",
+      "key": "spec_precision_gap::when a criterion lists several fields the proving test changes every field it names",
+      "text": "When a criterion lists several fields, the proving test changes every field it names",
+      "signal": "spec_precision_gap",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "painel-catalogo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "C41 (tests)"
+      ],
+      "created": "2026-10-28T12:56:08Z",
+      "last_seen": "2026-10-28T12:56:08Z"
+    },
+    {
+      "id": "L-006",
+      "key": "ac_gap::validate numeric input against the database column limits so overflow shows the field message",
+      "text": "Validate numeric input against the database column limits so overflow shows the field message",
+      "signal": "ac_gap",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "painel-catalogo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/product-input.ts (domain)"
+      ],
+      "created": "2026-10-28T12:56:08Z",
+      "last_seen": "2026-10-28T12:56:08Z"
+    },
+    {
+      "id": "L-007",
+      "key": "ac_gap::recompute derived markers such as the cover from the items that actually succeeded",
+      "text": "Recompute derived markers such as the cover from the items that actually succeeded",
+      "signal": "ac_gap",
+      "scope": "components",
+      "status": "candidate",
+      "features": [
+        "painel-catalogo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/components/admin/product-form/PhotoUploader.tsx (components)"
+      ],
+      "created": "2026-10-28T12:56:08Z",
+      "last_seen": "2026-10-28T12:56:08Z"
+    },
+    {
+      "id": "L-008",
+      "key": "ac_gap::parse money the way people type it including thousands separators without decimals",
+      "text": "Parse money the way people type it, including thousands separators without decimals",
+      "signal": "ac_gap",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "painel-catalogo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/money.ts (domain)"
+      ],
+      "created": "2026-10-28T12:56:08Z",
+      "last_seen": "2026-10-28T12:56:08Z"
+    },
+    {
+      "id": "L-009",
+      "key": "ac_gap::enforce a component limit prop in the rule it feeds not only in the markup",
+      "text": "Enforce a component limit prop in the rule it feeds, not only in the markup",
+      "signal": "ac_gap",
+      "scope": "components",
+      "status": "candidate",
+      "features": [
+        "painel-catalogo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/components/admin/product-form/PhotoUploader.tsx:max (components)"
+      ],
+      "created": "2026-10-28T12:56:08Z",
+      "last_seen": "2026-10-28T12:56:08Z"
+    }
+  ]
+}

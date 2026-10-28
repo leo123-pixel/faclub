@@ -116,11 +116,11 @@
 
 ## Handoff
 
-- **Feature**: painel-catalogo (`.specs/features/painel-catalogo`)
-- **Phase / Task**: Execute, validação: T1-T28 feitos; verifier e screens round 1 voltaram; achados do verifier fechados; check_proofs --mutations verde (60/61, 3 mutações mortas) no HEAD 794efb9
-- **Completed**: T1-T28, fix pass (ca73dc9, 7a17eb0, 15d126a, 288a35d, 492f344)
+- **Feature**: painel-catalogo concluída; próxima: painel-conteudo (`.specs/features/painel-conteudo`)
+- **Phase / Task**: painel-catalogo Done - gate `validate_verification.py` com 0 erros no HEAD 3fa0abf (61/61 provas, 3 mutações mortas, screens round 2 matches, 10 achados fechados, 9 lições candidatas)
+- **Completed**: painel-catalogo T1-T28 e validação
 - **In-progress** (file:line): none
-- **Next step**: com a resposta da Q11, ajustar `## Differences from the source` (ou o shell), rodar o screens sub-agent round 2 só nas linhas `differs` de `screens.md`, depois `validate_verification.py painel-catalogo` e as lições
-- **Blockers**: pergunta Q11 (ícones e bloco do usuário no menu: as duas capturas se contradizem)
+- **Next step**: painel-conteudo - Design inline (Medium) e tasks.md para aprovação; reaproveitar AdminShell, PageHeader, PhotoUploader (max 1) e o padrão de actions de categorias
+- **Blockers**: none
 - **Uncommitted files**: none
 - **Branch**: claude/festive-sagan-40ifio

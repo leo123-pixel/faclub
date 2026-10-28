@@ -163,3 +163,41 @@ describe("funções e gatilhos do catálogo", () => {
     });
   });
 });
+
+describe("limite de envios de pedido", () => {
+  it("aceita 5 envios por chave em 10 minutos e recusa o 6º; outra chave passa", async () => {
+    await tx(async (db) => {
+      await db.as("service_role");
+      const take = async (key: string) =>
+        (await db.query<{ ok: boolean }>("select public.take_order_slot($1) as ok", [key]))[0].ok;
+      for (let i = 0; i < 5; i++) expect(await take("chave-a")).toBe(true);
+      expect(await take("chave-a")).toBe(false);
+      expect(await take("chave-b")).toBe(true);
+    });
+  });
+
+  it("envio de mais de 10 minutos atrás não conta e é apagado", async () => {
+    await tx(async (db) => {
+      for (let i = 0; i < 5; i++) {
+        await db.query("insert into order_throttle (key, created_at) values ('chave-a', now() - interval '11 minutes')");
+      }
+      await db.as("service_role");
+      const [row] = await db.query<{ ok: boolean }>("select public.take_order_slot('chave-a') as ok");
+      expect(row.ok).toBe(true);
+      await db.asSuper();
+      const [count] = await db.query<{ n: string }>("select count(*) as n from order_throttle where key = 'chave-a'");
+      expect(count.n).toBe("1");
+    });
+  });
+
+  it("anon e usuário logado não executam a função nem leem a tabela", async () => {
+    await tx(async (db) => {
+      await db.query("insert into order_throttle (key) values ('chave-a')");
+      for (const [role, claims] of [["anon", undefined], ["authenticated", ADMIN]] as const) {
+        await db.as(role, claims);
+        expect(await db.error("select public.take_order_slot('x')")).toMatch(/permission denied/);
+        expect(await db.error("select * from order_throttle")).toMatch(/permission denied/);
+      }
+    });
+  });
+});

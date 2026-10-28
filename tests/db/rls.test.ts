@@ -113,7 +113,7 @@ describe("RLS do catálogo", () => {
     });
   });
 
-  it("só admin lê pedidos", async () => {
+  it("ORD-01.4: só admin lê pedidos", async () => {
     await tx(async (db) => {
       await db.query("insert into orders (items, total_estimated) values ('[]', 10)");
       await db.as("anon");

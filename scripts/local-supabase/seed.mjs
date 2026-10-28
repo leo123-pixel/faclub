@@ -28,7 +28,7 @@ export const PRODUCTS = [
 ];
 
 const SEED_SQL = `
-  truncate public.products, public.orders, public.banners restart identity cascade;
+  truncate public.products, public.orders, public.banners, public.order_throttle restart identity cascade;
   delete from public.coupons where code <> 'FACLUB10';
   insert into public.coupons (code, percent, description, is_active)
   values ('FACLUB10', 10, '10% de desconto na troca feita na loja.', true)

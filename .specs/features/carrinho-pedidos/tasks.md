@@ -154,7 +154,7 @@ T13 → T14 → T15
 
 ---
 
-### T5: Limite de envios por IP no banco
+### T5: Limite de envios por IP no banco ✅
 
 **What**: Migração com `order_throttle` (RLS sem políticas) e `take_order_slot(p_key)` (`security definer`, só `service_role` executa): apaga o que passou de 10 minutos, conta a chave e aceita até 5. O seed esvazia `order_throttle` e `orders`. O teste de leitura de pedidos ganha o nome de ORD-01 AC 4.
 **Where**: `supabase/migrations/20261029000100_order_throttle.sql`
@@ -164,10 +164,10 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `tests/db/functions.test.ts` prova: 5 chamadas com a mesma chave dão `true` e a 6ª `false`; outra chave passa; uma linha de 11 minutos atrás não conta e é apagada; `anon` e `authenticated` não executam a função nem leem a tabela
-- [ ] `tests/db/rls.test.ts` tem o teste "ORD-01.4: só admin lê pedidos" (C29)
-- [ ] Gate check passes: `npm run typecheck && npx vitest run`
-- [ ] Test count: 3 testes de banco novos ou renomeados passam
+- [x] `tests/db/functions.test.ts` prova: 5 chamadas com a mesma chave dão `true` e a 6ª `false`; outra chave passa; uma linha de 11 minutos atrás não conta e é apagada; `anon` e `authenticated` não executam a função nem leem a tabela
+- [x] `tests/db/rls.test.ts` tem o teste "ORD-01.4: só admin lê pedidos" (C29)
+- [x] Gate check passes: `npm run typecheck && npx vitest run`
+- [x] Test count: 3 testes de banco novos ou renomeados passam
 
 **Tests**: integration
 **Gate**: quick

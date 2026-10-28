@@ -4,12 +4,22 @@ import Link from "next/link";
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import type { Coupon } from "@/lib/domain/home";
 import { formatBRL } from "@/lib/domain/money";
-import { applyQuote, ORDER_MESSAGES, orderMessage, orderWhatsappLink, validateOrderInput, type CartQuote } from "@/lib/domain/order";
+import {
+  applyQuote,
+  ORDER_MESSAGES,
+  orderMessage,
+  orderWhatsappLink,
+  unavailableNotice,
+  validateOrderInput,
+  type CartQuote,
+} from "@/lib/domain/order";
 import { useCart } from "./CartProvider";
 import { IconMinus, IconPlus } from "./icons";
 
 export const PRICE_NOTICE = "Preço e disponibilidade são confirmados no atendimento pelo WhatsApp.";
 export const EMPTY_CART_TEXT = "Seu carrinho está vazio.";
+/** Depois disso o WhatsApp abre sem o número do pedido (CART-04 AC 12). */
+export const ORDER_TIMEOUT_MS = 5000;
 
 const EMPTY_QUOTE: CartQuote = { items: [], unavailable: [], total: 0 };
 const noop = () => () => {};
@@ -65,6 +75,7 @@ export function CartView({ whatsapp, coupon }: { whatsapp: string; coupon: Coupo
     return (
       <div className="py-20 text-center" role="status">
         <p className="font-display text-[28px] font-semibold tracking-tight text-ink">{ORDER_MESSAGES.sent}</p>
+        {sent.unavailable > 0 && <p className="mt-3 text-[15px] text-low-ink">{unavailableNotice(sent.unavailable)}</p>}
         <a
           href={sent.url}
           target="_blank"
@@ -110,26 +121,55 @@ export function CartView({ whatsapp, coupon }: { whatsapp: string; coupon: Coupo
     busy.current = true;
     const tab = window.open("about:blank", "_blank");
     setSending(true);
-    try {
-      const res = await fetch("/api/pedidos", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(body),
+    const open = (url: string, unavailable: number) => {
+      if (tab) tab.location.href = url;
+      else window.location.href = url;
+      clear();
+      setSent({ url, unavailable });
+    };
+    // plano B: a mesma mensagem com a última cotação, sem o número do pedido
+    const openWithoutNumber = () => {
+      const message = orderMessage({
+        number: null,
+        items: view.items,
+        total: view.total,
+        name,
+        vehicle,
+        coupon: withCoupon && coupon ? coupon.code : null,
       });
-      const json = await res.json();
+      open(orderWhatsappLink(whatsapp, message), view.unavailable.length);
+    };
+    const abort = new AbortController();
+    const timer = setTimeout(() => abort.abort(), ORDER_TIMEOUT_MS);
+    try {
+      let res: Response;
+      try {
+        res = await fetch("/api/pedidos", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify(body),
+          signal: abort.signal,
+        });
+      } catch {
+        openWithoutNumber();
+        return;
+      }
+      if (res.status >= 500) {
+        openWithoutNumber();
+        return;
+      }
+      const json = await res.json().catch(() => ({}));
       if (!res.ok) {
+        // 400 e 429: o pedido não sai; a página diz por quê
         tab?.close();
         setError(json.error ?? ORDER_MESSAGES.invalid);
         return;
       }
       const order = json as OrderResponse;
       const message = orderMessage({ number: order.number, items: order.items, total: order.total, name, vehicle, coupon: order.coupon });
-      const url = orderWhatsappLink(whatsapp, message);
-      if (tab) tab.location.href = url;
-      else window.location.href = url;
-      clear();
-      setSent({ url, unavailable: order.unavailable.length });
+      open(orderWhatsappLink(whatsapp, message), order.unavailable.length);
     } finally {
+      clearTimeout(timer);
       busy.current = false;
       setSending(false);
     }

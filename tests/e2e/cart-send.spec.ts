@@ -1,6 +1,6 @@
 import { expect, test, type BrowserContext, type Page } from "@playwright/test";
 import { cartLine } from "./support/cart";
-import { seedSite } from "./support/site";
+import { refreshSite, seedSite } from "./support/site";
 import { serviceClient } from "./support/supabase";
 
 test.beforeEach(async ({ context }) => {
@@ -129,3 +129,70 @@ test.describe("enviar o pedido", () => {
     expect(context.pages().filter((p) => p.url().startsWith("https://wa.me/"))).toHaveLength(1);
   });
 });
+
+test.describe("falhas no envio", () => {
+  test("CART-04.6: item indisponível fica de fora e o carrinho avisa", async ({ context, page }) => {
+    await fillCart(page, [...(await twoItems()), await cartLine("rimula-r4-15w-40", "Balde 20L", 1, "Shell Rimula R4 15W-40")]);
+    await serviceClient().from("products").update({ is_visible: false }).eq("slug", "rimula-r4-15w-40");
+    await refreshSite();
+    await page.reload();
+    await expect(page.getByRole("listitem", { name: "Shell Rimula R4 15W-40 · Balde 20L" }).getByText("Indisponível")).toBeVisible();
+    const sent = await sendAndRead(context, page);
+    expect(sent.text).not.toContain("Rimula");
+    await expect(page.getByText("1 item indisponível ficou de fora.")).toBeVisible();
+    const [order] = await orders();
+    expect(order.items.map((i: { title: string }) => i.title)).toEqual(["Lubrax Top Turbo 15W-40", "Mobil Filtro de ar"]);
+    expect(order.total_estimated).toBe(759.7);
+  });
+
+  test("CART-04.7: o 6º pedido em 10 minutos mostra a mensagem de espera", async ({ context, page }) => {
+    for (let i = 0; i < 5; i++) {
+      await fillCart(page, await twoItems());
+      const tab = await sendAndRead(context, page);
+      expect(tab.text).toContain("Pedido nº");
+    }
+    await fillCart(page, await twoItems());
+    await page.getByRole("button", { name: "Enviar pedido pelo WhatsApp" }).click();
+    await expect(page.getByRole("main").getByRole("alert")).toHaveText(
+      "Muitos pedidos seguidos. Espere alguns minutos ou fale direto no WhatsApp.",
+    );
+    expect(await orders()).toHaveLength(5);
+    // o carrinho continua montado
+    await expect(page.getByRole("list", { name: "Itens do carrinho" }).getByRole("listitem")).toHaveCount(2);
+  });
+
+  test("CART-04.12: se a gravação falhar ou passar de 5 s, o WhatsApp abre com a mesma mensagem sem o número", async ({ context, page }) => {
+    const expected = [
+      "Olá! Quero fazer este pedido pelo site:",
+      "",
+      "- Lubrax Top Turbo 15W-40 · Balde 20L · 2 x R$ 349,90 = R$ 699,80",
+      "- Mobil Filtro de ar · Unidade · 1 x R$ 59,90 = R$ 59,90",
+      "",
+      "Total estimado: R$ 759,70",
+      "Nome: João",
+    ].join("\n");
+
+    // falha: o servidor responde 500
+    await fillCart(page, await twoItems());
+    await page.route("**/api/pedidos", (route) => route.fulfill({ status: 500, body: "erro" }));
+    await page.getByLabel("Nome (opcional)").fill("João");
+    let sent = await sendAndRead(context, page);
+    expect(sent.text).toBe(expected);
+    await expect(page.getByText("Pedido enviado! Termine a conversa no WhatsApp.")).toBeVisible();
+    await page.unroute("**/api/pedidos");
+
+    // demora: o servidor só responde depois de 6 s
+    await fillCart(page, await twoItems());
+    await page.route("**/api/pedidos", async (route) => {
+      await new Promise((r) => setTimeout(r, 6000));
+      await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ number: 999, items: [], total: 0, unavailable: [], coupon: null }) });
+    });
+    await page.getByLabel("Nome (opcional)").fill("João");
+    const started = Date.now();
+    sent = await sendAndRead(context, page);
+    expect(Date.now() - started).toBeLessThan(5900);
+    expect(sent.text).toBe(expected);
+    expect(sent.text).not.toContain("Pedido nº");
+  });
+});
+

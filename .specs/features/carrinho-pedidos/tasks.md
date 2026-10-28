@@ -302,7 +302,7 @@ T13 → T14 → T15
 
 ---
 
-### T12: Falhas no envio
+### T12: Falhas no envio ✅
 
 **What**: Item indisponível fica de fora com o aviso; 429 mostra a mensagem da spec; falha ou mais de 5 s abrem o WhatsApp com a mesma mensagem sem o número.
 **Where**: `src/components/site/CartView.tsx`
@@ -312,9 +312,9 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `tests/e2e/cart-send.spec.ts` prova: com um item ocultado o pedido sai sem ele e aparece "1 item indisponível ficou de fora." (C17); depois de 5 envios, o 6º mostra "Muitos pedidos seguidos. Espere alguns minutos ou fale direto no WhatsApp." (C18); com `/api/pedidos` falhando e com ele demorando 6 s, a aba do WhatsApp abre com a mensagem sem "(Pedido nº" (C23)
-- [ ] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] `tests/e2e/cart-send.spec.ts` prova: com um item ocultado o pedido sai sem ele e aparece "1 item indisponível ficou de fora." (C17); depois de 5 envios, o 6º mostra "Muitos pedidos seguidos. Espere alguns minutos ou fale direto no WhatsApp." (C18); com `/api/pedidos` falhando e com ele demorando 6 s, a aba do WhatsApp abre com a mensagem sem "(Pedido nº" (C23)
+- [x] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

@@ -1,6 +1,6 @@
 # Site público: Home, Catálogo e Produto Specification
 
-**Approved**: pendente (aguarda as respostas Q2, Q3, Q4 e Q10)
+**Approved**: 2026-10-28 - user: "ok para todas as recomendações, pode seguir"
 
 ## Problem Statement
 
@@ -28,24 +28,24 @@ O site atual é um WordPress de 2016, sem catálogo, e não ajuda a vender. O mo
 
 | Assumption / decision | Chosen default | Rationale | Confirmed? |
 | --- | --- | --- | --- |
-| Página de Contato | O item "Contato" do menu leva à seção "Passa aqui na FAC LUB" da Home (`/#contato`); `/contato` redireciona para lá | O protótipo desenha o contato como seção da Home, não como página | n |
-| Ordem "Destaques" | Primeiro os produtos com destaque, depois os em oferta, depois A–Z | O PRD não define a ordem | n |
-| Preço mostrado no card | Preço da primeira embalagem do produto; em oferta, o preço promocional com o normal riscado | O card da captura mostra uma embalagem e um preço | n |
-| Ordenação por preço | Usa o mesmo preço mostrado no card | O cliente vê a lista na ordem do que lê | n |
-| Itens por carga no catálogo | 12 produtos; "Carregar mais" traz mais 12 | A captura mostra 12 cards e "Carregar mais" | n |
-| "Combine com" na página do produto | Até 4 produtos visíveis de outras categorias, os com destaque primeiro | A captura combina um óleo com filtros e graxa; o PRD não tem campo de relacionados | n |
-| Produto sem foto real | Mostra uma imagem neutra com o ícone de embalagem | O cadastro exige foto, mas produtos de banco podem ficar sem até a sessão de fotos | n |
-| Fotos de banco até a sessão de fotos | Fotos de banco com licença livre nas seções de serviços e no topo | PRD, Riscos: sem data para a sessão de fotos | n |
-| Marcas na Home | Nome em texto, em cinza, como na captura; logo só quando a marca tiver `logo_path` fornecido pelo distribuidor | PRD, Riscos: uso de logos das marcas | n |
-| "Pedir orçamento" e "Chamar no WhatsApp" | Abrem o WhatsApp com "Olá! Quero um orçamento." e "Olá! Vim pelo site da FAC LUB." | O PRD só define a mensagem de agendamento | n |
-| Mapa | Iframe do Google Maps com o endereço das configurações, carregado só quando a seção entra na tela | RF09 e a meta de LCP | n |
-| Larguras | Do 360 px ao 1440 px; no celular o catálogo mostra 2 cards por linha | PRD seção 8; a captura do catálogo só existe em 1440 px | n |
-| Q2: botão principal da página do produto | **Pergunta aberta.** Recomendação: "Adicionar ao carrinho" no lugar de "Pedir pelo WhatsApp" | O PRD (US03) manda montar o carrinho antes de enviar | n |
-| Q3: contador do carrinho no topo | **Pergunta aberta.** Recomendação: ícone de sacola com o número de itens, entre o menu e "Agendar troca" | RF11 pede contador no topo; a captura não desenha | n |
-| Q4: botão fixo de WhatsApp | **Pergunta aberta.** Recomendação: o topo fica fixo ao rolar e o "Agendar troca" cumpre o RF06; sem botão flutuante | US01 pede o botão fixo no topo; a captura não desenha botão flutuante | n |
-| Q10: textos "registro da sua próxima troca" e "lembrete no WhatsApp" | **Pergunta aberta.** Recomendação: manter só se a loja já faz a etiqueta e o lembrete à mão | O lembrete automático é V2 (PRD seção 4) | n |
+| Página de Contato | O item "Contato" do menu leva à seção "Passa aqui na FAC LUB" da Home (`/#contato`); `/contato` redireciona para lá | O protótipo desenha o contato como seção da Home, não como página | y |
+| Ordem "Destaques" | Primeiro os produtos com destaque, depois os em oferta, depois A–Z | O PRD não define a ordem | y |
+| Preço mostrado no card | Preço da primeira embalagem do produto; em oferta, o preço promocional com o normal riscado | O card da captura mostra uma embalagem e um preço | y |
+| Ordenação por preço | Usa o mesmo preço mostrado no card | O cliente vê a lista na ordem do que lê | y |
+| Itens por carga no catálogo | 12 produtos; "Carregar mais" traz mais 12 | A captura mostra 12 cards e "Carregar mais" | y |
+| "Combine com" na página do produto | Até 4 produtos visíveis de outras categorias, os com destaque primeiro | A captura combina um óleo com filtros e graxa; o PRD não tem campo de relacionados | y |
+| Produto sem foto real | Mostra uma imagem neutra com o ícone de embalagem | O cadastro exige foto, mas produtos de banco podem ficar sem até a sessão de fotos | y |
+| Fotos de banco até a sessão de fotos | Fotos de banco com licença livre nas seções de serviços e no topo | PRD, Riscos: sem data para a sessão de fotos | y |
+| Marcas na Home | Nome em texto, em cinza, como na captura; logo só quando a marca tiver `logo_path` fornecido pelo distribuidor | PRD, Riscos: uso de logos das marcas | y |
+| "Pedir orçamento" e "Chamar no WhatsApp" | Abrem o WhatsApp com "Olá! Quero um orçamento." e "Olá! Vim pelo site da FAC LUB." | O PRD só define a mensagem de agendamento | y |
+| Mapa | Iframe do Google Maps com o endereço das configurações, carregado só quando a seção entra na tela | RF09 e a meta de LCP | y |
+| Larguras | Do 360 px ao 1440 px; no celular o catálogo mostra 2 cards por linha | PRD seção 8; a captura do catálogo só existe em 1440 px | y |
+| Q2: botão principal da página do produto | "Adicionar ao carrinho" no lugar de "Pedir pelo WhatsApp" (AD-004) | user: "ok para todas as recomendações, pode seguir"; o PRD (US03) manda montar o carrinho antes de enviar | y |
+| Q3: contador do carrinho no topo | Ícone de sacola com o número de itens, entre o menu e "Agendar troca", e "Política de privacidade" no rodapé (AD-005) | user: "ok para todas as recomendações, pode seguir"; RF11 e RF10 | y |
+| Q4: botão fixo de WhatsApp | O topo fica fixo ao rolar e o "Agendar troca" cumpre o RF06; sem botão flutuante | user: "ok para todas as recomendações, pode seguir"; a captura não desenha botão flutuante | y |
+| Q10: textos "registro da sua próxima troca" e "lembrete no WhatsApp" | Mantidos como no protótipo | user: "ok para todas as recomendações, pode seguir"; a recomendação mantinha o texto se a loja faz a etiqueta e o lembrete à mão, e o protótipo foi aprovado pela loja; o site não automatiza o lembrete (V2) | y |
 
-**Open questions:** Q2, Q3, Q4 e Q10, listadas na mensagem de entrega e nas linhas marcadas "Pergunta aberta" e em `## Differences from the source`.
+**Open questions:** none - Q2, Q3, Q4 e Q10 respondidas em 2026-10-28 (user: "ok para todas as recomendações, pode seguir"), registradas em AD-004 e AD-005.
 
 ---
 
@@ -64,6 +64,7 @@ O site atual é um WordPress de 2016, sem catálogo, e não ajuda a vender. O mo
 3. WHEN o visitante usa "Agendar troca" ou "Agendar pelo WhatsApp" THEN o sistema SHALL abrir `https://wa.me/55<WhatsApp das configurações>` com a mensagem de agendamento das configurações já escrita
 4. The topo SHALL ter os links "Serviços", "Produtos" e "Contato", e o link da página atual SHALL aparecer em negrito
 5. WHEN a largura da janela é menor que 768 px THEN os links do menu SHALL ficar num menu aberto por um botão com o rótulo acessível "Abrir menu", e "Agendar troca" SHALL continuar à vista
+6. The topo SHALL mostrar o ícone de sacola com o rótulo acessível "Carrinho", entre o menu e "Agendar troca", levando a `/carrinho`
 
 **Independent Test**: No celular de 360 px, em qualquer página, um toque em "Agendar troca" abre o WhatsApp com a mensagem pronta.
 
@@ -158,6 +159,7 @@ O site atual é um WordPress de 2016, sem catálogo, e não ajuda a vender. O mo
 11. The trilha SHALL mostrar "Home / Produtos / <marca> <nome>" com os dois primeiros como links
 12. The seção "Combine com" SHALL mostrar até 4 produtos visíveis de outras categorias; sem nenhum, SHALL esconder a seção
 13. WHEN a largura da janela é menor que 768 px THEN a galeria SHALL ficar acima das informações, em uma coluna
+14. The botão principal ao lado da quantidade SHALL ter o rótulo "Adicionar ao carrinho"
 
 **Independent Test**: Abrir o Top Turbo 15W-40, trocar de Balde 20L para Frasco 1L e ver o preço mudar; um slug inventado dá 404.
 
@@ -207,11 +209,11 @@ O site atual é um WordPress de 2016, sem catálogo, e não ajuda a vender. O mo
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| HEAD-01 | P1: Agendar a troca em um toque (AC 1-5) | Design | Pending |
+| HEAD-01 | P1: Agendar a troca em um toque (AC 1-6) | Design | Pending |
 | HOME-01 | P1: Ver a Home (AC 1-11) | Design | Pending |
 | CUPOM-01 | P2: Copiar o cupom e entrar no grupo (AC 1-4) | Design | Pending |
 | CAT-01 | P1: Encontrar o produto no catálogo (AC 1-14) | Design | Pending |
-| PDP-01 | P1: Ver a página do produto (AC 1-13) | Design | Pending |
+| PDP-01 | P1: Ver a página do produto (AC 1-14) | Design | Pending |
 | PRIV-01 | P1: Política de privacidade (AC 1-2) | Design | Pending |
 | SEO-01 | P1: Metatags por página (AC 1-3) | Design | Pending |
 
@@ -225,10 +227,9 @@ PRD coberto aqui: RF01 a RF10, US01, US02, US04, metatags da seção 8.
 
 | Source shows | Product shows | Confirmed |
 | --- | --- | --- |
-| Botão "Pedir pelo WhatsApp" na página do produto | Q2: botão "Adicionar ao carrinho" | n - pergunta Q2 |
-| Topo sem carrinho | Q3: ícone de sacola com contador entre o menu e "Agendar troca" | n - pergunta Q3 |
-| Rodapé com "Instagram", "Produtos" e "Área administrativa" | Rodapé com "Política de privacidade" a mais, exigido pelo RF10 | n - pergunta Q3 (confirmada junto com o topo) |
-| "Etiqueta no para-brisa e lembrete no WhatsApp" e "registro da sua próxima troca" | Q10: texto mantido ou trocado, conforme a resposta | n - pergunta Q10 |
+| Botão "Pedir pelo WhatsApp" na página do produto | Botão "Adicionar ao carrinho" | y - AD-004 |
+| Topo sem carrinho | Ícone de sacola com contador entre o menu e "Agendar troca" | y - AD-005 |
+| Rodapé com "Instagram", "Produtos" e "Área administrativa" | Rodapé com "Política de privacidade" a mais, exigido pelo RF10 | y - AD-005 |
 
 ## Sources
 

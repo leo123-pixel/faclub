@@ -1,6 +1,6 @@
 # Carrinho e pedido pelo WhatsApp Specification
 
-**Approved**: pendente (aguarda as respostas Q8 e Q9)
+**Approved**: 2026-10-28 - user: "ok para todas as recomendações, pode seguir"
 
 ## Problem Statement
 
@@ -28,18 +28,18 @@ Oficinas e clientes que compram lubrificante querem pedir vários itens de uma v
 | Assumption / decision | Chosen default | Rationale | Confirmed? |
 | --- | --- | --- | --- |
 | Validade do carrinho | 7 dias contados da última alteração; depois disso o carrinho abre vazio | RF12 | y |
-| Onde fica o carrinho | Página `/carrinho`; o "+" do card e o botão da página do produto adicionam sem sair da página | O PRD lista o Carrinho como página; o protótipo não desenha | n |
-| Mesmo produto e embalagem adicionados de novo | Somam na quantidade do item existente, até 99 | Evita duas linhas iguais | n |
-| "+" do card no catálogo | Adiciona 1 unidade da primeira embalagem | O card não tem seletor de embalagem | n |
-| Preço do pedido | O servidor recalcula cada item com o preço atual do banco; o total da mensagem usa esse cálculo | Preço no navegador pode estar velho ou adulterado | n |
-| Item que ficou oculto ou foi removido | O carrinho mostra "Indisponível" no item e o envio sai sem ele | Não pedir o que a loja não vende mais | n |
-| Limite de envios contra spam | 5 pedidos por IP a cada 10 minutos | PRD seção 8 e Riscos: limite por IP | n |
-| Número do pedido | Sequencial, mostrado na mensagem como "Pedido nº 1042" | Ajuda a loja a achar o pedido no painel | n |
-| Formato da mensagem do WhatsApp | O texto de CART-04 critério 2 | US03 lista nome, embalagem, quantidade, preço de cada item e total | n |
-| Q8: e se a gravação do pedido falhar? | **Pergunta aberta.** Recomendação: abre o WhatsApp mesmo assim, sem número de pedido | Perder a venda custa mais que perder o registro | n |
-| Q9: cupom no pedido | **Pergunta aberta.** Recomendação: caixa "Quero fazer a troca na loja com o cupom FACLUB10"; marcada, entra na mensagem e no pedido | US07 lista o cupom no pedido, mas o cupom não vale para produto | n |
+| Onde fica o carrinho | Página `/carrinho`; o "+" do card e o botão da página do produto adicionam sem sair da página | O PRD lista o Carrinho como página; o protótipo não desenha | y |
+| Mesmo produto e embalagem adicionados de novo | Somam na quantidade do item existente, até 99 | Evita duas linhas iguais | y |
+| "+" do card no catálogo | Adiciona 1 unidade da primeira embalagem | O card não tem seletor de embalagem | y |
+| Preço do pedido | O servidor recalcula cada item com o preço atual do banco; o total da mensagem usa esse cálculo | Preço no navegador pode estar velho ou adulterado | y |
+| Item que ficou oculto ou foi removido | O carrinho mostra "Indisponível" no item e o envio sai sem ele | Não pedir o que a loja não vende mais | y |
+| Limite de envios contra spam | 5 pedidos por IP a cada 10 minutos | PRD seção 8 e Riscos: limite por IP | y |
+| Número do pedido | Sequencial, mostrado na mensagem como "Pedido nº 1042" | Ajuda a loja a achar o pedido no painel | y |
+| Formato da mensagem do WhatsApp | O texto de CART-04 critério 2 | US03 lista nome, embalagem, quantidade, preço de cada item e total | y |
+| Q8: e se a gravação do pedido falhar? | Abre o WhatsApp mesmo assim, sem número de pedido (CART-04 AC 12) | user: "ok para todas as recomendações, pode seguir"; perder a venda custa mais que perder o registro | y |
+| Q9: cupom no pedido | Caixa "Quero fazer a troca na loja com o cupom FACLUB10"; marcada, entra na mensagem e em `orders.coupon_code` (CART-04 AC 13 e 14) | user: "ok para todas as recomendações, pode seguir"; US07 lista o cupom no pedido | y |
 
-**Open questions:** Q8 e Q9, listadas na mensagem de entrega e nas linhas marcadas "Pergunta aberta".
+**Open questions:** none - Q8 e Q9 respondidas em 2026-10-28 (user: "ok para todas as recomendações, pode seguir").
 
 ---
 
@@ -88,6 +88,9 @@ Oficinas e clientes que compram lubrificante querem pedir vários itens de uma v
 9. IF o carrinho enviado tiver mais de 30 itens ou quantidade fora de 1 a 99 THEN o servidor SHALL recusar com 400
 10. WHEN o pedido é enviado THEN o carrinho SHALL ficar vazio e a página SHALL mostrar "Pedido enviado! Termine a conversa no WhatsApp."
 11. The pedido SHALL guardar só nome e veículo informados pelo cliente, sem telefone, e-mail ou IP
+12. IF a gravação do pedido falhar ou demorar mais de 5 segundos THEN o sistema SHALL abrir o WhatsApp com a mesma mensagem, sem o trecho "(Pedido nº <número>)"
+13. WHERE existe cupom ativo `/carrinho` SHALL mostrar a caixa "Quero fazer a troca na loja com o cupom <código>", desmarcada
+14. WHEN a caixa do cupom está marcada no envio THEN a mensagem SHALL ganhar a linha "Cupom: <código> (troca na loja)" e o pedido SHALL gravar o código em `coupon_code`
 
 **Modelo da mensagem** (valores em reais no formato "1.234,56"):
 
@@ -99,6 +102,7 @@ Olá! Quero fazer este pedido pelo site (Pedido nº <número>):
 Total estimado: R$ <total>
 Nome: <nome>
 Veículo: <placa ou modelo>
+Cupom: <código> (troca na loja)
 ```
 
 **Independent Test**: Com 2 itens no carrinho e o nome preenchido, o WhatsApp abre com as duas linhas, o total e o nome, e o pedido aparece no painel como "Novo".
@@ -136,7 +140,7 @@ Veículo: <placa ou modelo>
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
 | CART-01 | P1: Montar o carrinho (AC 1-11) | Design | Pending |
-| CART-04 | P1: Enviar o pedido pelo WhatsApp (AC 1-11) | Design | Pending |
+| CART-04 | P1: Enviar o pedido pelo WhatsApp (AC 1-14) | Design | Pending |
 | ORD-01 | P2: Ver os pedidos no painel (AC 1-5) | Design | Pending |
 
 **Coverage:** 3 total, 0 mapped to tasks, 3 unmapped ⚠️ (tasks vêm depois da aprovação)

@@ -1,6 +1,6 @@
 # Painel: login e catálogo Specification
 
-**Approved**: pendente (aguarda as respostas Q1, Q5, Q6 e Q7)
+**Approved**: 2026-10-28 - user: "ok para todas as recomendações, pode seguir"
 
 ## Problem Statement
 
@@ -30,20 +30,20 @@ Hoje a loja não tem como publicar ou atualizar produtos sem depender da Onbind.
 
 | Assumption / decision | Chosen default | Rationale | Confirmed? |
 | --- | --- | --- | --- |
-| Como alguém vira administrador | Conta criada no Supabase Auth com `app_metadata.role = "admin"`; a primeira é contato@onbind.com.br | PRD: acesso ao painel por contato@onbind.com.br; sem tela de gestão de usuários no MVP | n |
-| Recuperação de senha | Link "Esqueci minha senha" envia e-mail do Supabase Auth com link para `/admin/nova-senha` | RF16; usa o fluxo nativo do Supabase | n |
-| Limite de estoque baixo | Estoque de 5 unidades ou menos mostra o selo "Baixo · N" | A captura mostra "Baixo · 4" e "Baixo · 3" e "9 un." sem selo; 5 separa os dois | n |
-| Itens por página na lista | 20 produtos por página | A captura mostra "Página 1 de 1" com 8 itens; 20 cabe numa tela de notebook | n |
-| Slug do produto | Gerado do nome (minúsculo, sem acento, hífens); se já existir, recebe sufixo `-2`, `-3` | Mantém URLs legíveis para SEO | n |
-| Compressão das fotos | No navegador, antes do envio: lado maior até 1600 px, convertida para WebP com qualidade 0,8 | RF20 e US05: foto de celular chega grande; WebP atende o requisito de performance | n |
-| Formatos de foto aceitos | JPG, PNG, WebP e HEIC até 15 MB cada | A captura diz "JPG ou PNG"; HEIC é o padrão do iPhone e chega do celular da loja | n |
-| Excluir produto | Não existe; o produto é ocultado | Pedidos antigos guardam o nome do item; ocultar é reversível | n |
+| Como alguém vira administrador | Conta criada no Supabase Auth com `app_metadata.role = "admin"`; a primeira é contato@onbind.com.br | PRD: acesso ao painel por contato@onbind.com.br; sem tela de gestão de usuários no MVP | y |
+| Recuperação de senha | Link "Esqueci minha senha" envia e-mail do Supabase Auth com link para `/admin/nova-senha` | RF16; usa o fluxo nativo do Supabase | y |
+| Limite de estoque baixo | Estoque de 5 unidades ou menos mostra o selo "Baixo · N" | A captura mostra "Baixo · 4" e "Baixo · 3" e "9 un." sem selo; 5 separa os dois | y |
+| Itens por página na lista | 20 produtos por página | A captura mostra "Página 1 de 1" com 8 itens; 20 cabe numa tela de notebook | y |
+| Slug do produto | Gerado do nome (minúsculo, sem acento, hífens); se já existir, recebe sufixo `-2`, `-3` | Mantém URLs legíveis para SEO | y |
+| Compressão das fotos | No navegador, antes do envio: lado maior até 1600 px, convertida para WebP com qualidade 0,8 | RF20 e US05: foto de celular chega grande; WebP atende o requisito de performance | y |
+| Formatos de foto aceitos | JPG, PNG, WebP e HEIC até 15 MB cada | A captura diz "JPG ou PNG"; HEIC é o padrão do iPhone e chega do celular da loja | y |
+| Excluir produto | Não existe; o produto é ocultado | Pedidos antigos guardam o nome do item; ocultar é reversível | y |
 | Categorias iniciais | Linha leve, Linha pesada, Filtros, Aditivos e graxas | PRD seção 7 | y |
 | Marcas iniciais | Mobil, Shell, Texaco, Lubrax, Urania, Brutus | PRD seção 7 | y |
-| Embalagens oferecidas no cadastro | Frasco 1L, Frasco 4L, Balde 20L, Tambor 200L e "Unidade"; a loja pode digitar outra | A captura desenha as quatro primeiras; filtros e graxas usam "Unidade" e "Pote 500g" no catálogo | n |
-| Q1: cada embalagem tem preço próprio? | **Pergunta aberta.** Recomendação: sim, cada embalagem marcada ganha os campos Preço e Preço promocional | A página do produto troca de embalagem e mostra "à vista · balde 20L"; a tabela `product_variants` do PRD tem preço por embalagem | n |
+| Embalagens oferecidas no cadastro | Frasco 1L, Frasco 4L, Balde 20L, Tambor 200L e "Unidade"; a loja pode digitar outra | A captura desenha as quatro primeiras; filtros e graxas usam "Unidade" e "Pote 500g" no catálogo | y |
+| Q1: cada embalagem tem preço próprio? | Sim: cada embalagem marcada ganha os campos Preço e Preço promocional (AD-003) | user: "ok para todas as recomendações, pode seguir"; a página do produto troca de embalagem e a tabela `product_variants` do PRD tem preço por embalagem | y |
 
-**Open questions:** Q1, Q5, Q6 e Q7, listadas na mensagem de entrega e nas linhas marcadas "Pergunta aberta" e em `## Differences from the source`.
+**Open questions:** none - Q1, Q5, Q6 e Q7 respondidas em 2026-10-28 (user: "ok para todas as recomendações, pode seguir"), registradas em AD-003, AD-006, AD-007 e AD-008.
 
 ---
 
@@ -89,7 +89,10 @@ Hoje a loja não tem como publicar ou atualizar produtos sem depender da Onbind.
 9. WHEN nenhum produto atende aos filtros THEN a lista SHALL mostrar "Nenhum produto encontrado." e o botão "Limpar filtros"
 10. WHEN ainda não existe produto cadastrado THEN a lista SHALL mostrar "Nenhum produto cadastrado ainda." e o botão "Novo produto"
 11. WHEN o administrador usa "Ver no site" THEN o sistema SHALL abrir o catálogo público em nova aba
-12. The topo SHALL mostrar os cartões "Produtos ativos" (visíveis), "Em oferta" (visíveis com `is_promo`) e "Estoque baixo" (estoque de 5 ou menos), calculados do banco
+12. The topo SHALL mostrar os cartões "Produtos ativos" (visíveis), "Em oferta" (visíveis com `is_promo`), "Estoque baixo" (estoque de 5 ou menos) e "Pedidos · 30 dias" (linhas de `orders` criadas nos últimos 30 dias), calculados do banco
+14. The coluna Oferta SHALL mostrar um interruptor de oferta em cada linha
+15. The menu lateral SHALL mostrar, nesta ordem, Visão geral, Produtos, Pedidos, Categorias, Marcas, Banners e ofertas, Cupons e Configurações
+16. WHEN a coluna Preço mostra um produto com várias embalagens THEN ela SHALL mostrar o preço da primeira embalagem e a linha de embalagem SHALL dizer "N embalagens"
 13. WHEN a largura da janela é menor que 768 px THEN a lista SHALL virar cartões empilhados com os mesmos dados e interruptores, sem rolagem horizontal da página
 
 **Independent Test**: Com 8 produtos de exemplo, cada aba, a busca "15w40" e o filtro "Linha pesada" devolvem as linhas esperadas.
@@ -124,8 +127,8 @@ Hoje a loja não tem como publicar ou atualizar produtos sem depender da Onbind.
 
 1. WHEN o administrador usa "Novo produto" THEN o sistema SHALL mostrar o formulário em `.specs/features/painel-catalogo/captures/admin-cadastro.png`
 2. WHEN o administrador usa "Editar" numa linha THEN o sistema SHALL abrir o mesmo formulário preenchido com os dados do produto
-3. IF o administrador usa "Salvar produto" sem nome, marca, categoria, preço ou ao menos uma foto THEN o sistema SHALL não salvar e mostrar "Campo obrigatório" abaixo de cada campo que falta
-4. IF o preço promocional for maior ou igual ao preço THEN o sistema SHALL não salvar e mostrar "O preço promocional precisa ser menor que o preço."
+3. IF o administrador usa "Salvar produto" sem nome, marca, categoria, ao menos uma embalagem com preço ou ao menos uma foto THEN o sistema SHALL não salvar e mostrar "Campo obrigatório" abaixo de cada campo que falta
+4. IF o preço promocional de uma embalagem for maior ou igual ao preço dela THEN o sistema SHALL não salvar e mostrar "O preço promocional precisa ser menor que o preço."
 5. IF preço, preço promocional ou estoque forem negativos ou não numéricos THEN o sistema SHALL não salvar e mostrar "Informe um número válido."
 6. WHEN o administrador envia fotos THEN o sistema SHALL reduzir cada uma para no máximo 1600 px no lado maior e converter para WebP antes de enviar ao bucket `product-images`
 7. IF o produto já tiver 6 fotos THEN o sistema SHALL recusar novas fotos e mostrar "Máximo de 6 fotos por produto."
@@ -133,7 +136,7 @@ Hoje a loja não tem como publicar ou atualizar produtos sem depender da Onbind.
 9. WHEN o administrador marca uma foto como capa THEN o sistema SHALL mostrar o selo "Capa" nela e gravar `is_cover = true` só nessa foto
 10. WHEN a primeira foto é enviada THEN o sistema SHALL marcá-la como capa
 11. WHEN o administrador remove a foto de capa e restam outras THEN o sistema SHALL marcar a primeira restante como capa
-12. WHEN o administrador marca uma embalagem THEN o sistema SHALL incluí-la entre as embalagens do produto; desmarcar SHALL removê-la
+12. WHEN o administrador marca uma embalagem THEN o sistema SHALL mostrar os campos Preço (R$) e Preço promocional (R$) daquela embalagem; desmarcar SHALL removê-la do produto
 13. WHEN o administrador altera nome, marca, embalagem, preço ou "Em oferta" THEN a "Prévia no site" SHALL mostrar o card com os novos valores sem salvar
 14. WHEN o administrador salva um produto válido THEN o sistema SHALL gravar o produto, voltar para `/admin/produtos` e mostrar "Produto salvo."
 15. WHEN o administrador salva com "Visível no site" ligado THEN o produto SHALL aparecer no catálogo público em até 1 minuto
@@ -198,7 +201,7 @@ Hoje a loja não tem como publicar ou atualizar produtos sem depender da Onbind.
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
 | AUTH-01 | P1: Entrar no painel (AC 1-8) | Design | Pending |
-| PLIST-01 | P1: Ver e filtrar a lista (AC 1-13) | Design | Pending |
+| PLIST-01 | P1: Ver e filtrar a lista (AC 1-16) | Design | Pending |
 | PTOG-01 | P1: Visibilidade e oferta na lista (AC 1-5) | Design | Pending |
 | PFORM-01 | P1: Cadastrar e editar produto (AC 1-20) | Design | Pending |
 | PDUP-01 | P2: Duplicar produto (AC 1-2) | Design | Pending |
@@ -214,10 +217,10 @@ PRD coberto aqui: RF16, RF17, RF18, RF19, RF20, RF21, RF22, RF27 (parcial), RF28
 
 | Source shows | Product shows | Confirmed |
 | --- | --- | --- |
-| Coluna "Oferta" com selo "Em oferta" ou "—" | Q5: interruptor de oferta na coluna, como pede o RF18 | n - pergunta Q5 |
-| Menu lateral sem "Pedidos" | Q6: item "Pedidos" logo abaixo de "Produtos" | n - pergunta Q6 |
-| Cartão "Cliques no WhatsApp · 30 dias" | Q7: cartão "Pedidos · 30 dias", contado da tabela orders | n - pergunta Q7 |
-| Uma única linha de Preço e Preço promocional para o produto | Q1: Preço e Preço promocional por embalagem marcada | n - pergunta Q1 |
+| Coluna "Oferta" com selo "Em oferta" ou "—" | Interruptor de oferta na coluna, como pede o RF18 | y - AD-006 |
+| Menu lateral sem "Pedidos" | Item "Pedidos" logo abaixo de "Produtos" | y - AD-007 |
+| Cartão "Cliques no WhatsApp · 30 dias" | Cartão "Pedidos · 30 dias", contado da tabela orders | y - AD-008 |
+| Uma única linha de Preço e Preço promocional para o produto | Preço e Preço promocional por embalagem marcada | y - AD-003 |
 
 ## Sources
 

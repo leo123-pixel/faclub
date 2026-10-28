@@ -1,6 +1,6 @@
 # Painel: banners, cupom e configurações Specification
 
-**Approved**: pendente
+**Approved**: 2026-10-28 - user: "ok para todas as recomendações, pode seguir"
 
 ## Problem Statement
 
@@ -26,13 +26,13 @@ O telefone, o endereço, os horários, o cupom e a oferta da semana aparecem em 
 
 | Assumption / decision | Chosen default | Rationale | Confirmed? |
 | --- | --- | --- | --- |
-| Quantos banners aparecem na Home | Só o banner ativo de menor `position`; sem carrossel | A captura da Home desenha um único topo | n |
-| Sem banner ativo | O topo usa título, texto e foto padrão definidos no código | A Home nunca fica sem topo | n |
-| Cupom exibido no site | O cupom ativo de menor `id` | Só existe o FACLUB10 no MVP | n |
-| Sem cupom ativo | Os blocos de cupom da Home e da página do produto somem | Não mostrar código que não vale | n |
-| Formato dos horários | Texto livre em duas linhas, "Seg a Sex" e "Sábado", cada uma com o horário | A Home mostra exatamente esses dois blocos | n |
+| Quantos banners aparecem na Home | Só o banner ativo de menor `position`; sem carrossel | A captura da Home desenha um único topo | y |
+| Sem banner ativo | O topo usa título, texto e foto padrão definidos no código | A Home nunca fica sem topo | y |
+| Cupom exibido no site | O cupom ativo de menor `id` | Só existe o FACLUB10 no MVP | y |
+| Sem cupom ativo | Os blocos de cupom da Home e da página do produto somem | Não mostrar código que não vale | y |
+| Formato dos horários | Texto livre em duas linhas, "Seg a Sex" e "Sábado", cada uma com o horário | A Home mostra exatamente esses dois blocos | y |
 | Valores iniciais | WhatsApp (11) 2954-5764, telefone (11) 2954-5764, contato@faclubrificantes.com.br, Rua Cabo Antônio Alves, 50, Parque Novo Mundo, São Paulo, Seg a Sex 7h às 18h, Sábado 8h às 13h | PRD (Decisões) e captura da Home | y |
-| Link do grupo de ofertas e do Instagram | Começam vazios; o site esconde o botão enquanto o campo estiver vazio | Os links não estão no PRD | n |
+| Link do grupo de ofertas e do Instagram | Começam vazios; o site esconde o botão enquanto o campo estiver vazio | Os links não estão no PRD | y |
 | Mensagem pré-escrita do WhatsApp de agendamento | Configurável, padrão "Olá! Quero agendar uma troca de óleo." | US01 | y |
 
 **Open questions:** none - all resolved or logged above (os defaults com `n` esperam a correção da loja).

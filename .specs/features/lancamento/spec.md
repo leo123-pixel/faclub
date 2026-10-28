@@ -1,6 +1,6 @@
 # Lançamento: medição, SEO técnico e backup Specification
 
-**Approved**: pendente
+**Approved**: 2026-10-28 - user: "ok para todas as recomendações, pode seguir"
 
 ## Problem Statement
 
@@ -27,10 +27,10 @@ O site atual não mede conversão, e trocar o WordPress pelo site novo pode derr
 
 | Assumption / decision | Chosen default | Rationale | Confirmed? |
 | --- | --- | --- | --- |
-| IDs do GA4 e do Pixel | Variáveis de ambiente `NEXT_PUBLIC_GA4_ID` e `NEXT_PUBLIC_META_PIXEL_ID`; sem valor, o script não carrega | Os IDs ainda não existem no PRD | n |
-| Escolha de cookies | Botões "Aceitar" e "Recusar"; a escolha vale 180 dias | LGPD pede escolha antes de GA4 e Pixel | n |
-| Lista de URLs antigas | Levantada do sitemap do WordPress e do Search Console antes do lançamento; cada uma vai para a página nova equivalente ou para a Home | O ambiente de desenvolvimento não acessa o site atual; a lista é um fato a buscar, não uma decisão | n |
-| Onde roda o backup | GitHub Actions toda segunda às 3h (horário de Brasília): `pg_dump` do banco e cópia do bucket `product-images`, guardados como artefato por 90 dias | PRD seção 8; o plano gratuito do Supabase não tem backup diário | n |
+| IDs do GA4 e do Pixel | Variáveis de ambiente `NEXT_PUBLIC_GA4_ID` e `NEXT_PUBLIC_META_PIXEL_ID`; sem valor, o script não carrega | Os IDs ainda não existem no PRD | y |
+| Escolha de cookies | Botões "Aceitar" e "Recusar"; a escolha vale 180 dias | LGPD pede escolha antes de GA4 e Pixel | y |
+| Lista de URLs antigas | Levantada do sitemap do WordPress e do Search Console antes do lançamento; cada uma vai para a página nova equivalente ou para a Home | O ambiente de desenvolvimento não acessa o site atual; a lista é um fato a buscar, não uma decisão | y |
+| Onde roda o backup | GitHub Actions toda segunda às 3h (horário de Brasília): `pg_dump` do banco e cópia do bucket `product-images`, guardados como artefato por 90 dias | PRD seção 8; o plano gratuito do Supabase não tem backup diário | y |
 | Dados estruturados | `LocalBusiness` (AutoRepair) na Home e `Product` com `Offer` em BRL em cada produto | PRD seção 8 | y |
 
 **Open questions:** none - all resolved or logged above (os defaults com `n` esperam a correção da loja e da Onbind).

@@ -7,6 +7,8 @@ import { loadCoupon, loadProductBySlug, loadVisibleProducts } from "@/lib/data/p
 import { productTitle } from "@/lib/domain/admin-products";
 import { couponStoreNote } from "@/lib/domain/home";
 import { relatedProducts, specRows } from "@/lib/domain/product-page";
+import { pageMetadata } from "@/lib/seo";
+import { publicImageUrl } from "@/lib/storage";
 
 export const revalidate = 60;
 
@@ -14,6 +16,23 @@ export const revalidate = 60;
 export async function generateStaticParams() {
   const items = await loadVisibleProducts();
   return items.map((i) => ({ slug: i.slug }));
+}
+
+export async function generateMetadata({ params }: PageProps<"/produtos/[slug]">) {
+  const { slug } = await params;
+  const product = await loadProductBySlug(slug);
+  if (!product) return { title: "Produto não encontrado | FAC LUB" };
+  const title = productTitle(product.brandName, product.name);
+  const variant = product.variants[0]?.label;
+  return pageMetadata({
+    title: `${title} | FAC LUB`,
+    description:
+      product.description ||
+      `${title}${variant ? ` em ${variant.toLowerCase()}` : ""} a pronta entrega na FAC LUB. Peça pelo WhatsApp e retire ou faça a troca na loja.`,
+    // sem foto, o logo da loja
+    image: product.images[0] ? publicImageUrl(product.images[0]) : "/brand/logo-faclub.png",
+    path: `/produtos/${product.slug}`,
+  });
 }
 
 export default async function ProductPage({ params }: PageProps<"/produtos/[slug]">) {

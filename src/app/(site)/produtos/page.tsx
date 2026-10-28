@@ -1,15 +1,17 @@
-import type { Metadata } from "next";
 import { Suspense } from "react";
 import { CatalogBrowser, CatalogFromUrl } from "@/components/site/CatalogBrowser";
 import { loadCatalog, loadSettings } from "@/lib/data/public";
 import { contactLink } from "@/lib/domain/site-settings";
+import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Produtos | FAC LUB",
   description: "Óleos, filtros e lubrificantes a pronta entrega. Busque por marca, viscosidade ou aplicação e peça pelo WhatsApp.",
-};
+  image: "/images/home/oleo-dourado.jpg",
+  path: "/produtos",
+});
 
 export default async function CatalogPage() {
   const [{ categories, items }, settings] = await Promise.all([loadCatalog(), loadSettings()]);

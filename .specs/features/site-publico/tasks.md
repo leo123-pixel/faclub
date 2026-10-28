@@ -459,11 +459,11 @@ T17 → T18 → T19
 **Tests**: e2e
 **Gate**: full
 
-**Commit**: `feat(site): revalida as páginas públicas a cada minuto`
+**Commit**: `test(site): prova que o site acompanha o painel em até um minuto`
 
 ---
 
-### T19: Metatags
+### T19: Metatags ✅
 
 **What**: `metadata`/`generateMetadata` com título, descrição e Open Graph próprios na Home, no catálogo, em cada produto ("<marca> <nome> | FAC LUB" e a foto de capa) e na política; `lang="pt-BR"` conferido.
 **Where**: `src/app/(site)/produtos/[slug]/page.tsx`
@@ -473,9 +473,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `tests/e2e/site-seo.spec.ts` prova: `/`, `/produtos`, um produto e a política têm `<title>`, `meta description`, `og:title`, `og:description` e `og:image` diferentes entre si (C59); o produto tem o título "Lubrax Top Turbo 15W-40 | FAC LUB" e `og:image` com a capa (C60); as quatro têm `<html lang="pt-BR">` (C61)
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] `tests/e2e/site-seo.spec.ts` prova: `/`, `/produtos`, um produto e a política têm `<title>`, `meta description`, `og:title`, `og:description` e `og:image` diferentes entre si (C59); o produto tem o título "Lubrax Top Turbo 15W-40 | FAC LUB" e `og:image` com a capa (C60); as quatro têm `<html lang="pt-BR">` (C61)
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build

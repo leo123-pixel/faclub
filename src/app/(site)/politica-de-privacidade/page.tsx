@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
 import { loadSettings } from "@/lib/data/public";
+import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 60;
 
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Política de privacidade | FAC LUB",
   description: "Como a FAC Lubrificantes trata os dados de quem visita o site e faz pedidos pelo WhatsApp.",
-};
+  image: "/brand/logo-faclub.png",
+  path: "/politica-de-privacidade",
+});
 
 export default async function PrivacyPage() {
   const { email } = await loadSettings();

@@ -378,9 +378,9 @@ T17 → T18 → T19
 
 ---
 
-### T15: Galeria do produto
+### T15: Galeria do produto ✅
 
-**What**: `ProductGallery` com a foto grande e as miniaturas; a miniatura escolhida troca a foto grande e ganha a borda escura (`aria-pressed`); sem foto, a imagem neutra.
+**What**: `ProductGallery` com a foto grande e as miniaturas; a miniatura escolhida troca a foto grande e ganha a borda escura (`aria-pressed`); sem foto, a imagem neutra. O selo "Oferta da semana" fica sobre a foto, como na captura.
 **Where**: `src/components/site/ProductGallery.tsx`
 **Depends on**: T14
 **Reuses**: `publicImageUrl`, `IconBucket`
@@ -388,9 +388,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `src/components/site/ProductGallery.test.tsx` cobre: clicar a segunda miniatura troca o `src` da foto grande e move a borda escura para ela (C45); produto sem fotos mostra a imagem neutra
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 2 tests pass
+- [x] `src/components/site/ProductGallery.test.tsx` cobre: clicar a segunda miniatura troca o `src` da foto grande e move a borda escura para ela (C45); produto sem fotos mostra a imagem neutra
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 2 tests pass
 
 **Tests**: unit
 **Gate**: quick
@@ -401,7 +401,7 @@ T17 → T18 → T19
 
 ### T16: Embalagem, preço e quantidade
 
-**What**: `PurchaseBox` com o selo "Oferta da semana", os chips de embalagem (primeira marcada), o preço da embalagem (promocional com o normal riscado em oferta), "à vista · <embalagem>", quantidade de 1 a 99 com "−" e "+", e "Adicionar ao carrinho" com o aviso temporário.
+**What**: `PurchaseBox` com os chips de embalagem (primeira marcada), o preço da embalagem (promocional com o normal riscado em oferta), "à vista · <embalagem>", quantidade de 1 a 99 com "−" e "+", e "Adicionar ao carrinho" com o aviso temporário.
 **Where**: `src/components/site/PurchaseBox.tsx`
 **Depends on**: T15
 **Reuses**: `cardPrice`, `packageCaption`, `formatBRL`
@@ -409,7 +409,7 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `src/components/site/PurchaseBox.test.tsx` cobre: escolher Frasco 1L troca o preço para o dele e a legenda para "à vista · frasco 1L" (C46); abre com a primeira embalagem marcada e quantidade 1 (C47); "+" sobe até 99 e para, "−" desce até 1 e para (C48); em oferta mostra "Oferta da semana", o promocional e o normal riscado, e fora de oferta não (C49); o botão ao lado da quantidade se chama "Adicionar ao carrinho" (C56)
+- [ ] `src/components/site/PurchaseBox.test.tsx` cobre: escolher Frasco 1L troca o preço para o dele e a legenda para "à vista · frasco 1L" (C46); abre com a primeira embalagem marcada e quantidade 1 (C47); "+" sobe até 99 e para, "−" desce até 1 e para (C48); em oferta mostra o promocional e o normal riscado, e fora de oferta não; o botão ao lado da quantidade se chama "Adicionar ao carrinho" (C56)
 - [ ] Gate check passes: `npx vitest run`
 - [ ] Test count: 5 tests pass
 
@@ -431,9 +431,9 @@ T17 → T18 → T19
 **Done when**:
 
 - [ ] A página do Top Turbo 15W-40 a 1440 px confere com `.specs/features/site-publico/captures/produto.png` (C43, provado no walk)
-- [ ] `tests/e2e/site-product.spec.ts` prova: um slug inventado e o slug do produto oculto respondem 404 com "Produto não encontrado." e "Ver todos os produtos" (C44); com o FACLUB10 ativo a página mostra o código e "10% de desconto na troca feita na loja." (C52); a trilha é "Home / Produtos / Lubrax Top Turbo 15W-40" com os dois primeiros como links (C53); a 390 px a galeria fica acima das informações, numa coluna (C55); "Combine com" mostra produtos de outras categorias
+- [ ] `tests/e2e/site-product.spec.ts` prova: um slug inventado e o slug do produto oculto respondem 404 com "Produto não encontrado." e "Ver todos os produtos" (C44); com o FACLUB10 ativo a página mostra o código e "10% de desconto na troca feita na loja." (C52); o Top Turbo em oferta mostra o selo "Oferta da semana" sobre a foto e o preço promocional ao lado do normal riscado, e o Rimula, fora de oferta, não (C49); a trilha é "Home / Produtos / Lubrax Top Turbo 15W-40" com os dois primeiros como links (C53); a 390 px a galeria fica acima das informações, numa coluna (C55); "Combine com" mostra produtos de outras categorias
 - [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
-- [ ] Test count: 5 e2e tests pass
+- [ ] Test count: 6 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build
@@ -631,7 +631,7 @@ Proof: `npx vitest run src/components/site/PurchaseBox.test.tsx -t "PDP-01.5:"`
 Proof: `npx vitest run src/components/site/PurchaseBox.test.tsx -t "PDP-01.6:"`
 
 **C49** - Em oferta, "Oferta da semana" e o promocional ao lado do normal riscado (PDP-01, AC 7)
-Proof: `npx vitest run src/components/site/PurchaseBox.test.tsx -t "PDP-01.7:"`
+Proof: `npx playwright test tests/e2e/site-product.spec.ts -g "PDP-01.7:"`
 
 **C50** - A ficha técnica mostra as 6 linhas e esconde as de campo vazio (PDP-01, AC 8)
 Proof: `npx vitest run src/lib/domain/product-page.test.ts -t "PDP-01.8:"`

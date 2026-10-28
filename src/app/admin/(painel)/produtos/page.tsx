@@ -1,9 +1,10 @@
 import Link from "next/link";
-import { Switch } from "@/components/admin/Switch";
+import { RowToggle } from "@/components/admin/RowToggle";
 import { countOrdersLast30Days, loadAdminProducts, loadCategories } from "@/lib/data/admin-products";
 import { adminKpis, filterAdminProducts, productTitle, type AdminTab } from "@/lib/domain/admin-products";
 import { requireAdmin } from "@/lib/supabase/admin-guard";
 import { PageHeader } from "../PageHeader";
+import { setPromo, setVisibility } from "./actions";
 import { KpiCards } from "./KpiCards";
 import { ProductFilters } from "./ProductFilters";
 import { ProductsTable } from "./ProductsTable";
@@ -71,9 +72,11 @@ export default async function ProductsPage({ searchParams }: PageProps<"/admin/p
           <ProductsTable
             rows={result.items}
             toggle={(r, field) => (
-              <Switch
-                checked={field === "isPromo" ? r.isPromo : r.isVisible}
+              <RowToggle
+                key={`${r.id}-${field}-${r[field]}`}
+                initial={r[field]}
                 label={`${field === "isPromo" ? "Em oferta" : "Visível no site"}: ${productTitle(r.brandName, r.name)}`}
+                action={(field === "isPromo" ? setPromo : setVisibility).bind(null, r.id)}
               />
             )}
           />

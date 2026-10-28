@@ -1,7 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
-import { RowToggle, type ToggleResult } from "./RowToggle";
+import { RowToggle } from "./RowToggle";
+import type { ToggleResult } from "./toggle-result";
 
 const deferred = () => {
   let resolve!: (r: ToggleResult) => void;

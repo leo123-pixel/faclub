@@ -2,9 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { Switch } from "./Switch";
-
-export type ToggleResult = { ok: true } | { ok: false; message: string };
-export const SAVE_FAILED = "Não foi possível salvar. Tente de novo.";
+import { SAVE_FAILED, type ToggleResult } from "./toggle-result";
 
 type Props = {
   initial: boolean;

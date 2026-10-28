@@ -490,7 +490,7 @@ T26 → T27 → T28
 
 ---
 
-### T20: Actions de visibilidade e oferta
+### T20: Actions de visibilidade e oferta ✅
 
 **What**: `setVisibility` e `setPromo` gravam no Supabase com a sessão, traduzem `promo_requires_price` e chamam `revalidatePath('/', 'layout')`; a lista passa a usar `RowToggle` com elas.
 **Where**: `src/app/admin/(painel)/produtos/actions.ts`
@@ -500,9 +500,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/e2e/toggles.spec.ts` prova: desligar "Visível no site" muda a linha, e depois de recarregar continua desligado e o produto aparece na aba "Ocultos" (C25); ligar a oferta de um produto com preço promocional persiste (C26); ligar a oferta sem preço promocional volta o interruptor e mostra "Informe o preço promocional antes de ativar a oferta." (C27)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] `tests/e2e/toggles.spec.ts` prova: desligar "Visível no site" muda a linha, e depois de recarregar continua desligado e o produto aparece na aba "Ocultos" (C25); ligar a oferta de um produto com preço promocional persiste (C26); ligar a oferta sem preço promocional volta o interruptor e mostra "Informe o preço promocional antes de ativar a oferta." (C27)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build

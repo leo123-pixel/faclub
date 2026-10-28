@@ -12,6 +12,7 @@ import { VariantPicker } from "./VariantPicker";
 
 export type SaveResult = { ok: true } | { ok: false; errors?: Record<string, string>; message?: string };
 type Option = { id: string; name: string };
+const NEW_BRAND = "__nova-marca__";
 
 type Props = {
   mode: "novo" | "editar";
@@ -22,8 +23,8 @@ type Props = {
   onCancel: () => void;
   upload: UploadFn;
   prepare: PrepareFn;
-  /** Slot ao lado do select de marca ("+ Nova marca"). */
-  brandExtra?: (select: (brand: Option) => void) => ReactNode;
+  /** Com esta função, o select de marca ganha a opção "+ Nova marca". */
+  onCreateBrand?: (name: string) => Promise<{ ok: true; brand: Option } | { ok: false; message: string }>;
   /** Ações extras no topo (ex.: Duplicar). */
   headerExtra?: ReactNode;
 };
@@ -49,12 +50,15 @@ function Section({ title, className = "", children }: { title: string; className
 }
 
 export function ProductForm(props: Props) {
-  const { mode, initial, categories, onSave, onCancel, upload, prepare, brandExtra, headerExtra } = props;
+  const { mode, initial, categories, onSave, onCancel, upload, prepare, onCreateBrand, headerExtra } = props;
   const [brands, setBrands] = useState(props.brands);
   const [values, setValues] = useState(initial);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [message, setMessage] = useState<string | null>(null);
   const [saving, startSaving] = useTransition();
+  const [newBrand, setNewBrand] = useState<string | null>(null);
+  const [brandMessage, setBrandMessage] = useState<string | null>(null);
+  const [creatingBrand, startCreatingBrand] = useTransition();
   const dirty = useMemo(() => JSON.stringify(values) !== JSON.stringify(initial), [values, initial]);
 
   const set = <K extends keyof ProductFormValues>(key: K, value: ProductFormValues[K]) =>
@@ -77,6 +81,21 @@ export function ProductForm(props: Props) {
         setErrors(result.errors ?? {});
         setMessage(result.message ?? null);
       }
+    });
+  }
+
+  function createBrand() {
+    if (!onCreateBrand) return;
+    startCreatingBrand(async () => {
+      const res = await onCreateBrand(newBrand ?? "");
+      if (!res.ok) {
+        setBrandMessage(res.message);
+        return;
+      }
+      setBrands((list) => [...list, res.brand].sort((a, b) => a.name.localeCompare(b.name, "pt-BR")));
+      set("brandId", res.brand.id);
+      setNewBrand(null);
+      setBrandMessage(null);
     });
   }
 
@@ -135,20 +154,49 @@ export function ProductForm(props: Props) {
               <div>
                 <label className={labelCls}>
                   Marca
-                  <select value={values.brandId} onChange={(e) => set("brandId", e.target.value)} className={field}>
+                  <select
+                    value={values.brandId}
+                    onChange={(e) => (e.target.value === NEW_BRAND ? setNewBrand("") : set("brandId", e.target.value))}
+                    className={field}
+                  >
                     <option value="">Selecione</option>
                     {brands.map((b) => (
                       <option key={b.id} value={b.id}>
                         {b.name}
                       </option>
                     ))}
+                    {onCreateBrand && <option value={NEW_BRAND}>+ Nova marca</option>}
                   </select>
                   <Err text={errors.brandId} />
                 </label>
-                {brandExtra?.((brand) => {
-                  setBrands((list) => [...list, brand].sort((a, b) => a.name.localeCompare(b.name, "pt-BR")));
-                  set("brandId", brand.id);
-                })}
+                {newBrand !== null && (
+                  <div className="mt-2">
+                    <div className="flex gap-2">
+                      <input
+                        autoFocus
+                        aria-label="Nome da marca"
+                        value={newBrand}
+                        onChange={(e) => setNewBrand(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") {
+                            e.preventDefault();
+                            createBrand();
+                          }
+                        }}
+                        className="h-10 min-w-0 flex-1 rounded-lg border border-line px-3 text-[15px] outline-none focus:border-ink"
+                      />
+                      <button
+                        type="button"
+                        disabled={creatingBrand}
+                        onClick={createBrand}
+                        className="h-10 rounded-lg bg-ink px-4 text-sm font-semibold text-gold disabled:opacity-60"
+                      >
+                        Criar
+                      </button>
+                    </div>
+                    <Err text={brandMessage ?? undefined} />
+                  </div>
+                )}
               </div>
               <label className={labelCls}>
                 Categoria
@@ -179,7 +227,7 @@ export function ProductForm(props: Props) {
         {/* No celular as duas caixas da direita entram na coluna única (contents); no computador viram a coluna lateral. */}
         <div className="contents lg:col-start-2 lg:row-span-5 lg:row-start-1 lg:flex lg:flex-col lg:gap-5">
           <Section title="Publicação" className="order-2">
-            <div className="divide-y divide-line-soft">
+            <div className="divide-y divide-line-soft border-t border-line-soft">
               {(
                 [
                   ["isVisible", "Visível no site", "Aparece no catálogo"],

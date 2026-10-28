@@ -8,8 +8,7 @@ import type { UploadFn } from "@/components/admin/product-form/PhotoUploader";
 import type { ProductFormValues } from "@/lib/domain/product-input";
 import { PRODUCT_BUCKET } from "@/lib/storage";
 import { createBrowserSupabase } from "@/lib/supabase/browser";
-import { BrandQuickCreate } from "./BrandQuickCreate";
-import { saveProduct } from "./form-actions";
+import { createBrand, saveProduct } from "./form-actions";
 
 type Option = { id: string; name: string };
 
@@ -62,7 +61,7 @@ export function ProductEditor(props: {
         }
         return result;
       }}
-      brandExtra={(select) => <BrandQuickCreate onCreated={select} />}
+      onCreateBrand={createBrand}
     />
   );
 }

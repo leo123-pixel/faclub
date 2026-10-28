@@ -118,7 +118,7 @@ test.describe("cadastro e edição de produto", () => {
     await loginAs(page);
     await page.goto("/admin/produtos/novo");
     await page.getByLabel("Nome do produto").fill("Ipiranga F1 Master");
-    await page.getByRole("button", { name: "+ Nova marca" }).click();
+    await page.getByLabel("Marca").selectOption({ label: "+ Nova marca" });
     await page.getByLabel("Nome da marca").fill("Ipiranga");
     await page.getByRole("button", { name: "Criar" }).click();
     await expect(page.getByLabel("Marca").locator("option:checked")).toHaveText("Ipiranga");

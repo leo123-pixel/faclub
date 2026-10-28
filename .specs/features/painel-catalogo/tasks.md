@@ -574,7 +574,7 @@ T26 → T27 → T28
 
 ---
 
-### T24: Formulário de produto
+### T24: Formulário de produto ✅
 
 **What**: `ProductForm` com Informações básicas, Fotos, Preço e estoque, Embalagens, Ficha técnica, Publicação e Prévia; valida com `productInputSchema` antes de chamar `onSave`; "Cancelar" pergunta "Descartar as alterações?" quando há mudança; abaixo de 768 px uma coluna com Publicação depois de Informações básicas.
 **Where**: `src/components/admin/product-form/ProductForm.tsx`
@@ -584,9 +584,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `src/components/admin/product-form/ProductForm.test.tsx` prova: salvar vazio mostra "Campo obrigatório" em nome, marca, categoria, embalagem e fotos e não chama `onSave` (C31); promo 400 com preço 389,90 mostra "O preço promocional precisa ser menor que o preço." (C32); estoque -1 mostra "Informe um número válido." (C33); digitar o nome e ligar "Em oferta" muda a prévia sem salvar (C41); "Cancelar" com mudança pergunta e só sai ao confirmar, e sem mudança sai direto (C44); Tipo oferece Mineral, Semissintético e Sintético (C46)
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 7 tests pass
+- [x] `src/components/admin/product-form/ProductForm.test.tsx` prova: salvar vazio mostra "Campo obrigatório" em nome, marca, categoria, embalagem e fotos e não chama `onSave` (C31); promo 400 com preço 389,90 mostra "O preço promocional precisa ser menor que o preço." (C32); estoque -1 mostra "Informe um número válido." (C33); digitar o nome e ligar "Em oferta" muda a prévia sem salvar (C41); "Cancelar" com mudança pergunta e só sai ao confirmar, e sem mudança sai direto (C44); Tipo oferece Mineral, Semissintético e Sintético (C46)
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 7 tests pass
 
 **Tests**: unit
 **Gate**: quick

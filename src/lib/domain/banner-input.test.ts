@@ -17,18 +17,20 @@ function values(over: Partial<BannerValues> = {}): BannerValues {
 }
 
 describe("banner", () => {
-  it("BAN-01.3: sem foto e sem título mostra Campo obrigatório nos dois", () => {
+  it("BAN-01.3: cada campo que falta mostra Campo obrigatório, sozinho ou junto", () => {
     expect(validateBanner(values({ imagePath: "", title: "  " }))).toEqual({
       ok: false,
       errors: { imagePath: "Campo obrigatório", title: "Campo obrigatório" },
     });
+    expect(validateBanner(values({ title: "" }))).toEqual({ ok: false, errors: { title: "Campo obrigatório" } });
+    expect(validateBanner(values({ imagePath: "" }))).toEqual({ ok: false, errors: { imagePath: "Campo obrigatório" } });
   });
 
   it("BAN-01.4: link fora de /, https:// e http:// é recusado", () => {
     for (const link of ["www.site.com", "ftp://x.com", "javascript:alert(1)", "//outro.com", "https://", "produtos"]) {
       expect(validateBanner(values({ link }))).toEqual({ ok: false, errors: { link: LINK } });
     }
-    for (const link of ["/produtos", "/produtos?categoria=linha-pesada", "https://x.com", "http://x.com/a", ""]) {
+    for (const link of ["/produtos", "/produtos?categoria=linha-pesada", "/produtos?busca=oleo 5w30", "https://x.com", "http://x.com/a", ""]) {
       expect(validateBanner(values({ link })).ok).toBe(true);
     }
   });

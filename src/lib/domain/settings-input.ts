@@ -58,8 +58,9 @@ export type SettingsResult =
 
 export function validateSettings(v: SettingsValues): SettingsResult {
   const errors: Partial<Record<keyof SettingsValues, string>> = {};
-  const whatsapp = onlyDigits(v.whatsapp);
-  if (whatsapp.length !== 10 && whatsapp.length !== 11) errors.whatsapp = SETTINGS_MESSAGES.whatsapp;
+  // CONF-01 AC 3: tira espaços, parênteses e hífens; o resto precisa ser 10 ou 11 dígitos
+  const whatsapp = v.whatsapp.replace(/[\s()-]/g, "");
+  if (!/^\d{10,11}$/.test(whatsapp)) errors.whatsapp = SETTINGS_MESSAGES.whatsapp;
   if (!EMAIL_RE.test(v.email.trim())) errors.email = SETTINGS_MESSAGES.email;
   const groupLink = v.groupLink.trim();
   const instagram = v.instagram.trim();

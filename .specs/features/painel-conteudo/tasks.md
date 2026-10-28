@@ -267,7 +267,7 @@ Proof: `npx playwright test tests/e2e/banners.spec.ts -g "BAN-01.1:"`
 Proof: `npx playwright test tests/e2e/banners.spec.ts -g "BAN-01.2:"`
 
 **C3** - Sem foto ou sem título, "Campo obrigatório" em cada campo que falta e nada grava (BAN-01, AC 3)
-Proof: `npx vitest run src/lib/domain/banner-input.test.ts -t "BAN-01.3:"`
+Proof: `npx playwright test tests/e2e/banners.spec.ts -g "BAN-01.3:"`
 
 **C4** - Link fora de `/`, `https://` e `http://` mostra "Use um link do site (começando com /) ou um endereço completo." (BAN-01, AC 4)
 Proof: `npx vitest run src/lib/domain/banner-input.test.ts -t "BAN-01.4:"`

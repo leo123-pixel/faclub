@@ -124,7 +124,7 @@ test.describe("cadastro de banner", () => {
     expect(webpSize(readFileSync(files[0]))).toEqual({ width: 2400, height: 1600 });
   });
 
-  test("salvar sem foto e sem título mostra Campo obrigatório nos dois e não grava", async ({ page }) => {
+  test("BAN-01.3: salvar sem foto e sem título mostra Campo obrigatório nos dois e não grava", async ({ page }) => {
     await open(page);
     await page.getByRole("link", { name: "Novo banner" }).click();
     await page.getByRole("button", { name: "Salvar banner" }).click();

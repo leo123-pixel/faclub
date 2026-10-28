@@ -23,7 +23,7 @@ export type BannerPayload = {
 };
 
 /** Caminho do próprio site ("/produtos") ou endereço completo com http(s). */
-const validLink = (link: string) => /^\/(?!\/)\S*$/.test(link) || /^https?:\/\/\S+$/.test(link);
+const validLink = (link: string) => /^\/(?!\/)/.test(link) || /^https?:\/\/\S/.test(link);
 
 export function validateBanner(
   v: BannerValues,

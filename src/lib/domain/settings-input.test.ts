@@ -31,6 +31,9 @@ describe("configurações da loja", () => {
     expect(errorOf(values({ whatsapp: "(011) 99999-00001" }), "whatsapp")).toBe(WHATS); // 13
     expect(errorOf(values({ whatsapp: "551199999000" }), "whatsapp")).toBe(WHATS); // 12
     expect(errorOf(values({ whatsapp: "" }), "whatsapp")).toBe(WHATS);
+    // só espaços, parênteses e hífens saem antes de contar; letras e outros sinais recusam
+    expect(errorOf(values({ whatsapp: "tel 11 2954-5764" }), "whatsapp")).toBe(WHATS);
+    expect(errorOf(values({ whatsapp: "11.2954.5764" }), "whatsapp")).toBe(WHATS);
     expect(errorOf(values({ whatsapp: "(11) 2954-5764" }), "whatsapp")).toBeNull(); // 10
     expect(errorOf(values({ whatsapp: "11 99999-0000" }), "whatsapp")).toBeNull(); // 11
   });
@@ -56,6 +59,9 @@ describe("configurações da loja", () => {
     expect(whatsappLink("1129545764")).toBe("https://wa.me/551129545764");
     expect(whatsappLink("1129545764", "Olá! Quero agendar uma troca de óleo.")).toBe(
       "https://wa.me/551129545764?text=Ol%C3%A1!%20Quero%20agendar%20uma%20troca%20de%20%C3%B3leo.",
+    );
+    expect(whatsappLink("1129545764", "Óleo 5W-30? Frasco & balde #1")).toBe(
+      "https://wa.me/551129545764?text=%C3%93leo%205W-30%3F%20Frasco%20%26%20balde%20%231",
     );
     const r = validateSettings(values({ whatsapp: "(11) 99999-0000" }));
     expect(r.ok && r.payload.whatsapp).toBe("11999990000");

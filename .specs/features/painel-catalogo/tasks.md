@@ -532,7 +532,7 @@ T26 → T27 → T28
 
 ---
 
-### T22: Escolher embalagens com preço
+### T22: Escolher embalagens com preço ✅
 
 **What**: `VariantPicker` com os chips Frasco 1L, Frasco 4L, Balde 20L, Tambor 200L e Unidade, "Outra" com texto livre, e Preço (R$) e Preço promocional (R$) para cada embalagem marcada (AD-003).
 **Where**: `src/components/admin/product-form/VariantPicker.tsx`
@@ -542,9 +542,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `src/components/admin/product-form/VariantPicker.test.tsx` prova: marcar "Balde 20L" mostra os dois campos de preço daquela embalagem e desmarcar remove a embalagem e seus campos (C40); "Outra" com "Pote 500g" cria a embalagem
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 2 tests pass
+- [x] `src/components/admin/product-form/VariantPicker.test.tsx` prova: marcar "Balde 20L" mostra os dois campos de preço daquela embalagem e desmarcar remove a embalagem e seus campos (C40); "Outra" com "Pote 500g" cria a embalagem
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 2 tests pass
 
 **Tests**: unit
 **Gate**: quick

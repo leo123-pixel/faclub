@@ -68,6 +68,36 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: src/components/admin/product-form/PhotoUploader.tsx:max (components)
 - last seen: 2026-10-28T12:56:08Z
 
+### L-010 - Test each required field missing on its own, not only all of them together
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `domain` · harmful: 0
+- features: painel-conteudo
+- evidence: src/lib/domain/banner-input.ts:35 (domain)
+- last seen: 2026-10-28T13:33:37Z
+
+### L-011 - Test text encoding with the reserved characters people can type, such as question mark, ampersand and hash
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `domain` · harmful: 0
+- features: painel-conteudo
+- evidence: src/lib/domain/settings-input.ts:49 (domain)
+- last seen: 2026-10-28T13:33:37Z
+
+### L-012 - Validate only what the criterion states; an extra format rule rejects input the spec allows
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `domain` · harmful: 0
+- features: painel-conteudo
+- evidence: src/lib/domain/banner-input.ts:27 (domain)
+- last seen: 2026-10-28T13:33:37Z
+
+### L-013 - Normalize input exactly as the criterion says before checking it, and reject every other character
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `domain` · harmful: 0
+- features: painel-conteudo
+- evidence: src/lib/domain/settings-input.ts (domain)
+- last seen: 2026-10-28T13:33:37Z
+
+### L-014 - A criterion that says nothing is saved is proven at the layer that saves
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `tests` · harmful: 0
+- features: painel-conteudo
+- evidence: C3 (tests)
+- last seen: 2026-10-28T13:33:37Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

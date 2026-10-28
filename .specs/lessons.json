@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 10,
+  "next_id": 15,
   "lessons": [
     {
       "id": "L-001",
@@ -166,6 +166,96 @@
       ],
       "created": "2026-10-28T12:56:08Z",
       "last_seen": "2026-10-28T12:56:08Z"
+    },
+    {
+      "id": "L-010",
+      "key": "surviving_mutant::test each required field missing on its own not only all of them together",
+      "text": "Test each required field missing on its own, not only all of them together",
+      "signal": "surviving_mutant",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "painel-conteudo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/banner-input.ts:35 (domain)"
+      ],
+      "created": "2026-10-28T13:33:37Z",
+      "last_seen": "2026-10-28T13:33:37Z"
+    },
+    {
+      "id": "L-011",
+      "key": "surviving_mutant::test text encoding with the reserved characters people can type such as question mark ampersand and hash",
+      "text": "Test text encoding with the reserved characters people can type, such as question mark, ampersand and hash",
+      "signal": "surviving_mutant",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "painel-conteudo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/settings-input.ts:49 (domain)"
+      ],
+      "created": "2026-10-28T13:33:37Z",
+      "last_seen": "2026-10-28T13:33:37Z"
+    },
+    {
+      "id": "L-012",
+      "key": "ac_gap::validate only what the criterion states an extra format rule rejects input the spec allows",
+      "text": "Validate only what the criterion states; an extra format rule rejects input the spec allows",
+      "signal": "ac_gap",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "painel-conteudo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/banner-input.ts:27 (domain)"
+      ],
+      "created": "2026-10-28T13:33:37Z",
+      "last_seen": "2026-10-28T13:33:37Z"
+    },
+    {
+      "id": "L-013",
+      "key": "ac_gap::normalize input exactly as the criterion says before checking it and reject every other character",
+      "text": "Normalize input exactly as the criterion says before checking it, and reject every other character",
+      "signal": "ac_gap",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "painel-conteudo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/settings-input.ts (domain)"
+      ],
+      "created": "2026-10-28T13:33:37Z",
+      "last_seen": "2026-10-28T13:33:37Z"
+    },
+    {
+      "id": "L-014",
+      "key": "spec_precision_gap::a criterion that says nothing is saved is proven at the layer that saves",
+      "text": "A criterion that says nothing is saved is proven at the layer that saves",
+      "signal": "spec_precision_gap",
+      "scope": "tests",
+      "status": "candidate",
+      "features": [
+        "painel-conteudo"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "C3 (tests)"
+      ],
+      "created": "2026-10-28T13:33:37Z",
+      "last_seen": "2026-10-28T13:33:37Z"
     }
   ]
 }

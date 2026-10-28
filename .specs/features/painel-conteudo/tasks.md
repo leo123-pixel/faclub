@@ -9,7 +9,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: inline (escopo médio) - ver `## Design notes` abaixo
-**Status**: Approved
+**Status**: Done
 **Approved**: 2026-10-28 - user: "aprovado, pode seguir"
 **Mutations**: 3
 **Build**: `npm run build; npm run typecheck; npm run lint`

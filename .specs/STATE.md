@@ -116,11 +116,11 @@
 
 ## Handoff
 
-- **Feature**: painel-conteudo concluída; próxima: site-publico (`.specs/features/site-publico`)
-- **Phase / Task**: painel-conteudo Done - gate `validate_verification.py` com 0 erros no HEAD 279eda7 (19/19 checks e build, 3 mutações mortas, 5 achados fechados, 5 lições candidatas)
+- **Feature**: site-publico (`.specs/features/site-publico`)
+- **Phase / Task**: Tasks escritas (19 tarefas, 61 checks), `validate_tasks.py` com 0 erros; aguardando aprovação de design.md e tasks.md
 - **Completed**: painel-catalogo e painel-conteudo
 - **In-progress** (file:line): none
-- **Next step**: site-publico - Design (escopo grande: Home, catálogo, produto, política, metatags, mais HOME-01 AC 12-15) e tasks.md para aprovação; reaproveitar `matchesSearch`, `formatBRL`, `displayVariant`, `productTitle`, `whatsappLink` e as capturas home, catalogo e produto
-- **Blockers**: none
+- **Next step**: com a aprovação, executar T1 (`src/lib/domain/site-settings.ts`)
+- **Blockers**: aprovação do usuário (segunda parada)
 - **Uncommitted files**: none
 - **Branch**: claude/festive-sagan-40ifio

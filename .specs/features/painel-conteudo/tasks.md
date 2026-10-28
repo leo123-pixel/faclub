@@ -325,7 +325,7 @@ The feature's live state, written as it happens - a compaction gives no warning.
 
 **Settled mid-build:** none
 **Dispatched:** none
-**Walked:** none
+**Walked:** 2026-10-28, app de `scripts/local-supabase/start.mjs --app` em http://localhost:3100 depois de `node scripts/local-supabase/seed.mjs`, admin `contato@onbind.com.br` / `faclub-admin-123`. BAN-01: "Banners e ofertas" começa vazio; "Novo banner" com uma foto JPG 2400×1000, título "Oferta da semana" e link `/produtos` volta com "Banner salvo." e a linha "Oferta da semana · Ordem 1"; Editar e trocar o título para "Semana do diesel" grava o novo título. CUP-01: em "Cupons", desligar Ativo do FACLUB10 e recarregar mantém desligado. CONF-01: em "Configurações", trocar o sábado para "8h às 12h" mostra "Configurações salvas." e recarregar mostra o novo horário. Os efeitos na Home são de site-publico (HOME-01 AC 12 a 15). Sem capturas: nenhuma tela tem imagem de referência.
 
 ---
 

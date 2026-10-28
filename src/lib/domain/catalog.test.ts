@@ -37,6 +37,8 @@ const topTurbo = item({ id: "top", name: "Top Turbo 15W-40", brandName: "Lubrax"
 const rimula = item({ id: "rimula", name: "Rimula R4 X 15W-40", brandName: "Shell", categorySlug: "linha-pesada", categoryName: "Linha pesada", viscosity: "15W-40", application: "Motores diesel" });
 const essencial = item({ id: "essencial", name: "Essencial 20W-50", brandName: "Lubrax", viscosity: "20W-50", application: "Motores a gasolina" });
 const helix = item({ id: "helix", name: "Helix HX8 5W-30", brandName: "Shell", viscosity: "5W-30", application: "Óleo para carros flex" });
+const helixUltra = item({ id: "ultra", name: "Helix Ultra 5W-40", brandName: "Shell", viscosity: "5W-40", application: "Carros a gasolina" });
+const havoline = item({ id: "havoline", name: "Havoline 10W-40", brandName: "Texaco", viscosity: "10W-40", application: "Carros a gasolina" });
 const filtro = item({ id: "filtro", name: "Filtro de óleo", brandName: "Tecfil", categorySlug: "filtros", categoryName: "Filtros", sku: "PSL-55", application: "Linha leve" });
 const ALL = [topTurbo, rimula, essencial, helix, filtro];
 
@@ -45,6 +47,13 @@ describe("busca do catálogo", () => {
     for (const q of ["15w40", "15W-40", "15w 40", "15W40"]) {
       expect(ids(filterCatalog(ALL, { category: "", query: q }))).toEqual(["top", "rimula"]);
     }
+    // viscosidades vizinhas não entram: 5W-40 e 10W-40 não são 15W-40, e 15W-40 não é 5W-40
+    const neighbors = [...ALL, helixUltra, havoline];
+    expect(ids(filterCatalog(neighbors, { category: "", query: "15w40" }))).toEqual(["top", "rimula"]);
+    for (const q of ["5w40", "5W-40", "5w 40"]) {
+      expect(ids(filterCatalog(neighbors, { category: "", query: q }))).toEqual(["ultra"]);
+    }
+    expect(ids(filterCatalog(neighbors, { category: "", query: "10w40" }))).toEqual(["havoline"]);
   });
 
   it("CAT-01.6: lubrax, LUBRAX e Lubrax acham os mesmos produtos da marca", () => {
@@ -91,6 +100,15 @@ describe("ordem do catálogo", () => {
     expect(pesada15("a-z")).toEqual(["semoferta", "barato", "caro", "oferta", "destaque"]);
     // destaques primeiro, depois ofertas, depois A–Z
     expect(pesada15("destaques")).toEqual(["destaque", "oferta", "semoferta", "barato", "caro"]);
+  });
+
+  it("CAT-01.9: a ordem por preço usa o preço da primeira embalagem, o mesmo do card", () => {
+    // o balde vem primeiro no cadastro; o frasco é mais barato, mas não é o preço do card
+    const balde = item({ id: "balde", name: "Aaa Balde", variants: [{ label: "Balde 20L", price: 300, promoPrice: null }, { label: "Frasco 1L", price: 20, promoPrice: null }] });
+    const frasco = item({ id: "frasco", name: "Bbb Frasco", variants: [{ label: "Frasco 1L", price: 40, promoPrice: null }, { label: "Balde 20L", price: 500, promoPrice: null }] });
+    const meio = item({ id: "meio", name: "Ccc Meio", variants: [{ label: "Frasco 4L", price: 100, promoPrice: null }] });
+    expect(ids(sortCatalog([balde, frasco, meio], "menor-preco"))).toEqual(["frasco", "meio", "balde"]);
+    expect(ids(sortCatalog([balde, frasco, meio], "maior-preco"))).toEqual(["balde", "meio", "frasco"]);
   });
 
   it("CAT-01.9: a ordem não altera a lista recebida", () => {

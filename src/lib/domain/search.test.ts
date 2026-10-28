@@ -30,6 +30,23 @@ describe("busca tolerante", () => {
     expect(matchesSearch(topTurbo, "   ")).toBe(true);
   });
 
+  it("a viscosidade é uma palavra só: 5w40 não acha 15W-40 nem 10w40 acha 0W-40", () => {
+    expect(matchesSearch(topTurbo, "5w40")).toBe(false);
+    expect(matchesSearch(topTurbo, "5W-40")).toBe(false);
+    expect(matchesSearch(topTurbo, "5w 40")).toBe(false);
+    expect(matchesSearch(["Mobil 1 0W-40"], "0w40")).toBe(true);
+    expect(matchesSearch(["Havoline 10W-40"], "0w40")).toBe(false);
+    // "15w 40" não vira duas palavras que casam em campos diferentes
+    expect(matchesSearch(["Rimula 15W-50", "SHE-R4-40"], "15w 40")).toBe(false);
+    expect(matchesSearch(["Rimula 15W-50", "SHE-R4-40"], "r4 40")).toBe(true);
+  });
+
+  it("cada palavra começa onde começa uma palavra do campo", () => {
+    expect(matchesSearch(topTurbo, "turbo")).toBe(true);
+    expect(matchesSearch(topTurbo, "urbo")).toBe(false);
+    expect(matchesSearch(topTurbo, "pes")).toBe(true);
+  });
+
   it("acha o SKU sem os hífens", () => {
     expect(matchesSearch(topTurbo, "lbx154020")).toBe(true);
     expect(normalizeSearch("LBX-1540-20")).toBe("lbx154020");

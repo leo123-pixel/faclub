@@ -9,8 +9,8 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: `.specs/features/carrinho-pedidos/design.md`
-**Status**: Draft
-**Approved**: pendente
+**Status**: In Progress
+**Approved**: 2026-10-28 - user: "aprovado, pode seguir"
 **Mutations**: 3
 **Build**: `npm run build:local; npm run typecheck; npm run lint`
 
@@ -70,7 +70,7 @@ T13 → T14 → T15
 
 ## Task Breakdown
 
-### T1: Regras do carrinho
+### T1: Regras do carrinho ✅
 
 **What**: `CartLine`, `addToCart` (soma no mesmo produto e embalagem, até 99), `setQty`, `removeLine`, `cartCount`, `readCart(raw, now)` (JSON inválido ou mais de 7 dias desde a última alteração dá carrinho vazio) e `writeCart(cart, now)`.
 **Where**: `src/lib/domain/cart.ts`
@@ -80,9 +80,9 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `src/lib/domain/cart.test.ts` cobre: o mesmo produto e embalagem somam (2 + 3 = 5), embalagem diferente vira outra linha e a soma para em 99 (C3); 6 dias e 23 h depois o carrinho continua e 7 dias e 1 min depois abre vazio, contando da última alteração (C8); JSON inválido e versão desconhecida dão carrinho vazio; `cartCount` soma as quantidades; `setQty` fora de 1 a 99 fica no limite; `removeLine` tira só a linha
-- [ ] Gate check passes: `npm run typecheck && npx vitest run`
-- [ ] Test count: 6 tests pass
+- [x] `src/lib/domain/cart.test.ts` cobre: o mesmo produto e embalagem somam (2 + 3 = 5), embalagem diferente vira outra linha e a soma para em 99 (C3); 6 dias e 23 h depois o carrinho continua e 7 dias e 1 min depois abre vazio, contando da última alteração (C8); JSON inválido e versão desconhecida dão carrinho vazio; `cartCount` soma as quantidades; `setQty` fora de 1 a 99 fica no limite; `removeLine` tira só a linha
+- [x] Gate check passes: `npm run typecheck && npx vitest run`
+- [x] Test count: 6 tests pass
 
 **Tests**: unit
 **Gate**: quick
@@ -483,7 +483,7 @@ Proof: `npx playwright test tests/e2e/orders.spec.ts -g "ORD-01.5:"`
 
 The feature's live state, written as it happens - a compaction gives no warning.
 
-**Settled mid-build:** none
+**Settled mid-build:** execução nesta sessão, sem sub-agentes de lote (oferta com recomendação inline) - user: "aprovado, pode seguir"
 **Dispatched:** none
 **Walked:** not yet
 

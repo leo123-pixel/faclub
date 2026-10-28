@@ -1,7 +1,7 @@
 # Carrinho e pedido pelo WhatsApp Design
 
 **Spec**: `.specs/features/carrinho-pedidos/spec.md`
-**Status**: Draft (aprovado junto com tasks.md)
+**Status**: Approved (2026-10-28, junto com tasks.md - user: "aprovado, pode seguir")
 
 ---
 

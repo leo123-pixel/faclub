@@ -1,0 +1,23 @@
+[
+  {
+    "file": "supabase/migrations/20261028000200_rls.sql",
+    "old": "select coalesce(auth.jwt() -> 'app_metadata' ->> 'role', '') = 'admin'",
+    "new": "select coalesce(auth.jwt() -> 'app_metadata' ->> 'role', auth.jwt() -> 'user_metadata' ->> 'role', '') = 'admin'",
+    "proof": "npx vitest run tests/db/rls.test.ts -t \"AUTH-01.8:\"",
+    "label": "is_admin também aceita user_metadata.role (editável pelo próprio usuário)"
+  },
+  {
+    "file": "src/lib/domain/product-input.ts",
+    "old": "} else if (price !== null && promo >= price) {",
+    "new": "} else if (price !== null && promo > price) {",
+    "proof": "npx vitest run src/components/admin/product-form/ProductForm.test.tsx -t \"PFORM-01.4:\"",
+    "label": "preço promocional igual ao preço passa a ser aceito (>= -> >)"
+  },
+  {
+    "file": "src/components/admin/RowToggle.tsx",
+    "old": "setChecked(!next);",
+    "new": "setChecked(initial);",
+    "proof": "npx vitest run src/components/admin/RowToggle.test.tsx -t \"PTOG-01.4:\"",
+    "label": "falha volta o interruptor ao valor inicial da página, não à posição anterior"
+  }
+]

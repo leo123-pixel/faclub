@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 15,
+  "next_id": 21,
   "lessons": [
     {
       "id": "L-001",
@@ -256,6 +256,114 @@
       ],
       "created": "2026-10-28T13:33:37Z",
       "last_seen": "2026-10-28T13:33:37Z"
+    },
+    {
+      "id": "L-015",
+      "key": "surviving_mutant::teste uma regra que escolhe um entre varios valores embalagem foto preco com casos em que a escolha certa nao e a primeira nem a menor",
+      "text": "Teste uma regra que escolhe um entre vários valores (embalagem, foto, preço) com casos em que a escolha certa não é a primeira nem a menor",
+      "signal": "surviving_mutant",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "site-publico"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/catalog.ts:110 (C34) (domain)"
+      ],
+      "created": "2026-10-28T20:57:03Z",
+      "last_seen": "2026-10-28T20:57:03Z"
+    },
+    {
+      "id": "L-016",
+      "key": "ac_gap::busca tolerante casa cada termo no inicio de uma palavra do campo e testa vizinhos que contem o termo como 5w 40 ao lado de 15w 40",
+      "text": "Busca tolerante casa cada termo no início de uma palavra do campo e testa vizinhos que contêm o termo, como 5W-40 ao lado de 15W-40",
+      "signal": "ac_gap",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "site-publico"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/search.ts:18 (C30) (domain)"
+      ],
+      "created": "2026-10-28T20:57:03Z",
+      "last_seen": "2026-10-28T20:57:03Z"
+    },
+    {
+      "id": "L-017",
+      "key": "spec_precision_gap::prove paginacao incremental com ao menos duas cargas e um resto para separar mais n de mostrar todos",
+      "text": "Prove paginação incremental com ao menos duas cargas e um resto, para separar mais N de mostrar todos",
+      "signal": "spec_precision_gap",
+      "scope": "e2e",
+      "status": "candidate",
+      "features": [
+        "site-publico"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "tests/e2e/site-catalog.spec.ts:81 (C36) (e2e)"
+      ],
+      "created": "2026-10-28T20:57:03Z",
+      "last_seen": "2026-10-28T20:57:03Z"
+    },
+    {
+      "id": "L-018",
+      "key": "spec_precision_gap::um criterio de todas as paginas tem um teste que percorre a lista inteira de paginas publicas atualizada a cada pagina nova",
+      "text": "Um critério de todas as páginas tem um teste que percorre a lista inteira de páginas públicas, atualizada a cada página nova",
+      "signal": "spec_precision_gap",
+      "scope": "e2e",
+      "status": "candidate",
+      "features": [
+        "site-publico"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "tests/e2e/site-header.spec.ts:5 (C1, C2, C4) (e2e)"
+      ],
+      "created": "2026-10-28T20:57:03Z",
+      "last_seen": "2026-10-28T20:57:03Z"
+    },
+    {
+      "id": "L-019",
+      "key": "spec_deviation::ao especificar com captura vinculante liste em differences from the source cada criterio que muda o que a captura desenha antes de aprovar a spec",
+      "text": "Ao especificar com captura vinculante, liste em Differences from the source cada critério que muda o que a captura desenha, antes de aprovar a spec",
+      "signal": "spec_deviation",
+      "scope": "spec",
+      "status": "candidate",
+      "features": [
+        "site-publico"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "captures/catalogo.png, captures/produto.png, captures/home.png (C26, C54, C24, C10) (spec)"
+      ],
+      "created": "2026-10-28T20:57:03Z",
+      "last_seen": "2026-10-28T20:57:03Z"
+    },
+    {
+      "id": "L-020",
+      "key": "spec_deviation::antes do design confira se cada imagem que a captura desenha existe nos arquivos recebidos a que faltar vira pergunta ao usuario",
+      "text": "Antes do design, confira se cada imagem que a captura desenha existe nos arquivos recebidos; a que faltar vira pergunta ao usuário",
+      "signal": "spec_deviation",
+      "scope": "spec",
+      "status": "candidate",
+      "features": [
+        "site-publico"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "captures/home.png, cards de serviço (C7) (spec)"
+      ],
+      "created": "2026-10-28T20:57:03Z",
+      "last_seen": "2026-10-28T20:57:03Z"
     }
   ]
 }

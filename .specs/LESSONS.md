@@ -98,6 +98,42 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: C3 (tests)
 - last seen: 2026-10-28T13:33:37Z
 
+### L-015 - Teste uma regra que escolhe um entre vários valores (embalagem, foto, preço) com casos em que a escolha certa não é a primeira nem a menor
+- signal: `surviving_mutant` · recurrence: 1 feature(s) · scope: `domain` · harmful: 0
+- features: site-publico
+- evidence: src/lib/domain/catalog.ts:110 (C34) (domain)
+- last seen: 2026-10-28T20:57:03Z
+
+### L-016 - Busca tolerante casa cada termo no início de uma palavra do campo e testa vizinhos que contêm o termo, como 5W-40 ao lado de 15W-40
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `domain` · harmful: 0
+- features: site-publico
+- evidence: src/lib/domain/search.ts:18 (C30) (domain)
+- last seen: 2026-10-28T20:57:03Z
+
+### L-017 - Prove paginação incremental com ao menos duas cargas e um resto, para separar mais N de mostrar todos
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `e2e` · harmful: 0
+- features: site-publico
+- evidence: tests/e2e/site-catalog.spec.ts:81 (C36) (e2e)
+- last seen: 2026-10-28T20:57:03Z
+
+### L-018 - Um critério de todas as páginas tem um teste que percorre a lista inteira de páginas públicas, atualizada a cada página nova
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `e2e` · harmful: 0
+- features: site-publico
+- evidence: tests/e2e/site-header.spec.ts:5 (C1, C2, C4) (e2e)
+- last seen: 2026-10-28T20:57:03Z
+
+### L-019 - Ao especificar com captura vinculante, liste em Differences from the source cada critério que muda o que a captura desenha, antes de aprovar a spec
+- signal: `spec_deviation` · recurrence: 1 feature(s) · scope: `spec` · harmful: 0
+- features: site-publico
+- evidence: captures/catalogo.png, captures/produto.png, captures/home.png (C26, C54, C24, C10) (spec)
+- last seen: 2026-10-28T20:57:03Z
+
+### L-020 - Antes do design, confira se cada imagem que a captura desenha existe nos arquivos recebidos; a que faltar vira pergunta ao usuário
+- signal: `spec_deviation` · recurrence: 1 feature(s) · scope: `spec` · harmful: 0
+- features: site-publico
+- evidence: captures/home.png, cards de serviço (C7) (spec)
+- last seen: 2026-10-28T20:57:03Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

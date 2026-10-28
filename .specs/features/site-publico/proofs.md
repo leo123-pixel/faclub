@@ -1,8 +1,8 @@
 # site-publico proofs
 
-**HEAD**: eb04746
+**HEAD**: b9bb515
 **Tree**: clean
-**Result**: 63 pass, 1 fail; mutations 3 killed, 0 not
+**Result**: 64 pass, 0 fail; mutations 3 killed, 0 not
 
 | Check | Proof | Ran | Passed | Result |
 | --- | --- | --- | --- | --- |
@@ -12,7 +12,7 @@
 | C4 | `npx playwright test tests/e2e/site-header.spec.ts -g "HEAD-01.4:"` | 1 | - | pass |
 | C5 | `npx playwright test tests/e2e/site-header.spec.ts -g "HEAD-01.5:"` | 1 | - | pass |
 | C6 | `npx playwright test tests/e2e/site-header.spec.ts -g "HEAD-01.6:"` | 1 | - | pass |
-| C7 | `browser captures/home.running.png` | - | - | **diverges** (screens.md) |
+| C7 | `browser captures/home.running.png` | - | - | pass |
 | C8 | `npx playwright test tests/e2e/site-home.spec.ts -g "HOME-01.2:"` | 1 | - | pass |
 | C9 | `npx playwright test tests/e2e/site-home.spec.ts -g "HOME-01.3:"` | 1 | - | pass |
 | C10 | `npx playwright test tests/e2e/site-home.spec.ts -g "HOME-01.4:"` | 1 | - | pass |

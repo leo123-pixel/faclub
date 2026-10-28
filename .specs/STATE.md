@@ -132,11 +132,11 @@
 
 ## Handoff
 
-- **Feature**: site-publico (`.specs/features/site-publico`)
-- **Phase / Task**: T1 a T19 feitas; walk, Verifier (8 achados, 7 fechados) e telas (round 2) feitos; `check_proofs --mutations` no HEAD eb04746 com 63 de 64 checks verdes e 3 mutações mortas
-- **Completed**: painel-catalogo, painel-conteudo; site-publico menos as duas perguntas abaixo
+- **Feature**: site-publico concluída; próxima: carrinho-pedidos (`.specs/features/carrinho-pedidos`)
+- **Phase / Task**: site-publico Done - gate `validate_verification.py` com 0 erros no HEAD b9bb515 (64/64 checks e build, 3 mutações mortas, 8 achados fechados, telas aprovadas no round 2 com AD-016, 6 lições candidatas)
+- **Completed**: painel-catalogo, painel-conteudo e site-publico
 - **In-progress** (file:line): none
-- **Next step**: com as respostas de Q12 e Q13 (tasks.md `## Handoff`), ajustar os cards de serviço (C7, `src/components/site/home/HomeServices.tsx`) e a ordem das marcas (achado aberto em verification.md, `src/lib/data/public.ts`), rodar `check_proofs.py site-publico --mutations .specs/features/site-publico/mutations.json`, `validate_verification.py site-publico` e as lições
-- **Blockers**: Q12 (fotos dos cards de serviço) e Q13 (ordem das marcas), decisões do usuário
+- **Next step**: carrinho-pedidos - Design e tasks.md para aprovação (spec já aprovada); ligar "Adicionar ao carrinho" (`src/components/site/PurchaseBox.tsx`), o "+" do card (`src/components/site/ProductCard.tsx`) e o contador da sacola (`src/components/site/SiteHeader.tsx`), que hoje mostram o aviso `CART_SOON`
+- **Blockers**: none
 - **Uncommitted files**: none
 - **Branch**: claude/festive-sagan-40ifio

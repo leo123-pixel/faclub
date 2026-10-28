@@ -103,7 +103,7 @@ T17 → T18 → T19
 
 ---
 
-### T2: Busca, filtro, ordem e contagem do catálogo
+### T2: Busca, filtro, ordem e contagem do catálogo ✅
 
 **What**: `CatalogItem`, `toCatalogItem(row)`, `cardPrice(item)` (primeira embalagem; promocional só com oferta ligada), `filterCatalog(items, { category, query })`, `sortCatalog(items, sort)` (`destaques`: destaque, depois oferta, depois A–Z; `menor-preco`; `maior-preco`; `a-z`), `productCountLabel(n)` e `CATALOG_PAGE = 12`.
 **Where**: `src/lib/domain/catalog.ts`
@@ -113,9 +113,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `src/lib/domain/catalog.test.ts` cobre: "15w40", "15W-40", "15w 40" e "15W40" acham os mesmos itens 15W-40 (C30); "lubrax", "LUBRAX" e "Lubrax" acham os mesmos (C31); "oleo" e "óleo" acham os mesmos (C32); "diesel 15w40" acha só itens com as duas palavras em qualquer campo e "15w40 diesel" dá o mesmo (C33); cada ordem com categoria e busca juntas, incluindo preço promocional usado só com oferta ligada (C34); 0, 1 e 12 dão "0 produtos", "1 produto" e "12 produtos" (C35)
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 7 tests pass
+- [x] `src/lib/domain/catalog.test.ts` cobre: "15w40", "15W-40", "15w 40" e "15W40" acham os mesmos itens 15W-40 (C30); "lubrax", "LUBRAX" e "Lubrax" acham os mesmos (C31); "oleo" e "óleo" acham os mesmos (C32); "diesel 15w40" acha só itens com as duas palavras em qualquer campo e "15w40 diesel" dá o mesmo (C33); cada ordem com categoria e busca juntas, incluindo preço promocional usado só com oferta ligada (C34); 0, 1 e 12 dão "0 produtos", "1 produto" e "12 produtos" (C35)
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 10 tests pass
 
 **Tests**: unit
 **Gate**: quick

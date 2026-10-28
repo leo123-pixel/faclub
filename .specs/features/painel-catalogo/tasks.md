@@ -405,7 +405,7 @@ T26 → T27 → T28
 
 ---
 
-### T16: Recuperação de senha
+### T16: Recuperação de senha ✅
 
 **What**: `/admin/esqueci-senha`, rota `/admin/auth/callback` e `/admin/nova-senha` (mínimo 8 caracteres).
 **Where**: `src/app/admin/(acesso)/esqueci-senha/page.tsx`
@@ -415,9 +415,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/e2e/password.spec.ts` prova: e-mail cadastrado e não cadastrado mostram a mesma mensagem da spec (C5); o link capturado no SMTP abre `/admin/nova-senha`, a senha de 7 caracteres é recusada com "Use ao menos 8 caracteres." e a de 8 abre `/admin/produtos` autenticado (C6)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 2 e2e tests pass
+- [x] `tests/e2e/password.spec.ts` prova: e-mail cadastrado e não cadastrado mostram a mesma mensagem da spec (C5); o link capturado no SMTP abre `/admin/nova-senha`, a senha de 7 caracteres é recusada com "Use ao menos 8 caracteres." e a de 8 abre `/admin/produtos` autenticado (C6)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 2 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

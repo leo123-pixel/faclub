@@ -740,7 +740,7 @@ Proof: `npx playwright test tests/e2e/products.spec.ts -g "PLIST-01.10:"`
 Proof: `npx playwright test tests/e2e/products.spec.ts -g "PLIST-01.11:"`
 
 **C20** - Os cartões contam visíveis, em oferta visíveis, estoque de 5 ou menos e pedidos dos últimos 30 dias (PLIST-01, AC 12)
-Proof: `npx vitest run src/lib/domain/admin-products.test.ts -t "PLIST-01.12:"`
+Proof: `npx playwright test tests/e2e/products.spec.ts -g "PLIST-01.12:"`
 
 **C21** - Cada linha tem um interruptor de oferta (PLIST-01, AC 13)
 Proof: `npx playwright test tests/e2e/products.spec.ts -g "PLIST-01.13:"`

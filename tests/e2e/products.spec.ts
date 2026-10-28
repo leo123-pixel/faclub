@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { loginAs } from "./support/login";
 import { seed } from "./support/seed";
+import { serviceClient } from "./support/supabase";
 
 test.beforeEach(async () => {
   await seed();
@@ -74,5 +75,22 @@ test.describe("lista de produtos", () => {
     await expect(card.getByRole("switch", { name: "Em oferta: Lubrax Top Turbo 15W-40" })).toBeVisible();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow).toBeLessThanOrEqual(0);
+  });
+
+  test("PLIST-01.12: os cartões contam ativos, em oferta, estoque baixo e pedidos dos últimos 30 dias", async ({
+    page,
+  }) => {
+    const day = 24 * 60 * 60 * 1000;
+    const ago = (d: number) => new Date(Date.now() - d * day).toISOString();
+    const { error } = await serviceClient()
+      .from("orders")
+      .insert([1, 29, 31].map((d) => ({ items: [], total_estimated: 10, created_at: ago(d) })));
+    expect(error).toBeNull();
+    await loginAs(page);
+    const kpis = page.getByRole("region", { name: "Indicadores" });
+    await expect(kpis.getByText("Produtos ativos").locator("..")).toContainText("7");
+    await expect(kpis.getByText("Em oferta").locator("..")).toContainText("3");
+    await expect(kpis.getByText("Estoque baixo").locator("..")).toContainText("2");
+    await expect(kpis.getByText("Pedidos · 30 dias").locator("..")).toHaveText("Pedidos · 30 dias2");
   });
 });

@@ -321,7 +321,7 @@ T26 → T27 → T28
 
 ---
 
-### T12: Filtrar, paginar e contar a lista do painel
+### T12: Filtrar, paginar e contar a lista do painel ✅
 
 **What**: `filterAdminProducts`, `adminKpis`, `stockLabel` e `displayVariant`.
 **Where**: `src/lib/domain/admin-products.ts`
@@ -331,9 +331,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `src/lib/domain/admin-products.test.ts` cobre: aba Visíveis (settles C11); aba Ocultos (C12); busca por nome, marca e SKU sem caixa, acento ou hífen (C13); categoria combinada com aba e busca (C14); estoque 5 vira "Baixo · 5" e 6 vira "6 un." (C15); 45 produtos dão "20 de 45 produtos" e "Página 1 de 3", e a página 3 tem 5 (C16); cartões com visíveis, em oferta visíveis, estoque baixo e pedidos de 30 dias (C20); produto com 3 embalagens mostra o preço da primeira e "3 embalagens" (C23)
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 8 tests pass
+- [x] `src/lib/domain/admin-products.test.ts` cobre: aba Visíveis (settles C11); aba Ocultos (C12); busca por nome, marca e SKU sem caixa, acento ou hífen (C13); categoria combinada com aba e busca (C14); estoque 5 vira "Baixo · 5" e 6 vira "6 un." (C15); 45 produtos dão "20 de 45 produtos" e "Página 1 de 3", e a página 3 tem 5 (C16); cartões com visíveis, em oferta visíveis, estoque baixo e pedidos de 30 dias (C20); produto com 3 embalagens mostra o preço da primeira e "3 embalagens" (C23)
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 8 tests pass
 
 **Tests**: unit
 **Gate**: quick

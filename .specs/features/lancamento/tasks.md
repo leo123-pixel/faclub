@@ -111,7 +111,7 @@ T11 → T12 → T13
 
 ---
 
-### T3: Dados estruturados
+### T3: Dados estruturados ✅
 
 **What**: `parseHours`, `localBusinessJsonLd(settings, siteUrl)` (`AutoRepair` com nome, endereço, telefone e horários) e `productJsonLd(product, siteUrl)` (`Product` com marca, imagem, SKU e `Offer` em BRL e disponibilidade).
 **Where**: `src/lib/domain/structured-data.ts`
@@ -121,9 +121,9 @@ T11 → T12 → T13
 
 **Done when**:
 
-- [ ] `src/lib/domain/structured-data.test.ts` cobre: "7h às 18h" dá 07:00 a 18:00 e "8h30 às 12h" dá 08:30 a 12:00, texto livre não vira horário; `LocalBusiness` com os dados das configurações; `Product` com promocional só em oferta, `InStock` com estoque e `OutOfStock` sem, e sem SKU nem imagem quando faltam
-- [ ] Gate check passes: `npm run typecheck && npx vitest run`
-- [ ] Test count: 4 tests pass
+- [x] `src/lib/domain/structured-data.test.ts` cobre: "7h às 18h" dá 07:00 a 18:00 e "8h30 às 12h" dá 08:30 a 12:00, texto livre não vira horário; `LocalBusiness` com os dados das configurações; `Product` com promocional só em oferta, `InStock` com estoque e `OutOfStock` sem, e sem SKU nem imagem quando faltam
+- [x] Gate check passes: `npm run typecheck && npx vitest run`
+- [x] Test count: 4 tests pass
 
 **Tests**: unit
 **Gate**: quick

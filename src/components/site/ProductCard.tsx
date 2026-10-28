@@ -21,20 +21,20 @@ export function ProductCard({ item, layout = "catalog" }: { item: CatalogItem; l
   const eyebrow = layout === "related" ? item.brandName : `${item.brandName} · ${price.label}`;
   const photoHeight = layout === "related" ? "aspect-[308/260]" : "aspect-[308/320]";
 
-  const priceTag = (
-    <p
-      className={`flex text-[16px] font-semibold text-ink ${
-        layout === "featured" ? "shrink-0 flex-col items-end leading-tight" : "flex-wrap items-baseline gap-x-2"
-      }`}
-    >
-      <span>{formatBRL(price.price)}</span>
-      {price.regular !== null && (
-        <s className="text-[13px] font-normal text-muted">
-          <span className="sr-only">de </span>
-          {formatBRL(price.regular)}
-        </s>
-      )}
-    </p>
+  const current = <span>{formatBRL(price.price)}</span>;
+  const regular = price.regular !== null && (
+    <s className="text-[13px] font-normal text-muted">
+      <span className="sr-only">de </span>
+      {formatBRL(price.regular)}
+    </s>
+  );
+  const name = (
+    <h3 className="mt-0.5 font-display text-[18px] font-semibold leading-snug tracking-tight text-ink">
+      {/* o link cobre o card inteiro; o "+" fica por cima */}
+      <Link href={href} className="after:absolute after:inset-0 after:rounded-[24px] after:content-['']">
+        {item.name}
+      </Link>
+    </h3>
   );
 
   return (
@@ -52,31 +52,36 @@ export function ProductCard({ item, layout = "catalog" }: { item: CatalogItem; l
         )}
       </div>
 
-      <div className="flex items-start gap-3 px-1 pt-[14px]">
-        <div className="min-w-0 flex-1">
-          <div className={layout === "featured" ? "flex items-start justify-between gap-3" : ""}>
-            <p className="truncate text-[13px] text-muted">{eyebrow}</p>
-            {layout === "featured" && priceTag}
-          </div>
-          <h3 className="mt-0.5 font-display text-[18px] font-semibold leading-snug tracking-tight text-ink">
-            {/* o link cobre o card inteiro; o "+" fica por cima */}
-            <Link href={href} className="after:absolute after:inset-0 after:rounded-[24px] after:content-['']">
-              {item.name}
-            </Link>
-          </h3>
-          {layout !== "featured" && <div className="mt-1">{priceTag}</div>}
+      {layout === "featured" ? (
+        // destaques da Home: marca e embalagem com o preço ao lado; o nome com o preço riscado ao lado
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-3 px-1 pt-[14px]">
+          <p className="truncate text-[13px] text-muted">{eyebrow}</p>
+          <p className="text-right text-[16px] font-semibold text-ink">{current}</p>
+          {name}
+          <p className="text-right">{regular}</p>
         </div>
-        {layout === "catalog" && (
-          <button
-            type="button"
-            aria-label={`Adicionar ${item.brandName} ${item.name} ao carrinho`}
-            onClick={() => setNotice(true)}
-            className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-white hover:bg-navy-2"
-          >
-            <IconPlus />
-          </button>
-        )}
-      </div>
+      ) : (
+        <div className="flex items-start gap-3 px-1 pt-[14px]">
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[13px] text-muted">{eyebrow}</p>
+            {name}
+            <p className="mt-1 flex flex-wrap items-baseline gap-x-2 text-[16px] font-semibold text-ink">
+              {current}
+              {regular}
+            </p>
+          </div>
+          {layout === "catalog" && (
+            <button
+              type="button"
+              aria-label={`Adicionar ${item.brandName} ${item.name} ao carrinho`}
+              onClick={() => setNotice(true)}
+              className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-white hover:bg-navy-2"
+            >
+              <IconPlus />
+            </button>
+          )}
+        </div>
+      )}
       {notice && (
         <p role="status" className="relative z-10 mt-2 px-1 text-[13px] text-muted">
           {CART_SOON}

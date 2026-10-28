@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { HomeBrands } from "@/components/site/home/HomeBrands";
+import { HomeContact } from "@/components/site/home/HomeContact";
 import { HomeCoupon } from "@/components/site/home/HomeCoupon";
 import { HomeFeatured } from "@/components/site/home/HomeFeatured";
 import { HomeHero } from "@/components/site/home/HomeHero";
@@ -7,7 +8,7 @@ import { HomeServices } from "@/components/site/home/HomeServices";
 import { HomeWhy } from "@/components/site/home/HomeWhy";
 import { loadHomeData, loadSettings } from "@/lib/data/public";
 import { featuredProducts, splitAddress } from "@/lib/domain/home";
-import { budgetLink, scheduleLink } from "@/lib/domain/site-settings";
+import { budgetLink, contactLink, scheduleLink } from "@/lib/domain/site-settings";
 
 export const revalidate = 60;
 
@@ -33,6 +34,7 @@ export default async function Home() {
       <HomeWhy />
       <HomeFeatured items={featuredProducts(items)} />
       <HomeCoupon coupon={coupon} groupLink={settings.groupLink} />
+      <HomeContact settings={settings} address={address} contactHref={contactLink(settings)} />
     </main>
   );
 }

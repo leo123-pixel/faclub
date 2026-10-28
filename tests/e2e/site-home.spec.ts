@@ -91,4 +91,57 @@ test.describe("Home", () => {
     await featured.getByRole("link", { name: "Super 5W-30 Sintético" }).click();
     await expect(page).toHaveURL(/\/produtos\/super-5w-30-sintetico$/);
   });
+
+  test("HOME-01.8: Passa aqui na FAC LUB mostra endereço, horários, telefone, e-mail e o mapa", async ({ page }) => {
+    await page.goto("/");
+    const contact = page.getByRole("region", { name: "Passa aqui na FAC LUB" });
+    await expect(contact).toContainText("Rua Cabo Antônio Alves, 50");
+    await expect(contact).toContainText("Parque Novo Mundo, São Paulo");
+    await expect(contact).toContainText("Seg a Sex, 7h às 18h");
+    await expect(contact).toContainText("Sábado, 8h às 13h");
+    await expect(contact).toContainText("(11) 2954-5764");
+    await expect(contact).toContainText("contato@faclubrificantes.com.br");
+    const map = contact.locator("iframe");
+    await expect(map).toHaveAttribute(
+      "src",
+      "https://www.google.com/maps?q=" +
+        encodeURIComponent("Rua Cabo Antônio Alves, 50, Parque Novo Mundo, São Paulo") +
+        "&output=embed",
+    );
+    await expect(map).toHaveAttribute("loading", "lazy");
+    await expect(contact.getByRole("link", { name: "Chamar no WhatsApp" })).toHaveAttribute(
+      "href",
+      "https://wa.me/551129545764?text=" + encodeURIComponent("Olá! Vim pelo site da FAC LUB."),
+    );
+  });
+
+  test("HOME-01.9: o telefone abre tel: e o e-mail abre mailto:", async ({ page }) => {
+    await page.goto("/");
+    const contact = page.getByRole("region", { name: "Passa aqui na FAC LUB" });
+    await expect(contact.getByRole("link", { name: "(11) 2954-5764" })).toHaveAttribute("href", "tel:+551129545764");
+    await expect(contact.getByRole("link", { name: "contato@faclubrificantes.com.br" })).toHaveAttribute(
+      "href",
+      "mailto:contato@faclubrificantes.com.br",
+    );
+  });
+
+  test("HOME-01.11: Instagram e grupo vazios escondem os botões; preenchidos, eles aparecem", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.getByRole("link", { name: "Entrar no grupo de ofertas" })).toHaveCount(0);
+    await expect(page.getByRole("contentinfo").getByRole("link", { name: "Instagram" })).toHaveCount(0);
+    await serviceClient()
+      .from("settings")
+      .update({ group_link: "https://chat.whatsapp.com/ofertas", instagram: "https://instagram.com/faclub" })
+      .eq("id", 1);
+    await refreshSite();
+    await page.goto("/");
+    await expect(page.getByRole("link", { name: "Entrar no grupo de ofertas" })).toHaveAttribute(
+      "href",
+      "https://chat.whatsapp.com/ofertas",
+    );
+    await expect(page.getByRole("contentinfo").getByRole("link", { name: "Instagram" })).toHaveAttribute(
+      "href",
+      "https://instagram.com/faclub",
+    );
+  });
 });

@@ -334,7 +334,7 @@ T17 → T18 → T19
 
 ---
 
-### T13: Contato e mapa da Home
+### T13: Contato e mapa da Home ✅
 
 **What**: Seção "Passa aqui na FAC LUB" (`#contato`) com endereço, horários, telefone (`tel:`), e-mail (`mailto:`), "Chamar no WhatsApp" e `MapEmbed` (iframe do Google Maps com `loading="lazy"`); botões de Instagram e grupo escondidos quando o link está vazio.
 **Where**: `src/components/site/MapEmbed.tsx`
@@ -344,10 +344,10 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] A Home a 1440 px confere com `.specs/features/site-publico/captures/home.png` (C7, provado no walk)
-- [ ] `tests/e2e/site-home.spec.ts` prova: a seção mostra endereço, horários, "(11) 2954-5764", o e-mail e um iframe do Google Maps com o endereço codificado (C14); o telefone tem `href="tel:1129545764"` e o e-mail `href="mailto:contato@faclubrificantes.com.br"` (C15); com Instagram e grupo vazios os dois botões somem e, preenchidos, aparecem (C17)
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] A Home a 1440 px confere com `.specs/features/site-publico/captures/home.png` (C7, provado no walk)
+- [x] `tests/e2e/site-home.spec.ts` prova: a seção mostra endereço, horários, "(11) 2954-5764", o e-mail e um iframe do Google Maps com o endereço codificado (C14); o telefone tem `href="tel:+551129545764"` e o e-mail `href="mailto:contato@faclubrificantes.com.br"` (C15); com Instagram e grupo vazios os dois botões somem e, preenchidos, aparecem (C17)
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build

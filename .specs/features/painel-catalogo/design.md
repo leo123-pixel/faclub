@@ -217,6 +217,7 @@ coupons, banners, settings - conforme PRD; settings com check (id = 1)
 | Proteção de rotas | `src/proxy.ts` (Next 16 renomeou `middleware` para `proxy`) mais `requireAdmin()` no layout | Docs do Next 16.4 instalados; checagem dupla |
 | Revalidação | `revalidatePath('/', 'layout')` depois de cada gravação | O catálogo é pequeno; revalidar tudo evita esquecer uma rota |
 | Id do produto novo | Gerado no navegador (`crypto.randomUUID()`) | As fotos sobem antes de o produto existir, já na pasta certa |
+| Fotos do produto duplicado | A cópia aponta para os mesmos arquivos do bucket, sem copiá-los | O painel nunca apaga arquivos do bucket, então compartilhar é seguro e evita cópias órfãs quando a pessoa cancela; a limpeza de órfãs (lancamento) precisa olhar todas as referências |
 | "Visão geral" no menu | `/admin` redireciona para `/admin/produtos` | Os cartões de indicadores moram na lista; nenhuma spec pede outra tela |
 | "Pedidos" no menu | Página mínima com "Nenhum pedido ainda." até carrinho-pedidos | AD-007; a lista completa é ORD-01 |
 | Banners, Cupons, Configurações no menu | Links para páginas que painel-conteudo entrega; até lá mostram "Em breve" | A captura desenha os itens |

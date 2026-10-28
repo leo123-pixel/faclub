@@ -617,7 +617,7 @@ T26 → T27 → T28
 
 ---
 
-### T26: Duplicar produto
+### T26: Duplicar produto ✅
 
 **What**: Botão "Duplicar" na edição, que abre `/admin/produtos/novo?de=<id>` com tudo copiado, nome com " (cópia)" e "Visível no site" desligado; as fotos são copiadas para a pasta do novo id ao salvar.
 **Where**: `src/app/admin/(painel)/produtos/novo/page.tsx`
@@ -627,9 +627,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/e2e/duplicate.spec.ts` prova: "Duplicar" no "Delvac 15W-40" abre o formulário com "Delvac 15W-40 (cópia)", as mesmas embalagens e fotos e "Visível no site" desligado (C48); salvar cria um segundo produto com slug próprio e o original continua igual (C49)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 2 e2e tests pass
+- [x] `tests/e2e/duplicate.spec.ts` prova: "Duplicar" no "Delvac 15W-40" abre o formulário com "Delvac 15W-40 (cópia)", as mesmas embalagens e fotos e "Visível no site" desligado (C48); salvar cria um segundo produto com slug próprio e o original continua igual (C49)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 2 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build

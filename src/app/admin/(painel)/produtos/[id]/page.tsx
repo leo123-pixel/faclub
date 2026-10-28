@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { loadCategories } from "@/lib/data/admin-products";
 import { loadBrandOptions, loadProductForm } from "@/lib/data/admin-product-form";
@@ -14,5 +15,20 @@ export default async function EditProductPage({ params }: PageProps<"/admin/prod
     loadCategories(supabase),
   ]);
   if (!product) notFound();
-  return <ProductEditor mode="editar" initial={product} brands={brands} categories={categories} />;
+  return (
+    <ProductEditor
+      mode="editar"
+      initial={product}
+      brands={brands}
+      categories={categories}
+      headerExtra={
+        <Link
+          href={`/admin/produtos/novo?de=${product.id}`}
+          className="inline-flex h-12 items-center rounded-xl border border-line bg-white px-5 font-semibold text-ink hover:border-ink"
+        >
+          Duplicar
+        </Link>
+      }
+    />
+  );
 }

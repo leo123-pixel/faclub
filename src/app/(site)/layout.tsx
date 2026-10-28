@@ -1,3 +1,4 @@
+import { CookieBanner } from "@/components/site/CookieBanner";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { loadSettings } from "@/lib/data/public";
@@ -11,6 +12,7 @@ export default async function SiteLayout({ children }: LayoutProps<"/">) {
       <SiteHeader scheduleHref={scheduleLink(settings)} />
       <div className="flex flex-1 flex-col">{children}</div>
       <SiteFooter instagram={settings.instagram} area={splitAddress(settings.address).area} />
+      <CookieBanner />
     </>
   );
 }

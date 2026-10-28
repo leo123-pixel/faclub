@@ -154,7 +154,7 @@ T11 → T12 → T13
 
 ---
 
-### T5: Aviso de cookies
+### T5: Aviso de cookies ✅
 
 **What**: `ConsentProvider` (store da escolha com armazenamento bloqueado tratado), `CookieBanner` no layout `(site)` com "Aceitar", "Recusar" e "Política de privacidade", e "Preferências de cookies" no rodapé.
 **Where**: `src/components/site/CookieBanner.tsx`
@@ -164,10 +164,10 @@ T11 → T12 → T13
 
 **Done when**:
 
-- [ ] `tests/e2e/consent.spec.ts` prova: na primeira visita o aviso aparece com "Aceitar", "Recusar" e o link da política (C1); "Recusar" esconde o aviso, que não volta ao recarregar nem 179 dias depois e volta 181 dias depois (C4); "Preferências de cookies" no rodapé mostra o aviso de novo (C11)
-- [ ] `src/components/site/ConsentProvider.test.tsx` cobre: com o armazenamento bloqueado o aviso volta numa montagem nova e a escolha vale só na visita (Edge Case)
-- [ ] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e e 1 de componente passam
+- [x] `tests/e2e/consent.spec.ts` prova: na primeira visita o aviso aparece com "Aceitar", "Recusar" e o link da política (C1); "Recusar" esconde o aviso, que não volta ao recarregar nem 179 dias depois e volta 181 dias depois (C4); "Preferências de cookies" no rodapé mostra o aviso de novo (C11)
+- [x] `src/components/site/ConsentProvider.test.tsx` cobre: com o armazenamento bloqueado o aviso volta numa montagem nova e a escolha vale só na visita (Edge Case)
+- [x] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e e 1 de componente passam
 
 **Tests**: e2e
 **Gate**: full

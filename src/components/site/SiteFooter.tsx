@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useConsent } from "./ConsentProvider";
 
 const linkClass = "text-[14px] text-muted hover:text-ink";
 
@@ -10,6 +11,14 @@ const linkClass = "text-[14px] text-muted hover:text-ink";
 export function SiteFooter({ instagram, area }: { instagram: string; area: string }) {
   const onHome = usePathname() === "/";
   const year = new Date().getFullYear();
+  const { reopen } = useConsent();
+  const preferences = (
+    <li>
+      <button type="button" onClick={reopen} className={linkClass}>
+        Preferências de cookies
+      </button>
+    </li>
+  );
 
   if (onHome) {
     return (
@@ -37,6 +46,7 @@ export function SiteFooter({ instagram, area }: { instagram: string; area: strin
                 Política de privacidade
               </Link>
             </li>
+            {preferences}
             <li>
               <Link href="/admin" className={linkClass}>
                 Área administrativa
@@ -60,6 +70,7 @@ export function SiteFooter({ instagram, area }: { instagram: string; area: strin
               Política de privacidade
             </Link>
           </li>
+          {preferences}
           <li>
             <Link href="/admin" className={linkClass}>
               Área administrativa

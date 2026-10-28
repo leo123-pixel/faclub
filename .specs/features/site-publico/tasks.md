@@ -124,9 +124,9 @@ T17 → T18 → T19
 
 ---
 
-### T3: Regras da Home
+### T3: Regras da Home ✅
 
-**What**: `activeBanner(banners)` (ativo de menor ordem ou o topo padrão), `activeCoupon(coupons)` (ativo de menor `id` ou nenhum), `couponBadge(coupon)` ("10% OFF · FACLUB10") e `featuredProducts(items)` (até 4 com destaque).
+**What**: `activeBanner(banners)` (ativo de menor ordem ou o topo padrão), `activeCoupon(coupons)` (o ativo mais antigo, já que o `id` é uuid, ou nenhum), `couponBadge`, `couponHeadline` e `couponStoreNote` (textos com o percentual), `featuredProducts(items)` (até 4 com destaque) e `splitAddress` (rua e bairro do endereço).
 **Where**: `src/lib/domain/home.ts`
 **Depends on**: T2
 **Reuses**: `CatalogItem`
@@ -134,9 +134,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `src/lib/domain/home.test.ts` cobre: dois banners ativos dão o de menor ordem e nenhum ativo dá o topo padrão "Troca de óleo e filtros com quem entende do assunto"; cupom inativo some; o selo do FACLUB10; 6 destaques viram 4 e 0 destaques viram lista vazia
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 4 tests pass
+- [x] `src/lib/domain/home.test.ts` cobre: dois banners ativos dão o de menor ordem e nenhum ativo dá o topo padrão "Troca de óleo e filtros com quem entende do assunto"; cupom inativo some; o selo do FACLUB10; 6 destaques viram 4 e 0 destaques viram lista vazia; o endereço vira rua ("R. Cabo Antônio Alves, 50") e bairro
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 6 tests pass
 
 **Tests**: unit
 **Gate**: quick

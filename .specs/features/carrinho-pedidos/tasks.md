@@ -133,7 +133,7 @@ T13 → T14 → T15
 
 ---
 
-### T4: Regras da lista de pedidos
+### T4: Regras da lista de pedidos ✅
 
 **What**: `ORDER_STATUSES` ("Novo", "Atendido", "Cancelado"), `filterOrders(orders, status)` e `orderItemsSummary(items)` ("2× Lubrax Top Turbo 15W-40 · Balde 20L").
 **Where**: `src/lib/domain/admin-orders.ts`
@@ -143,9 +143,9 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `src/lib/domain/admin-orders.test.ts` cobre: filtro por cada status e "Todos"; o resumo dos itens
-- [ ] Gate check passes: `npm run typecheck && npx vitest run`
-- [ ] Test count: 2 tests pass
+- [x] `src/lib/domain/admin-orders.test.ts` cobre: filtro por cada status e "Todos"; o resumo dos itens
+- [x] Gate check passes: `npm run typecheck && npx vitest run`
+- [x] Test count: 2 tests pass
 
 **Tests**: unit
 **Gate**: quick

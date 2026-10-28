@@ -342,7 +342,7 @@ T26 → T27 → T28
 
 ---
 
-### T13: Regras das fotos
+### T13: Regras das fotos ✅
 
 **What**: `acceptPhoto` (tipo, 15 MB, máximo 6), `resizeTarget` (lado maior 1600 px, sem ampliar), `withNewPhoto` (primeira vira capa) e `withoutPhoto` (capa passa para a primeira restante).
 **Where**: `src/lib/domain/photos.ts`
@@ -352,9 +352,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `src/lib/domain/photos.test.ts` cobre: 7ª foto recusada com "Máximo de 6 fotos por produto."; GIF e arquivo de 16 MB recusados com "Envie uma foto JPG, PNG, WebP ou HEIC de até 15 MB."; HEIC aceito; 4032×3024 vira 1600×1200; 800×600 fica igual; primeira foto vira capa; remover a capa passa a capa para a primeira restante
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 7 tests pass
+- [x] `src/lib/domain/photos.test.ts` cobre: 7ª foto recusada com "Máximo de 6 fotos por produto."; GIF e arquivo de 16 MB recusados com "Envie uma foto JPG, PNG, WebP ou HEIC de até 15 MB."; HEIC aceito; 4032×3024 vira 1600×1200; 800×600 fica igual; primeira foto vira capa; remover a capa passa a capa para a primeira restante
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 7 tests pass
 
 **Tests**: unit
 **Gate**: build

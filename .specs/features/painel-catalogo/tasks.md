@@ -111,7 +111,7 @@ T26 → T27 → T28
 
 ---
 
-### T2: Montar o Postgres local de teste com o esquema mínimo do Supabase
+### T2: Montar o Postgres local de teste com o esquema mínimo do Supabase ✅
 
 **What**: `globalSetup` do Vitest que cria um cluster Postgres 16 temporário, aplica `supabase/tests/supabase-shim.sql` (papéis anon, authenticated, service_role e authenticator; esquema `auth` com `users`, `uid()` e `jwt()`; esquema `storage` com `buckets` e `objects`) e todas as migrações, mais o helper `asUser(claims)` que troca de papel e de claims numa transação.
 **Where**: `tests/db/setup/global-setup.ts`
@@ -121,9 +121,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/db/harness.test.ts` prova que `auth.uid()` devolve o `sub` das claims e que `anon` não é superusuário
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 2 tests pass
+- [x] `tests/db/harness.test.ts` prova que `auth.uid()` devolve o `sub` das claims e que `anon` não é superusuário
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 2 tests pass
 
 **Tests**: integration
 **Gate**: quick

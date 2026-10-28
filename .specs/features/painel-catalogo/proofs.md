@@ -1,8 +1,8 @@
 # painel-catalogo proofs
 
-**HEAD**: 794efb9
+**HEAD**: 2e7e854
 **Tree**: clean
-**Result**: 60 pass, 1 fail; mutations 3 killed, 0 not
+**Result**: 61 pass, 0 fail; mutations 3 killed, 0 not
 
 | Check | Proof | Ran | Passed | Result |
 | --- | --- | --- | --- | --- |
@@ -34,7 +34,7 @@
 | C26 | `npx playwright test tests/e2e/toggles.spec.ts -g "PTOG-01.2:"` | 1 | - | pass |
 | C27 | `npx playwright test tests/e2e/toggles.spec.ts -g "PTOG-01.3:"` | 1 | - | pass |
 | C28 | `npx vitest run src/components/admin/RowToggle.test.tsx -t "PTOG-01.4:"` | 2 | 2 | pass |
-| C29 | `browser captures/admin-cadastro.running.png` | - | - | **diverges** (screens.md) |
+| C29 | `browser captures/admin-cadastro.running.png` | - | - | pass |
 | C30 | `npx playwright test tests/e2e/product-form.spec.ts -g "PFORM-01.2:"` | 1 | - | pass |
 | C31 | `npx vitest run src/components/admin/product-form/ProductForm.test.tsx -t "PFORM-01.3:"` | 1 | 1 | pass |
 | C32 | `npx vitest run src/components/admin/product-form/ProductForm.test.tsx -t "PFORM-01.4:"` | 1 | 1 | pass |

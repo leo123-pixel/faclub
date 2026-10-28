@@ -659,7 +659,7 @@ T26 → T27 → T28
 
 ---
 
-### T28: Marcas
+### T28: Marcas ✅
 
 **What**: `/admin/marcas` com a lista alfabética, logo opcional (mesma redução das fotos, bucket `product-images/brands/`), contagem de produtos, criar, renomear e excluir com bloqueio.
 **Where**: `src/app/admin/(painel)/marcas/page.tsx`
@@ -669,9 +669,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/e2e/brands.spec.ts` prova: a lista mostra as 6 marcas em ordem alfabética com logo e contagem (C54); criar "Petronas" com logo grava o slug `petronas` e o logo aparece (C55); excluir "Shell" com produtos mostra "Esta marca tem 2 produtos. Mude a marca deles antes de excluir." (C56)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] `tests/e2e/brands.spec.ts` prova: a lista mostra as 6 marcas em ordem alfabética com logo e contagem (C54); criar "Petronas" com logo grava o slug `petronas` e o logo aparece (C55); excluir "Shell" com produtos mostra "Esta marca tem 2 produtos. Mude a marca deles antes de excluir." (C56)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build

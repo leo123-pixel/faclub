@@ -125,10 +125,10 @@
 ## Handoff
 
 - **Feature**: site-publico (`.specs/features/site-publico`)
-- **Phase / Task**: Tasks escritas (19 tarefas, 61 checks), `validate_tasks.py` com 0 erros; aguardando aprovação de design.md e tasks.md
-- **Completed**: painel-catalogo e painel-conteudo
+- **Phase / Task**: T1 a T19 feitas; walk, Verifier (8 achados, 7 fechados) e telas (round 2) feitos; `check_proofs --mutations` no HEAD eb04746 com 63 de 64 checks verdes e 3 mutações mortas
+- **Completed**: painel-catalogo, painel-conteudo; site-publico menos as duas perguntas abaixo
 - **In-progress** (file:line): none
-- **Next step**: com a aprovação, executar T1 (`src/lib/domain/site-settings.ts`)
-- **Blockers**: aprovação do usuário (segunda parada)
+- **Next step**: com as respostas de Q12 e Q13 (tasks.md `## Handoff`), ajustar os cards de serviço (C7, `src/components/site/home/HomeServices.tsx`) e a ordem das marcas (achado aberto em verification.md, `src/lib/data/public.ts`), rodar `check_proofs.py site-publico --mutations .specs/features/site-publico/mutations.json`, `validate_verification.py site-publico` e as lições
+- **Blockers**: Q12 (fotos dos cards de serviço) e Q13 (ordem das marcas), decisões do usuário
 - **Uncommitted files**: none
 - **Branch**: claude/festive-sagan-40ifio

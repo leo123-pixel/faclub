@@ -131,7 +131,7 @@ T5 → T6 → T7 → T8 → T9
 
 ---
 
-### T4: Validar o cupom
+### T4: Validar o cupom ✅
 
 **What**: `normalizeCouponCode` (maiúsculas, sem espaços) e `validateCoupon` (código obrigatório, percentual inteiro de 1 a 100).
 **Where**: `src/lib/domain/coupon-input.ts`
@@ -141,9 +141,9 @@ T5 → T6 → T7 → T8 → T9
 
 **Done when**:
 
-- [ ] `src/lib/domain/coupon-input.test.ts` cobre: " fac club 10 " vira `FACCLUB10` (C9); 0, 101, 10,5 e "dez" recusados com "Use um número de 1 a 100." e 1 e 100 aceitos (C10); código vazio com "Campo obrigatório"
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 3 tests pass
+- [x] `src/lib/domain/coupon-input.test.ts` cobre: " fac club 10 " vira `FACCLUB10` (C9); 0, 101, 10,5 e "dez" recusados com "Use um número de 1 a 100." e 1 e 100 aceitos (C10); código vazio com "Campo obrigatório"
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 3 tests pass
 
 **Tests**: unit
 **Gate**: quick

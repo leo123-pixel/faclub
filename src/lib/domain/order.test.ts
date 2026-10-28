@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { CartLine } from "./cart";
-import { ORDER_MESSAGES, orderMessage, orderWhatsappLink, priceCart, unavailableNotice, validateOrderInput, type PriceRow } from "./order";
+import { applyQuote, ORDER_MESSAGES, orderMessage, orderWhatsappLink, priceCart, unavailableNotice, validateOrderInput, type PriceRow } from "./order";
 
 const line = (productId: string, label: string, qty: number): CartLine => ({
   productId,
@@ -69,6 +69,19 @@ const items = [
   { title: "Lubrax Top Turbo 15W-40", label: "Balde 20L", qty: 2, price: 349.9, subtotal: 699.8 },
   { title: "Shell Rimula R4 15W-40", label: "Balde 20L", qty: 1, price: 1234.5, subtotal: 1234.5 },
 ];
+
+describe("cotação reaplicada no carrinho", () => {
+  it("mudar a quantidade recalcula subtotal e total com o preço da última cotação", () => {
+    const quote = priceCart([line("top", "Balde 20L", 1), line("sumiu", "Balde 20L", 1)], [topTurbo]);
+    const now = applyQuote([line("top", "Balde 20L", 3), line("sumiu", "Balde 20L", 1), line("rimula", "Balde 20L", 1)], quote);
+    expect(now.items.map((i) => [i.qty, i.price, i.subtotal])).toEqual([[3, 349.9, 1049.7]]);
+    expect(now.total).toBe(1049.7);
+    expect(now.unavailable.map((l) => l.productId)).toEqual(["sumiu"]);
+    expect(now.pending.map((l) => l.productId)).toEqual(["rimula"]);
+    // removido do carrinho, sai da conta
+    expect(applyQuote([], quote)).toEqual({ items: [], unavailable: [], pending: [], total: 0 });
+  });
+});
 
 describe("mensagem do pedido", () => {
   it("CART-04.2: a mensagem segue o modelo, uma linha por item, e vai no link do WhatsApp da loja", () => {

@@ -2,7 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { seedSite } from "./support/site";
 
 // Páginas públicas que o topo precisa cobrir; cresce com as tarefas do site.
-const PAGES = ["/", "/produtos", "/produtos/top-turbo-15w-40", "/politica-de-privacidade"];
+const PAGES = ["/", "/produtos", "/produtos/top-turbo-15w-40", "/politica-de-privacidade", "/carrinho"];
 
 const SCHEDULE =
   "https://wa.me/551129545764?text=" + encodeURIComponent("Olá! Quero agendar uma troca de óleo.");
@@ -28,6 +28,8 @@ test.describe("topo do site", () => {
   });
 
   test("HEAD-01.2: o topo continua fixo no alto ao rolar", async ({ page }) => {
+    // janela baixa: até a página mais curta (carrinho vazio) rola
+    await page.setViewportSize({ width: 1440, height: 420 });
     for (const path of PAGES) {
       await page.goto(path);
       await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));

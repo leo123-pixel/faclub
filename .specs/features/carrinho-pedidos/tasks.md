@@ -260,19 +260,19 @@ T13 → T14 → T15
 
 ---
 
-### T10: Página do carrinho
+### T10: Página do carrinho ✅
 
 **What**: `(site)/carrinho/page.tsx` com `CartView`: linhas com marca, nome, embalagem, quantidade de 1 a 99, preço atual, subtotal, "Remover", total estimado, "Indisponível", aviso de preço, caixa do cupom desmarcada (só com cupom ativo) e o vazio com "Ver produtos".
 **Where**: `src/components/site/CartView.tsx`
 **Depends on**: T9
-**Reuses**: `CartProvider`, `/api/carrinho`, `loadSettings`, `loadCoupon`
+**Reuses**: `CartProvider`, `/api/carrinho`, `loadSettings`, `loadCoupon`, `applyQuote` (nova em `order.ts`: reaplica a última cotação às quantidades, com teste unit)
 **Requirement**: CART-01, CART-04
 
 **Done when**:
 
-- [ ] `tests/e2e/cart.spec.ts` prova: mudar a quantidade muda o subtotal e o total na hora (C5); "Remover" tira o item (C6); com o relógio 6 dias à frente, uma aba nova do mesmo navegador mostra os mesmos itens e contador (C7); o carrinho vazio mostra "Seu carrinho está vazio." e "Ver produtos" (C9); um produto ocultado depois da adição aparece como "Indisponível" e um preço mudado aparece novo (C11); o aviso "Preço e disponibilidade são confirmados no atendimento pelo WhatsApp." (C12); com o FACLUB10 ativo a caixa "Quero fazer a troca na loja com o cupom FACLUB10" aparece desmarcada e, sem cupom ativo, some (C24)
-- [ ] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
-- [ ] Test count: 7 e2e tests pass
+- [x] `tests/e2e/cart.spec.ts` prova: mudar a quantidade muda o subtotal e o total na hora (C5); "Remover" tira o item (C6); com o relógio 6 dias à frente, uma aba nova do mesmo navegador mostra os mesmos itens e contador (C7); o carrinho vazio mostra "Seu carrinho está vazio." e "Ver produtos" (C9); um produto ocultado depois da adição aparece como "Indisponível" e um preço mudado aparece novo (C11); o aviso "Preço e disponibilidade são confirmados no atendimento pelo WhatsApp." (C12); com o FACLUB10 ativo a caixa "Quero fazer a troca na loja com o cupom FACLUB10" aparece desmarcada e, sem cupom ativo, some (C24)
+- [x] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
+- [x] Test count: 7 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

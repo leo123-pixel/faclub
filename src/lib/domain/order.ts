@@ -114,3 +114,26 @@ export function orderMessage(o: {
 }
 
 export const orderWhatsappLink = (whatsapp: string, message: string) => whatsappLink(whatsapp, message);
+
+const key = (l: Pick<CartLine, "productId" | "label">) => `${l.productId}|${l.label}`;
+
+/**
+ * Reaplica a última cotação às linhas atuais: quantidade mudada recalcula na
+ * hora (CART-01 AC 5); linha que a cotação não conhece fica `pending` até a
+ * próxima cotação.
+ */
+export function applyQuote(lines: CartLine[], quote: CartQuote): CartQuote & { pending: CartLine[] } {
+  const priced = new Map(quote.items.map((i) => [key(i), i]));
+  const gone = new Set(quote.unavailable.map(key));
+  const items: PricedLine[] = [];
+  const unavailable: CartLine[] = [];
+  const pending: CartLine[] = [];
+  for (const l of lines) {
+    const p = priced.get(key(l));
+    if (p) items.push({ ...l, title: p.title, price: p.price, regular: p.regular, subtotal: (cents(p.price) * l.qty) / 100 });
+    else if (gone.has(key(l))) unavailable.push(l);
+    else pending.push(l);
+  }
+  const total = items.reduce((sum, i) => sum + cents(i.subtotal), 0) / 100;
+  return { items, unavailable, pending, total };
+}

@@ -4,6 +4,7 @@ import {
   displayVariant,
   filterAdminProducts,
   stockLabel,
+  productTitle,
   type AdminProductRow,
 } from "./admin-products";
 
@@ -103,5 +104,11 @@ describe("lista de produtos do painel", () => {
     });
     expect(displayVariant(three)).toEqual({ label: "3 embalagens", price: 49.9, promoPrice: 44.9 });
     expect(displayVariant(rows[1])).toEqual({ label: "Balde 20L", price: 389.9, promoPrice: null });
+  });
+
+  it("PLIST-01.2: o título junta marca e nome sem repetir a marca", () => {
+    expect(productTitle("Lubrax", "Top Turbo 15W-40")).toBe("Lubrax Top Turbo 15W-40");
+    expect(productTitle("Urania", "Urania 15W-40")).toBe("Urania 15W-40");
+    expect(productTitle("Brutus", "brutus 15W-40")).toBe("brutus 15W-40");
   });
 });

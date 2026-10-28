@@ -76,3 +76,9 @@ export function displayVariant(p: Pick<AdminProductRow, "variants">): VariantRow
   const label = p.variants.length > 1 ? `${p.variants.length} embalagens` : first.label;
   return { label, price: first.price, promoPrice: first.promoPrice };
 }
+
+/** "Marca Nome", sem repetir a marca quando o nome já começa com ela ("Urania 15W-40"). */
+export function productTitle(brandName: string, name: string): string {
+  if (!brandName) return name;
+  return name.toLowerCase().startsWith(brandName.toLowerCase()) ? name : `${brandName} ${name}`;
+}

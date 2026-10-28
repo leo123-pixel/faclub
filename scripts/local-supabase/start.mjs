@@ -122,6 +122,8 @@ const authEnv = {
   GOTRUE_JWT_EXP: "3600",
   GOTRUE_JWT_AUD: "authenticated",
   GOTRUE_JWT_ADMIN_ROLES: "service_role",
+  // ainda é o que põe role=authenticated no JWT, apesar do aviso de descontinuação
+  GOTRUE_JWT_DEFAULT_GROUP_NAME: "authenticated",
   GOTRUE_DISABLE_SIGNUP: "false",
   GOTRUE_EXTERNAL_EMAIL_ENABLED: "true",
   GOTRUE_MAILER_AUTOCONFIRM: "true",

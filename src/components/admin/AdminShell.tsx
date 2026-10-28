@@ -7,7 +7,8 @@ export function AdminShell({ userLabel, children }: { userLabel: string; childre
   const initial = userLabel.trim().charAt(0).toUpperCase() || "A";
   return (
     <div className="flex min-h-screen flex-1 flex-col bg-bg lg:flex-row">
-      <aside className="flex flex-wrap items-center bg-navy px-4 py-3 lg:sticky lg:top-0 lg:h-screen lg:w-[248px] lg:shrink-0 lg:flex-col lg:flex-nowrap lg:items-stretch lg:px-4 lg:py-6">
+      <aside className="bg-navy lg:w-[248px] lg:shrink-0">
+        <div className="flex flex-wrap items-center px-4 py-3 lg:sticky lg:top-0 lg:h-screen lg:flex-col lg:flex-nowrap lg:items-stretch lg:py-6">
         <div className="flex items-center gap-3">
           <Image src="/brand/logo-faclub.png" alt="FAC LUB" width={44} height={44} priority />
           <div className="leading-tight">
@@ -34,6 +35,7 @@ export function AdminShell({ userLabel, children }: { userLabel: string; childre
             Sair
           </button>
         </form>
+        </div>
       </aside>
       <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-8">{children}</main>
     </div>

@@ -20,6 +20,11 @@ test.describe("Supabase local", () => {
     const { data, error } = await anonClient().auth.signInWithPassword({ email, password: "senha-forte-1" });
     expect(error).toBeNull();
     expect(data.session?.user.app_metadata.role).toBe("admin");
+    // o token precisa servir para o PostgREST (role = authenticated)
+    const authed = anonClient();
+    await authed.auth.setSession(data.session!);
+    const read = await authed.from("products").select("id").limit(1);
+    expect(read.error).toBeNull();
   });
 
   test("envia e lê de volta um arquivo no Storage simulado", async () => {

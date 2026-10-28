@@ -447,7 +447,7 @@ T26 → T27 → T28
 
 ---
 
-### T18: Lista de produtos
+### T18: Lista de produtos ✅
 
 **What**: `/admin/produtos` com cartões, abas, busca, filtro de categoria (URL sem recarregar), tabela, cartões empilhados abaixo de 768 px, paginação, estados vazios e "Ver no site", lendo do Supabase e usando `filterAdminProducts` e `adminKpis`.
 **Where**: `src/app/admin/(painel)/produtos/page.tsx`
@@ -457,10 +457,10 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] A tela a 1440 px confere com `.specs/features/painel-catalogo/captures/admin-produtos.png` (C9, provado no walk)
-- [ ] `tests/e2e/products.spec.ts` prova: cada linha mostra capa, marca e nome, embalagem e SKU, categoria, preço, estoque, oferta, visibilidade e "Editar" (C10); filtro sem resultado mostra "Nenhum produto encontrado." e "Limpar filtros" volta à lista toda (C17); banco sem produtos mostra "Nenhum produto cadastrado ainda." e "Novo produto" (C18); "Ver no site" abre `/produtos` em nova aba (C19); cada linha tem o interruptor de oferta (C21); a 390 px a lista vira cartões e a página não rola na horizontal (C24)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 6 e2e tests pass
+- [x] A tela a 1440 px confere com `.specs/features/painel-catalogo/captures/admin-produtos.png` (C9, provado no walk)
+- [x] `tests/e2e/products.spec.ts` prova: cada linha mostra capa, marca e nome, embalagem e SKU, categoria, preço, estoque, oferta, visibilidade e "Editar" (C10); filtro sem resultado mostra "Nenhum produto encontrado." e "Limpar filtros" volta à lista toda (C17); banco sem produtos mostra "Nenhum produto cadastrado ainda." e "Novo produto" (C18); "Ver no site" abre `/produtos` em nova aba (C19); cada linha tem o interruptor de oferta (C21); a 390 px a lista vira cartões e a página não rola na horizontal (C24)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 6 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

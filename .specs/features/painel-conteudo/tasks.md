@@ -216,7 +216,7 @@ T5 → T6 → T7 → T8 → T9
 
 ---
 
-### T8: Lista de banners
+### T8: Lista de banners ✅
 
 **What**: `/admin/banners` com os banners na ordem do campo Ordem (foto, título, ordem, interruptor Ativo, Editar, Excluir com confirmação), "Novo banner" e o estado vazio "Nenhum banner cadastrado ainda.".
 **Where**: `src/app/admin/(painel)/banners/page.tsx`
@@ -226,9 +226,9 @@ T5 → T6 → T7 → T8 → T9
 
 **Done when**:
 
-- [ ] `tests/e2e/banners.spec.ts` prova: com dois banners criados no teste, a lista mostra os dois na ordem do campo Ordem com foto, título e Ativo (C1); desligar Ativo persiste depois de recarregar (C5); Excluir pergunta "Excluir este banner?", cancelar mantém e confirmar remove (C6)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] `tests/e2e/banners.spec.ts` prova: com dois banners criados no teste, a lista mostra os dois na ordem do campo Ordem com foto, título e Ativo (C1); desligar Ativo persiste depois de recarregar (C5); Excluir pergunta "Excluir este banner?", cancelar mantém e confirmar remove (C6)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

@@ -166,7 +166,7 @@ T17 → T18 → T19
 
 ---
 
-### T5: Dados públicos e seed do site
+### T5: Dados públicos e seed do site ✅
 
 **What**: Cliente Supabase anônimo sem cookies (`src/lib/supabase/public.ts`); `loadSettings`, `loadHomeData`, `loadCatalog` e `loadProductBySlug` lançando erro quando a consulta falha; `seed({ site: true })` com os 12 produtos visíveis da captura do catálogo (os 8 do painel com o Filtro de óleo visível, mais Mobil Delvac 15W-40, Filtro de ar, Graxa multiuso e Fluido de direção), um oculto, 4 destaques, marcas e um banner ativo; as 5 fotos do protótipo em `public/images/home/`.
 **Where**: `src/lib/data/public.ts`
@@ -176,8 +176,8 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `node scripts/local-supabase/seed.mjs --site` deixa 12 produtos visíveis e um oculto; o seed sem a opção continua igual (os testes do painel passam)
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build && npx vitest run && npx playwright test`
+- [x] `node scripts/local-supabase/seed.mjs --site` deixa 12 produtos visíveis e um oculto; o seed sem a opção continua igual (os testes do painel passam)
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build && npx vitest run && npx playwright test`
 
 **Tests**: none
 **Gate**: build

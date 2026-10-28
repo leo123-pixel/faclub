@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 // Dados do Supabase local: o admin, um usuário sem papel, os 8 produtos da
 // captura da lista do painel, as configurações e o cupom iniciais, sem banners.
-// Rodar de novo zera o catálogo e repõe tudo.
+// Com `--site` (ou `seed({ site: true })`), os produtos e o banner do site
+// público no lugar dos 8 do painel. Rodar de novo zera o catálogo e repõe tudo.
 //
-//   node scripts/local-supabase/seed.mjs
+//   node scripts/local-supabase/seed.mjs [--site]
 import { createClient } from "@supabase/supabase-js";
 import pg from "pg";
 import { API_URL, DB_URL, SERVICE_ROLE_KEY } from "./config.mjs";
+import { seedSite } from "./site-data.mjs";
 
 export const USERS = {
   admin: { email: "contato@onbind.com.br", password: "faclub-admin-123", app_metadata: { role: "admin" } },
@@ -66,12 +68,14 @@ async function users() {
 }
 
 /** Zera o catálogo e os pedidos e repõe os dados da captura. */
-export async function seed({ products = true } = {}) {
+export async function seed({ products = true, site = false } = {}) {
   const client = new pg.Client({ connectionString: DB_URL });
   await client.connect();
   try {
     await client.query(SEED_SQL);
-    if (products) {
+    if (site) {
+      await seedSite(client);
+    } else if (products) {
       for (const [brand, name, category, label, price, promo, stock, visible, isPromo, viscosity, type] of PRODUCTS) {
         await client.query(
           `select public.save_product(jsonb_build_object(
@@ -93,7 +97,7 @@ export async function seed({ products = true } = {}) {
 }
 
 if (process.argv[1]?.endsWith("seed.mjs")) {
-  seed()
+  seed({ site: process.argv.includes("--site") })
     .then(() => console.log("[seed] catálogo e usuários prontos"))
     .catch((err) => {
       console.error(err);

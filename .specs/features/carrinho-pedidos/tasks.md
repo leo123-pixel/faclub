@@ -176,7 +176,7 @@ T13 → T14 → T15
 
 ---
 
-### T6: Cotação do carrinho
+### T6: Cotação do carrinho ✅
 
 **What**: `src/lib/supabase/service.ts` (`server-only`, chave de serviço) e `POST /api/carrinho`, que lê os produtos visíveis das linhas com o cliente anônimo e devolve `priceCart`; `SUPABASE_SERVICE_ROLE_KEY` já está no stack local.
 **Where**: `src/app/api/carrinho/route.ts`
@@ -186,9 +186,9 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `tests/e2e/cart-api.spec.ts` prova: duas linhas do seed voltam com o preço do banco, subtotais e total; a linha de um produto oculto volta como indisponível; corpo inválido dá 400
-- [ ] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
-- [ ] Test count: 2 e2e tests pass
+- [x] `tests/e2e/cart-api.spec.ts` prova: duas linhas do seed voltam com o preço do banco, subtotais e total; a linha de um produto oculto volta como indisponível; corpo inválido dá 400
+- [x] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
+- [x] Test count: 2 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

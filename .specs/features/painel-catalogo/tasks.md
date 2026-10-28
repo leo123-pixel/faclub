@@ -511,7 +511,7 @@ T26 → T27 → T28
 
 ---
 
-### T21: Enviar fotos
+### T21: Enviar fotos ✅
 
 **What**: `PhotoUploader` com área de arrastar e clicar, redução no canvas para WebP (`heic2any` só para HEIC), envio para `product-images/products/<id>/`, selo "Capa", marcar capa, remover e "Falhou · tentar de novo".
 **Where**: `src/components/admin/product-form/PhotoUploader.tsx`
@@ -521,9 +521,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `src/components/admin/product-form/PhotoUploader.test.tsx` prova: com 6 fotos, a 7ª mostra "Máximo de 6 fotos por produto." (C35); um GIF mostra a mensagem de formato (C36); marcar capa move o selo "Capa" para aquela foto e só ela fica com `is_cover` (C37); a primeira foto enviada recebe "Capa" (C38); remover a capa passa o selo para a primeira restante (C39); envio que falha marca só aquela foto com "Falhou · tentar de novo"
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 6 tests pass
+- [x] `src/components/admin/product-form/PhotoUploader.test.tsx` prova: com 6 fotos, a 7ª mostra "Máximo de 6 fotos por produto." (C35); um GIF mostra a mensagem de formato (C36); marcar capa move o selo "Capa" para aquela foto e só ela fica com `is_cover` (C37); a primeira foto enviada recebe "Capa" (C38); remover a capa passa o selo para a primeira restante (C39); envio que falha marca só aquela foto com "Falhou · tentar de novo"
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 6 tests pass
 
 **Tests**: unit
 **Gate**: quick

@@ -110,7 +110,7 @@ T5 → T6 → T7 → T8 → T9
 
 ---
 
-### T3: Validar o banner
+### T3: Validar o banner ✅
 
 **What**: `validateBanner` (foto e título obrigatórios, link vazio ou começando com `/`, `https://` ou `http://`, ordem inteira não negativa).
 **Where**: `src/lib/domain/banner-input.ts`
@@ -120,9 +120,9 @@ T5 → T6 → T7 → T8 → T9
 
 **Done when**:
 
-- [ ] `src/lib/domain/banner-input.test.ts` cobre: sem foto e sem título dão "Campo obrigatório" nos dois (C3); `www.site.com`, `ftp://x` e `javascript:alert(1)` recusados e `/produtos`, `https://x.com` e vazio aceitos (C4); ordem `-1` e `2,5` recusadas
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 4 tests pass
+- [x] `src/lib/domain/banner-input.test.ts` cobre: sem foto e sem título dão "Campo obrigatório" nos dois (C3); `www.site.com`, `ftp://x` e `javascript:alert(1)` recusados e `/produtos`, `https://x.com` e vazio aceitos (C4); ordem `-1` e `2,5` recusadas
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 4 tests pass
 
 **Tests**: unit
 **Gate**: quick

@@ -2,9 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { productTitle } from "@/lib/domain/admin-products";
 import { formatBRL } from "@/lib/domain/money";
 import { cardPrice, type CatalogItem } from "@/lib/domain/catalog";
-import { CART_SOON } from "./cart-soon";
+import { AddedNotice } from "./AddedNotice";
+import { useCart } from "./CartProvider";
 import { IconPlus } from "./icons";
 import { ProductPhoto } from "./ProductPhoto";
 
@@ -16,6 +18,7 @@ type Layout = "catalog" | "featured" | "related";
  */
 export function ProductCard({ item, layout = "catalog" }: { item: CatalogItem; layout?: Layout }) {
   const [notice, setNotice] = useState(false);
+  const { add } = useCart();
   const price = cardPrice(item);
   const href = `/produtos/${item.slug}`;
   const eyebrow = layout === "related" ? item.brandName : `${item.brandName} · ${price.label}`;
@@ -74,7 +77,11 @@ export function ProductCard({ item, layout = "catalog" }: { item: CatalogItem; l
             <button
               type="button"
               aria-label={`Adicionar ${item.brandName} ${item.name} ao carrinho`}
-              onClick={() => setNotice(true)}
+              onClick={() => {
+                // o card não tem seletor: 1 unidade da primeira embalagem (CART-01 AC 2)
+                add({ productId: item.id, slug: item.slug, title: productTitle(item.brandName, item.name), label: price.label, qty: 1 });
+                setNotice(true);
+              }}
               className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-white hover:bg-navy-2"
             >
               <IconPlus />
@@ -82,11 +89,7 @@ export function ProductCard({ item, layout = "catalog" }: { item: CatalogItem; l
           )}
         </div>
       )}
-      {notice && (
-        <p role="status" className="relative z-10 mt-2 px-1 text-[13px] text-muted">
-          {CART_SOON}
-        </p>
-      )}
+      {notice && <AddedNotice className="relative z-10 mt-2 px-1 text-[13px]" />}
     </article>
   );
 }

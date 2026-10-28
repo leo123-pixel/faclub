@@ -77,7 +77,11 @@ export default async function ProductPage({ params }: PageProps<"/produtos/[slug
           </h1>
           {product.description && <p className="mt-4 text-[17px] leading-relaxed text-muted">{product.description}</p>}
 
-          <PurchaseBox variants={product.variants} isPromo={product.isPromo} />
+          <PurchaseBox
+            product={{ id: product.id, slug: product.slug, title }}
+            variants={product.variants}
+            isPromo={product.isPromo}
+          />
 
           {coupon && (
             <p className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-[16px] bg-gold-soft/60 px-[18px] py-[14px]">

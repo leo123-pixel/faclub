@@ -59,11 +59,12 @@ describe("card de produto", () => {
     expect(screen.getByRole("img", { name: "Sem foto: Lubrax Top Turbo 15W-40" })).toBeInTheDocument();
   });
 
-  it("o card leva à página do produto e o + avisa que o carrinho chega em breve", async () => {
+  it("o card leva à página do produto e o + confirma a adição", async () => {
     render(<ProductCard item={item()} />);
     expect(screen.getByRole("link", { name: "Top Turbo 15W-40" })).toHaveAttribute("href", "/produtos/top-turbo-15w-40");
     await userEvent.click(screen.getByRole("button", { name: "Adicionar Lubrax Top Turbo 15W-40 ao carrinho" }));
-    expect(screen.getByRole("status")).toHaveTextContent("O carrinho chega em breve. Peça pelo WhatsApp.");
+    expect(screen.getByRole("status")).toHaveTextContent("Adicionado ao carrinho");
+    expect(screen.getByRole("link", { name: "Ver carrinho" })).toHaveAttribute("href", "/carrinho");
   });
 });
 

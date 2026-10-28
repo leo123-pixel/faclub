@@ -239,7 +239,7 @@ T13 → T14 → T15
 
 ---
 
-### T9: Adicionar ao carrinho
+### T9: Adicionar ao carrinho ✅
 
 **What**: "Adicionar ao carrinho" da página do produto (embalagem e quantidade escolhidas) e "+" do card (1 unidade da primeira embalagem) passam a adicionar e mostram "Adicionado ao carrinho" com "Ver carrinho"; `CART_SOON` sai.
 **Where**: `src/components/site/PurchaseBox.tsx`
@@ -249,9 +249,9 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `tests/e2e/cart.spec.ts` prova: no Top Turbo, Frasco 1L com quantidade 3 e "Adicionar ao carrinho" mostram "Adicionado ao carrinho" e "Ver carrinho", e `/carrinho` tem a linha Frasco 1L × 3 (C1); o "+" do card do Super adiciona 1 Frasco 1L (C2); o contador da sacola mostra 4, some com o carrinho vazio e não aparece na primeira visita (C4)
-- [ ] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] `tests/e2e/cart.spec.ts` prova: no Top Turbo, Frasco 1L com quantidade 3 e "Adicionar ao carrinho" mostram "Adicionado ao carrinho" e "Ver carrinho", e `/carrinho` tem a linha Frasco 1L × 3 (C1); o "+" do card do Super adiciona 1 Frasco 1L (C2); o contador da sacola mostra 4, some com o carrinho vazio e não aparece na primeira visita (C4)
+- [x] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

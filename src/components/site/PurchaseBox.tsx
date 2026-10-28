@@ -5,20 +5,25 @@ import type { VariantRow } from "@/lib/domain/admin-products";
 import { variantPrice } from "@/lib/domain/catalog";
 import { formatBRL } from "@/lib/domain/money";
 import { chipOrder, packageCaption } from "@/lib/domain/product-page";
-import { CART_SOON } from "./cart-soon";
+import { AddedNotice } from "./AddedNotice";
+import { useCart } from "./CartProvider";
 import { IconMinus, IconPlus } from "./icons";
 
 export const MIN_QTY = 1;
 export const MAX_QTY = 99;
 
+export type PurchaseProduct = { id: string; slug: string; title: string };
+
 /**
  * Embalagem, preço e quantidade (PDP-01 AC 4 a 6 e 14). Abre com a primeira
- * embalagem do cadastro; os chips vão do menor ao maior.
+ * embalagem do cadastro; os chips vão do menor ao maior. "Adicionar ao
+ * carrinho" põe a embalagem e a quantidade escolhidas (CART-01 AC 1).
  */
-export function PurchaseBox({ variants, isPromo }: { variants: VariantRow[]; isPromo: boolean }) {
+export function PurchaseBox({ product, variants, isPromo }: { product: PurchaseProduct; variants: VariantRow[]; isPromo: boolean }) {
   const [label, setLabel] = useState(variants[0]?.label ?? "");
   const [qty, setQty] = useState(MIN_QTY);
   const [notice, setNotice] = useState(false);
+  const { add } = useCart();
   const selected = variants.find((v) => v.label === label) ?? variants[0];
   if (!selected) return null;
   const price = variantPrice(isPromo, selected);
@@ -88,17 +93,16 @@ export function PurchaseBox({ variants, isPromo }: { variants: VariantRow[]; isP
         </div>
         <button
           type="button"
-          onClick={() => setNotice(true)}
+          onClick={() => {
+            add({ productId: product.id, slug: product.slug, title: product.title, label: selected.label, qty });
+            setNotice(true);
+          }}
           className="h-[54px] flex-1 rounded-full bg-ink px-6 text-[16px] font-semibold text-white hover:bg-navy-2"
         >
           Adicionar ao carrinho
         </button>
       </div>
-      {notice && (
-        <p role="status" className="mt-3 text-[14px] text-muted">
-          {CART_SOON}
-        </p>
-      )}
+      {notice && <AddedNotice className="mt-3" />}
     </div>
   );
 }

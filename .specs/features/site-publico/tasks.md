@@ -292,7 +292,7 @@ T17 → T18 → T19
 
 ---
 
-### T11: Serviços, por que a FAC LUB e destaques
+### T11: Serviços, por que a FAC LUB e destaques ✅
 
 **What**: Os 6 cards de "Nossos serviços" no fundo escuro, os 3 de "Por que a FAC LUB" com as fotos do protótipo e "Produtos em destaque" com até 4 `ProductCard` e "Ver todos"; a seção some sem destaques.
 **Where**: `src/app/(site)/page.tsx`
@@ -302,9 +302,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `tests/e2e/site-home.spec.ts` prova: "Produtos em destaque" mostra os 4 destaques do seed e, sem destaques no banco, a seção some (C11); "Ver todos" abre `/produtos` e um card abre a página do produto dele (C13)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 2 e2e tests pass
+- [x] `tests/e2e/site-home.spec.ts` prova: "Produtos em destaque" mostra 4 destaques visíveis, sem o quinto nem o oculto, e, sem destaques no banco, a seção some (C11); "Ver produtos" e "Ver todos" abrem `/produtos` (C12); um card abre a página do produto dele (C13)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

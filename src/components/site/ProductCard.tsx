@@ -22,7 +22,11 @@ export function ProductCard({ item, layout = "catalog" }: { item: CatalogItem; l
   const photoHeight = layout === "related" ? "aspect-[308/260]" : "aspect-[308/320]";
 
   const priceTag = (
-    <p className="flex flex-wrap items-baseline gap-x-2 text-[16px] font-semibold text-ink">
+    <p
+      className={`flex text-[16px] font-semibold text-ink ${
+        layout === "featured" ? "shrink-0 flex-col items-end leading-tight" : "flex-wrap items-baseline gap-x-2"
+      }`}
+    >
       <span>{formatBRL(price.price)}</span>
       {price.regular !== null && (
         <s className="text-[13px] font-normal text-muted">
@@ -50,7 +54,7 @@ export function ProductCard({ item, layout = "catalog" }: { item: CatalogItem; l
 
       <div className="flex items-start gap-3 px-1 pt-[14px]">
         <div className="min-w-0 flex-1">
-          <div className={layout === "featured" ? "flex items-baseline justify-between gap-3" : ""}>
+          <div className={layout === "featured" ? "flex items-start justify-between gap-3" : ""}>
             <p className="truncate text-[13px] text-muted">{eyebrow}</p>
             {layout === "featured" && priceTag}
           </div>

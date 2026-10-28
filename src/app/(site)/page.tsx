@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { HomeBrands } from "@/components/site/home/HomeBrands";
+import { HomeFeatured } from "@/components/site/home/HomeFeatured";
 import { HomeHero } from "@/components/site/home/HomeHero";
+import { HomeServices } from "@/components/site/home/HomeServices";
+import { HomeWhy } from "@/components/site/home/HomeWhy";
 import { loadHomeData, loadSettings } from "@/lib/data/public";
-import { splitAddress } from "@/lib/domain/home";
-import { scheduleLink } from "@/lib/domain/site-settings";
+import { featuredProducts, splitAddress } from "@/lib/domain/home";
+import { budgetLink, scheduleLink } from "@/lib/domain/site-settings";
 
 export const revalidate = 60;
 
@@ -13,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const [settings, { hero, brands, coupon }] = await Promise.all([loadSettings(), loadHomeData()]);
+  const [settings, { hero, brands, coupon, items }] = await Promise.all([loadSettings(), loadHomeData()]);
   const address = splitAddress(settings.address);
   return (
     <main className="flex flex-col">
@@ -25,6 +28,9 @@ export default async function Home() {
         street={address.shortStreet}
       />
       <HomeBrands brands={brands} />
+      <HomeServices budgetHref={budgetLink(settings)} />
+      <HomeWhy />
+      <HomeFeatured items={featuredProducts(items)} />
     </main>
   );
 }

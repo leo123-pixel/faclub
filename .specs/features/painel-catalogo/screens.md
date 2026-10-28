@@ -1,14 +1,16 @@
 # Painel: login e catálogo screens
 
 **Verifier**: independent sub-agent (author != verifier)
-**Round**: 1
+**Round**: 2
 
 | Screen | Compared with | Verdict | Finding |
 | --- | --- | --- | --- |
 | `captures/admin-produtos.running.png` | `captures/admin-produtos.png` | matches | 0 linhas diferem (Oferta em interruptor, item Pedidos e cartão "Pedidos · 30 dias" são AD-006, AD-007 e AD-008) |
-| `captures/admin-cadastro.running.png` | `captures/admin-cadastro.png` | diverges | 6 linhas diferem |
+| `captures/admin-cadastro.running.png` | `captures/admin-cadastro.png` | matches | 0 linhas diferem na rodada 2 (ícones e bloco do usuário são AD-014; chips "Unidade" e "Outra" são AD-013) |
 
-Fotos tiradas por este verificador: app de `scripts/local-supabase/start.mjs --app` (com `E2E_SKIP_BUILD=1`, build já existente) e `seed.mjs`, Playwright/Chromium com janela de 1440×1033 (lista) e 1440×1446 (cadastro), login `contato@onbind.com.br`, estados alcançados como diz a linha `**Walked:**`. A página de cadastro tem 1544 px de altura, por isso a foto de página inteira passa dos 1446 px da janela.
+Rodada 2: só `captures/admin-cadastro.running.png` foi tirada de novo, por um novo verificador, e só as 6 linhas que deram `differs` na rodada 1 foram reabertas. App de `scripts/local-supabase/start.mjs --app` com build novo (sem `E2E_SKIP_BUILD`, sem injetar variáveis no navegador) e `seed.mjs`, Playwright/Chromium a 1440×1446, login `contato@onbind.com.br`, estado da linha `**Walked:**` (duas fotos JPEG 3024×4032 enviadas sem "Enviando…" nem "Falhou", mouse fora das fotos). A página tem 1515 px de altura.
+
+Rodada 1 — fotos tiradas por este verificador: app de `scripts/local-supabase/start.mjs --app` (com `E2E_SKIP_BUILD=1`, build já existente) e `seed.mjs`, Playwright/Chromium com janela de 1440×1033 (lista) e 1440×1446 (cadastro), login `contato@onbind.com.br`, estados alcançados como diz a linha `**Walked:**`. A página de cadastro tem 1544 px de altura, por isso a foto de página inteira passa dos 1446 px da janela.
 
 Nota de ambiente (não é linha do inventário): o build em `.next` usado aqui não tem `NEXT_PUBLIC_SUPABASE_URL` nem `NEXT_PUBLIC_SUPABASE_ANON_KEY` embutidos no bundle do navegador (o chunk lê `process.env.NEXT_PUBLIC_SUPABASE_URL` em tempo de execução, e no navegador ele fica vazio). Com esse build as duas fotos caem em "Falhou · tentar de novo". Para chegar ao estado da captura, o script do verificador injetou `window.process.env` com as variáveis `NEXT_PUBLIC_*` de `scripts/local-supabase/config.mjs` antes de carregar a página; aí o envio ao Storage local respondeu 200 nas duas fotos. Um build feito pelo `start.mjs` sem `E2E_SKIP_BUILD` embute as variáveis; vale conferir que o deploy as define em tempo de build.
 
@@ -49,26 +51,26 @@ Nota de ambiente (não é linha do inventário): o build em `.next` usado aqui n
 | Element | Result | Picture draws |
 | --- | --- | --- |
 | menu lateral azul-marinho com logo, "FAC LUB" e "Painel" | same | nota: logo desenhado como imagem (a captura mostra o logo quebrado) |
-| itens do menu só com texto, sem ícone: Visão geral, Produtos (ativo, dourado), Categorias, Marcas, Banners e ofertas, Cupons, Configurações | differs | cada item tem ícone à esquerda (além de "Pedidos", aprovado em AD-007); a captura admin-produtos desenha os ícones, então as duas capturas se contradizem neste ponto |
-| menu sem bloco de usuário no rodapé | differs | bloco no rodapé com avatar "C", e-mail "contato@onbind.co…" e "Sair" (como na captura admin-produtos) |
+| itens do menu só com texto, sem ícone: Visão geral, Produtos (ativo, dourado), Categorias, Marcas, Banners e ofertas, Cupons, Configurações | same | cada item tem ícone à esquerda (AD-014) e "Pedidos" abaixo de Produtos (AD-007); Produtos ativo em dourado |
+| menu sem bloco de usuário no rodapé | same | bloco no rodapé com avatar "C", e-mail "contato@onbind.co…" e "Sair" (AD-014) |
 | trilha "Produtos / Novo produto" com "Produtos" sublinhado | same | |
 | título "Cadastrar produto" | same | |
 | botões "Cancelar" (contorno) e "Salvar produto" (escuro, texto dourado) à direita | same | nota: ~10 px mais baixos |
 | duas colunas: seções do formulário à esquerda (larga), Publicação e Prévia à direita (estreita) | same | nota: a página fica com 1544 px de altura por causa das linhas extras abaixo |
 | seção "Informações básicas": "Nome do produto" com "Top Turbo 15W-40" | same | |
 | "Marca" (Lubrax) e "Categoria" (Linha pesada) lado a lado em seletores | same | |
-| nada entre os seletores e "Descrição" | differs | link sublinhado "+ Nova marca" abaixo do seletor Marca (TAX-01 AC 8 pede o controle, mas não há linha em `## Differences from the source`) |
+| nada entre os seletores e "Descrição" | same | nada entre os seletores e "Descrição"; "+ Nova marca" passou a ser uma opção dentro do seletor Marca, fora da vista |
 | "Descrição": área de texto com "Para que serve, em qual motor usar, diferenciais..." | same | |
 | seção "Fotos": área tracejada com ícone de envio, "**Arraste as fotos** ou clique para enviar" e "JPG ou PNG, fundo claro de preferência" | same | nota: o texto quebra em quatro linhas ("ou clique para / enviar") |
 | duas miniaturas de foto ao lado da área de envio, a primeira com selo dourado "Capa" | same | nota: as fotos são as imagens de teste enviadas |
-| miniaturas sem botões | differs | botão "Remover" no pé das duas fotos e botão branco "Usar como capa" na segunda, sempre visíveis |
+| miniaturas sem botões | same | as duas miniaturas sem botões, só o selo "Capa" na primeira (com o mouse fora das fotos) |
 | seção "Preço e estoque": linha Preço (R$) "0,00", Preço promocional (R$) "Opcional", Estoque "12" | same | Estoque "12" e "SKU / código" lado a lado; Preço (R$) "0,00" e Preço promocional (R$) "Opcional" num quadro "Balde 20L" abaixo das embalagens (AD-003) |
 | "SKU / código" com "Ex.: LBX-1540-20" | same | nota: ao lado do Estoque, não sozinho na linha de baixo (consequência de AD-003) |
 | "Embalagens disponíveis": chips Frasco 1L, Frasco 4L, Balde 20L (escuro com ✓ e texto dourado), Tambor 200L | same | |
-| só quatro chips de embalagem | differs | mais dois chips: "Unidade" e "Outra" (contorno tracejado); as Assumptions da spec confirmam "Unidade" e embalagem digitada, mas `## Differences from the source` não lista |
+| só quatro chips de embalagem | same | mais dois chips, "Unidade" e "Outra" (contorno tracejado), aprovados em AD-013 |
 | seção "Ficha técnica": Viscosidade "15W-40", Tipo "Mineral" (seletor), Especificação API "Ex.: CI-4" em três colunas | same | |
 | "Aplicação" com "Motores diesel" abaixo, em um terço da largura | same | |
-| cartão "Publicação" com título e traço fino abaixo do título | differs | não há traço entre o título "Publicação" e "Visível no site"; os traços só separam as linhas |
+| cartão "Publicação" com título e traço fino abaixo do título | same | traço fino entre o título "Publicação" e "Visível no site", e entre as linhas |
 | "Visível no site" / "Aparece no catálogo" com interruptor ligado | same | |
 | "Em oferta" / "Selo de oferta e preço promocional" com interruptor ligado | same | |
 | "Destaque na home" / "Entra na vitrine da página inicial" com interruptor desligado | same | |

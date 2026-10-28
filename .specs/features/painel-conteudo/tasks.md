@@ -195,7 +195,7 @@ T5 → T6 → T7 → T8 → T9
 
 ---
 
-### T7: Tela de cupons
+### T7: Tela de cupons ✅
 
 **What**: `/admin/cupons` com a lista (código, percentual, texto, interruptor Ativo), criar e editar no mesmo formulário; actions traduzem código repetido e chamam `revalidatePath('/', 'layout')`.
 **Where**: `src/app/admin/(painel)/cupons/page.tsx`
@@ -205,9 +205,9 @@ T5 → T6 → T7 → T8 → T9
 
 **Done when**:
 
-- [ ] `tests/e2e/coupons.spec.ts` prova: a lista mostra FACLUB10, "10%", o texto e Ativo ligado (C8); criar "faclub10" mostra "Já existe um cupom com esse código." (C11); desligar Ativo do FACLUB10 persiste depois de recarregar sem recarregar a página no clique (C12); salvar " troca 15 " com 15 grava `TROCA15`
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 4 e2e tests pass
+- [x] `tests/e2e/coupons.spec.ts` prova: a lista mostra FACLUB10, "10%", o texto e Ativo ligado (C8); criar "faclub10" mostra "Já existe um cupom com esse código." (C11); desligar Ativo do FACLUB10 persiste depois de recarregar sem recarregar a página no clique (C12); salvar " troca 15 " com 15 grava `TROCA15`
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 4 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

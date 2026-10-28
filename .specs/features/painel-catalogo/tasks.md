@@ -174,7 +174,7 @@ T26 → T27 → T28
 
 ---
 
-### T5: Criar o bucket `product-images` e suas políticas
+### T5: Criar o bucket `product-images` e suas políticas ✅
 
 **What**: Migração que cria o bucket público `product-images` e as políticas de `storage.objects`: leitura pública, escrita e remoção só para admin.
 **Where**: `supabase/migrations/20261028000300_storage.sql`
@@ -184,9 +184,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/db/storage.test.ts` prova: admin insere e remove objeto no bucket; `anon` e autenticado sem papel não inserem; qualquer um lê
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 4 tests pass
+- [x] `tests/db/storage.test.ts` prova: admin insere e remove objeto no bucket; `anon` e autenticado sem papel não inserem; qualquer um lê
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 4 tests pass
 
 **Tests**: integration
 **Gate**: quick

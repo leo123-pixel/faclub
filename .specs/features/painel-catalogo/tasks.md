@@ -363,7 +363,7 @@ T26 → T27 → T28
 
 ---
 
-### T14: Proteger `/admin` com `proxy.ts` e `requireAdmin`
+### T14: Proteger `/admin` com `proxy.ts` e `requireAdmin` ✅
 
 **What**: Clientes Supabase de servidor e navegador, `requireAdmin()` e `src/proxy.ts` que renova a sessão e redireciona `/admin/*` sem sessão para `/admin/login`.
 **Where**: `src/proxy.ts`
@@ -373,9 +373,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/e2e/auth.spec.ts` prova que `/admin/produtos`, `/admin/categorias` e `/admin` sem sessão terminam em `/admin/login` (settles C1)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 1 e2e test passes
+- [x] `tests/e2e/auth.spec.ts` prova que `/admin/produtos`, `/admin/categorias` e `/admin` sem sessão terminam em `/admin/login` (settles C1)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 1 e2e test passes
 
 **Tests**: e2e
 **Gate**: full

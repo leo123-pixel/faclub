@@ -279,7 +279,7 @@ T26 → T27 → T28
 
 ---
 
-### T10: Ler e formatar reais
+### T10: Ler e formatar reais ✅
 
 **What**: `parseBRL` aceita "39,90", "1.234,56", "39.9" e "R$ 39,90"; devolve `null` para texto, vazio e negativo; `formatBRL` devolve "R$ 1.234,56".
 **Where**: `src/lib/domain/money.ts`
@@ -289,9 +289,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `src/lib/domain/money.test.ts` cobre cada formato aceito, os recusados e a formatação com milhar
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 4 tests pass
+- [x] `src/lib/domain/money.test.ts` cobre cada formato aceito, os recusados e a formatação com milhar
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 4 tests pass
 
 **Tests**: unit
 **Gate**: quick

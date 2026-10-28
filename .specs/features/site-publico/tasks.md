@@ -9,8 +9,8 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: `.specs/features/site-publico/design.md`
-**Status**: Draft
-**Approved**: pendente
+**Status**: In Progress
+**Approved**: 2026-10-28 - user: "aprovado, pode seguir"
 **Mutations**: 3
 **Build**: `npm run build; npm run typecheck; npm run lint`
 
@@ -82,7 +82,7 @@ T17 → T18 → T19
 
 ## Task Breakdown
 
-### T1: Configurações do site com valores padrão
+### T1: Configurações do site com valores padrão ✅
 
 **What**: `INITIAL_SETTINGS` (valores iniciais de painel-conteudo), `withDefaults(row | null)` (linha vazia ou campo vazio obrigatório volta ao inicial; grupo e Instagram ficam vazios), `SITE_MESSAGES` e os links `scheduleLink`, `budgetLink` e `contactLink`.
 **Where**: `src/lib/domain/site-settings.ts`
@@ -92,9 +92,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `src/lib/domain/site-settings.test.ts` cobre: `withDefaults(null)` devolve os valores iniciais (Edge Case de `settings` vazia); campo de texto vazio volta ao inicial e grupo vazio continua vazio; `scheduleLink` monta `https://wa.me/55<dígitos>?text=` com a mensagem das configurações; `budgetLink` e `contactLink` usam "Olá! Quero um orçamento." e "Olá! Vim pelo site da FAC LUB."
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 4 tests pass
+- [x] `src/lib/domain/site-settings.test.ts` cobre: `withDefaults(null)` devolve os valores iniciais (Edge Case de `settings` vazia); campo de texto vazio volta ao inicial e grupo vazio continua vazio; `scheduleLink` monta `https://wa.me/55<dígitos>?text=` com a mensagem das configurações; `budgetLink` e `contactLink` usam "Olá! Quero um orçamento." e "Olá! Vim pelo site da FAC LUB."
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 4 tests pass
 
 **Tests**: unit
 **Gate**: quick
@@ -674,7 +674,7 @@ Proof: `npx playwright test tests/e2e/site-seo.spec.ts -g "SEO-01.3:"`
 
 The feature's live state, written as it happens - a compaction gives no warning.
 
-**Settled mid-build:** none
+**Settled mid-build:** execução nesta sessão, sem sub-agentes de lote (oferta com recomendação inline) - user: "aprovado, pode seguir"
 **Dispatched:** none
 **Walked:** not yet
 

@@ -1,7 +1,7 @@
 # Site público: Home, Catálogo e Produto Design
 
 **Spec**: `.specs/features/site-publico/spec.md`
-**Status**: Draft (aprovado junto com tasks.md)
+**Status**: Approved (2026-10-28, junto com tasks.md - user: "aprovado, pode seguir")
 
 ---
 

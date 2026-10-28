@@ -384,7 +384,7 @@ T26 → T27 → T28
 
 ---
 
-### T15: Tela de login
+### T15: Tela de login ✅
 
 **What**: `/admin/login` com e-mail, senha, "Entrar" e "Esqueci minha senha"; action `signIn` com as mensagens da spec e a recusa de quem não é admin.
 **Where**: `src/app/admin/(acesso)/login/page.tsx`
@@ -394,9 +394,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/e2e/auth.spec.ts` prova: admin entra e cai em `/admin/produtos` (C2); senha errada mostra "E-mail ou senha incorretos." com o e-mail mantido (C3); usuário sem papel vê "Este acesso não tem permissão para o painel." e continua sem sessão (C4)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] `tests/e2e/auth.spec.ts` prova: admin entra e cai em `/admin/produtos` (C2); senha errada mostra "E-mail ou senha incorretos." com o e-mail mantido (C3); usuário sem papel vê "Este acesso não tem permissão para o painel." e continua sem sessão (C4)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

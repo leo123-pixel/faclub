@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 // Sobe um Supabase local para o e2e (AD-010): Postgres 16 + Supabase Auth
 // (GoTrue) + PostgREST + SMTP de captura + gateway com Storage simulado.
-// Com --app também gera o build do Next e o serve na porta 3100.
+// Com --app também gera o build do Next e o serve na porta 3100. Com --build
+// só gera o build (as páginas públicas são pré-geradas lendo o banco) e desliga.
 //
-//   node scripts/local-supabase/start.mjs [--app]
+//   node scripts/local-supabase/start.mjs [--app | --build]
 import { execFileSync, spawn, spawnSync } from "node:child_process";
 import { chownSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
@@ -213,21 +214,28 @@ async function main() {
   await waitFor(`http://127.0.0.1:${PORTS.postgrest}/`, "PostgREST");
   log(`pronto em ${API_URL}`);
 
+  const env = { ...APP_ENV, NODE_ENV: "production" };
+  if (process.argv.includes("--build")) {
+    await nextBuild(env);
+    stop();
+    process.exit(0);
+  }
   if (process.argv.includes("--app")) {
-    const env = { ...APP_ENV, NODE_ENV: "production" };
-    if (!process.env.E2E_SKIP_BUILD) {
-      log("next build");
-      // assíncrono: o gateway roda neste processo e precisa responder às
-      // consultas das páginas que o build pré-gera
-      await new Promise((resolve, reject) => {
-        const build = spawn("npx", ["next", "build"], { cwd: ROOT, env: { ...process.env, ...env }, stdio: "inherit" });
-        build.on("exit", (code) => (code === 0 ? resolve() : reject(new Error(`next build saiu com ${code}`))));
-      });
-    }
+    if (!process.env.E2E_SKIP_BUILD) await nextBuild(env);
     run("next", "npx", ["next", "start", "-p", String(PORTS.app)], env);
     await waitFor(APP_URL, "Next");
     log(`app em ${APP_URL}`);
   }
+}
+
+// Assíncrono: o gateway roda neste processo e precisa responder às consultas
+// das páginas que o build pré-gera.
+function nextBuild(env) {
+  log("next build");
+  return new Promise((resolve, reject) => {
+    const build = spawn("npx", ["next", "build"], { cwd: ROOT, env: { ...process.env, ...env }, stdio: "inherit" });
+    build.on("exit", (code) => (code === 0 ? resolve() : reject(new Error(`next build saiu com ${code}`))));
+  });
 }
 
 process.on("SIGINT", () => (stop(), process.exit(0)));

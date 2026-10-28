@@ -60,18 +60,18 @@ test.describe("topo do site", () => {
   test("HEAD-01.5: abaixo de 768 px os links ficam atrás de Abrir menu e Agendar troca segue à vista", async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto("/");
-    await expect(page.getByRole("link", { name: "Produtos", exact: true })).toBeHidden();
+    await expect(header(page).getByRole("link", { name: "Produtos", exact: true })).toBeHidden();
     await expect(schedule(page)).toBeInViewport({ ratio: 1 });
     await page.getByRole("button", { name: "Abrir menu" }).click();
     const menu = page.getByRole("navigation", { name: "Menu principal" });
     await expect(menu.getByRole("link")).toHaveText(["Serviços", "Produtos", "Contato"]);
     await expect(schedule(page)).toBeInViewport({ ratio: 1 });
     await page.getByRole("button", { name: "Fechar menu" }).click();
-    await expect(page.getByRole("link", { name: "Produtos", exact: true })).toBeHidden();
+    await expect(header(page).getByRole("link", { name: "Produtos", exact: true })).toBeHidden();
     // a 768 px os links voltam ao topo e o botão some
     await page.setViewportSize({ width: 768, height: 900 });
     await expect(page.getByRole("button", { name: "Abrir menu" })).toBeHidden();
-    await expect(page.getByRole("link", { name: "Produtos", exact: true })).toBeVisible();
+    await expect(header(page).getByRole("link", { name: "Produtos", exact: true })).toBeVisible();
   });
 
   test("HEAD-01.6: sacola Carrinho entre o menu e Agendar troca, levando a /carrinho", async ({ page }) => {

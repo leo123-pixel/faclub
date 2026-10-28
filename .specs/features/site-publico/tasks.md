@@ -12,7 +12,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 **Status**: In Progress
 **Approved**: 2026-10-28 - user: "aprovado, pode seguir"
 **Mutations**: 3
-**Build**: `npm run build; npm run typecheck; npm run lint`
+**Build**: `npm run build:local; npm run typecheck; npm run lint`
 
 ---
 
@@ -36,7 +36,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 | --- | --- | --- |
 | Quick | Tarefas com testes unit ou de componente | `npx vitest run` |
 | Full | Tarefas com testes e2e | `npx vitest run && npx playwright test` |
-| Build | Fim de fase, ou tarefas só de configuração | `npm run lint && npm run typecheck && npm run build && npx vitest run && npx playwright test` |
+| Build | Fim de fase, ou tarefas só de configuração | `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test` |
 
 ---
 
@@ -177,7 +177,7 @@ T17 → T18 → T19
 **Done when**:
 
 - [x] `node scripts/local-supabase/seed.mjs --site` deixa 12 produtos visíveis e um oculto; o seed sem a opção continua igual (os testes do painel passam)
-- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build && npx vitest run && npx playwright test`
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
 
 **Tests**: none
 **Gate**: build
@@ -228,9 +228,10 @@ T17 → T18 → T19
 
 ---
 
-### T8: Rodapé, política de privacidade e /contato
+### T8: Rodapé, política de privacidade e /contato ✅
 
 **What**: `SiteFooter` nas duas formas das capturas (completa na Home, curta nas demais), `(site)/politica-de-privacidade/page.tsx` com dados do pedido, finalidade, cookies de GA4 e Meta Pixel e o e-mail das configurações, e `/contato` redirecionando para `/#contato` em `next.config.ts`.
+`npm run build:local` (`start.mjs --build`) gera o build com o Supabase local no ar: as páginas públicas são pré-geradas lendo o banco, e o `npm run build` sem Supabase configurado falha.
 **Where**: `src/components/site/SiteFooter.tsx`
 **Depends on**: T7
 **Reuses**: `loadSettings`
@@ -238,9 +239,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `tests/e2e/site-footer.spec.ts` prova: o rodapé da Home tem "© <ano atual> FAC Lubrificantes", "Produtos", "Política de privacidade" e "Área administrativa", e "Instagram" com o link configurado (C16); `/politica-de-privacidade` fala de nome e veículo, finalidade, GA4, Meta Pixel e mostra `contato@faclubrificantes.com.br` (C57); o link "Política de privacidade" está no rodapé de `/`, `/produtos`, de um produto e da própria política (C58); `/contato` termina em `/#contato`
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build && npx vitest run && npx playwright test`
-- [ ] Test count: 4 e2e tests pass
+- [x] `tests/e2e/site-footer.spec.ts` prova: o rodapé da Home tem "© <ano atual> FAC Lubrificantes", "Produtos", "Política de privacidade" e "Área administrativa", e "Instagram" com o link configurado (C16); `/politica-de-privacidade` fala de nome e veículo, finalidade, GA4, Meta Pixel e mostra `contato@faclubrificantes.com.br` (C57); o link "Política de privacidade" está no rodapé de `/`, `/produtos`, de um produto e da própria política (C58); `/contato` termina em `/#contato`
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
+- [x] Test count: 4 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build
@@ -345,7 +346,7 @@ T17 → T18 → T19
 
 - [ ] A Home a 1440 px confere com `.specs/features/site-publico/captures/home.png` (C7, provado no walk)
 - [ ] `tests/e2e/site-home.spec.ts` prova: a seção mostra endereço, horários, "(11) 2954-5764", o e-mail e um iframe do Google Maps com o endereço codificado (C14); o telefone tem `href="tel:1129545764"` e o e-mail `href="mailto:contato@faclubrificantes.com.br"` (C15); com Instagram e grupo vazios os dois botões somem e, preenchidos, aparecem (C17)
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build && npx vitest run && npx playwright test`
+- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
 - [ ] Test count: 3 e2e tests pass
 
 **Tests**: e2e
@@ -367,7 +368,7 @@ T17 → T18 → T19
 
 - [ ] O catálogo a 1440 px confere com `.specs/features/site-publico/captures/catalogo.png`, sem "Carregar mais" com os 12 produtos (C26, provado no walk)
 - [ ] `tests/e2e/site-catalog.spec.ts` prova: o produto oculto do seed não aparece na lista nem na busca pelo nome (C27); clicar "Linha pesada" filtra sem recarregar (um marcador em `window` sobrevive) e a URL ganha `?categoria=linha-pesada` (C28); abrir `/produtos?categoria=filtros` já mostra só filtros com o chip marcado (C29); com 15 produtos visíveis aparecem 12 e "Carregar mais", e o clique mostra 15 e esconde o botão (C36); busca "xyz" mostra "Nenhum produto encontrado. Tente outra busca ou fale com a gente no WhatsApp." e "Chamar no WhatsApp" com o link do WhatsApp, e o mesmo vale com 0 produtos visíveis (C37)
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build && npx vitest run && npx playwright test`
+- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
 - [ ] Test count: 5 e2e tests pass
 
 **Tests**: e2e
@@ -431,7 +432,7 @@ T17 → T18 → T19
 
 - [ ] A página do Top Turbo 15W-40 a 1440 px confere com `.specs/features/site-publico/captures/produto.png` (C43, provado no walk)
 - [ ] `tests/e2e/site-product.spec.ts` prova: um slug inventado e o slug do produto oculto respondem 404 com "Produto não encontrado." e "Ver todos os produtos" (C44); com o FACLUB10 ativo a página mostra o código e "10% de desconto na troca feita na loja." (C52); a trilha é "Home / Produtos / Lubrax Top Turbo 15W-40" com os dois primeiros como links (C53); a 390 px a galeria fica acima das informações, numa coluna (C55); "Combine com" mostra produtos de outras categorias
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build && npx vitest run && npx playwright test`
+- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
 - [ ] Test count: 5 e2e tests pass
 
 **Tests**: e2e
@@ -473,7 +474,7 @@ T17 → T18 → T19
 **Done when**:
 
 - [ ] `tests/e2e/site-seo.spec.ts` prova: `/`, `/produtos`, um produto e a política têm `<title>`, `meta description`, `og:title`, `og:description` e `og:image` diferentes entre si (C59); o produto tem o título "Lubrax Top Turbo 15W-40 | FAC LUB" e `og:image` com a capa (C60); as quatro têm `<html lang="pt-BR">` (C61)
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build && npx vitest run && npx playwright test`
+- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
 - [ ] Test count: 3 e2e tests pass
 
 **Tests**: e2e

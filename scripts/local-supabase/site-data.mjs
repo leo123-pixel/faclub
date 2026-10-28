@@ -1,7 +1,7 @@
 // Dados do site público para o e2e e o walk: os 12 produtos visíveis da
-// captura do catálogo, um oculto, 4 destaques, o banner do topo e fotos
-// geradas (embalagem na cor da marca sobre fundo claro) gravadas direto no
-// Storage simulado.
+// captura do catálogo, um oculto, 4 destaques, o banner do topo, os links do
+// grupo e do Instagram e fotos geradas (embalagem na cor da marca sobre fundo
+// claro) gravadas direto no Storage simulado.
 import { mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
@@ -54,6 +54,12 @@ export const SITE_BANNER = {
   subtitle: "Óleos das principais marcas para carro, utilitário e linha pesada. Rápido, sem enrolação e com o registro da sua próxima troca.",
   link: "/produtos",
   image_path: "banners/seed-topo.webp",
+};
+
+/** Links de exemplo do grupo de ofertas e do Instagram (só no banco local). */
+export const SITE_LINKS = {
+  group: "https://chat.whatsapp.com/exemplo-faclub",
+  instagram: "https://www.instagram.com/exemplo.faclub",
 };
 
 const BRAND_COLORS = { mobil: "#1d4f91", shell: "#d8a400", texaco: "#c8102e", lubrax: "#0f7a3a", urania: "#5b2a86", brutus: "#33363d" };
@@ -127,6 +133,8 @@ export async function seedSite(client) {
     );
   }
   store(SITE_BANNER.image_path, shots.banner);
+  // a captura da Home desenha o botão do grupo e o Instagram do rodapé
+  await client.query("update public.settings set group_link = $1, instagram = $2 where id = 1", [SITE_LINKS.group, SITE_LINKS.instagram]);
   await client.query(
     "insert into public.banners (image_path, title, subtitle, link, is_active, position) values ($1, $2, $3, $4, true, 1)",
     [SITE_BANNER.image_path, SITE_BANNER.title, SITE_BANNER.subtitle, SITE_BANNER.link],

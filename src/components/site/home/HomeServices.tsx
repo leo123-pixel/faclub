@@ -13,7 +13,7 @@ const SERVICES = [
 
 export function HomeServices({ budgetHref }: { budgetHref: string }) {
   return (
-    <section id="servicos" aria-labelledby="servicos-titulo" className="scroll-mt-28 px-4 pt-[100px] max-md:pt-16">
+    <section id="servicos" aria-labelledby="servicos-titulo" className="scroll-mt-28 px-4 pt-[70px] max-md:pt-16">
       <SectionHead
         id="servicos-titulo"
         title="Nossos serviços"

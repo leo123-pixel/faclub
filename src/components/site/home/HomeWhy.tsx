@@ -29,17 +29,17 @@ export function HomeWhy() {
   return (
     <section aria-labelledby="porque-titulo" className="px-4 pt-[120px] max-md:pt-16">
       <SectionHead id="porque-titulo" title="Por que a FAC LUB" text="Um atendimento pensado para quem não pode ficar parado." />
-      <ul className="mx-auto mt-14 grid max-w-[1200px] gap-4 lg:grid-cols-3">
+      <ul className="mx-auto mt-9 grid max-w-[1200px] gap-4 lg:grid-cols-3">
         {REASONS.map((r) => (
           <li
             key={r.title}
-            className={`flex min-h-[460px] overflow-hidden rounded-[24px] bg-bg ${r.photoFirst ? "flex-col-reverse" : "flex-col"}`}
+            className={`flex min-h-[360px] overflow-hidden rounded-[24px] bg-bg ${r.photoFirst ? "flex-col-reverse" : "flex-col"}`}
           >
             <div className="p-6">
               <h3 className="font-display text-[22px] font-semibold tracking-tight text-ink">{r.title}</h3>
               <p className="mt-2 text-[15px] leading-relaxed text-muted">{r.text}</p>
             </div>
-            <div className="relative min-h-[240px] flex-1">
+            <div className="relative h-[240px] shrink-0">
               <Image src={r.photo} alt={r.alt} fill sizes="(min-width: 1024px) 390px, 100vw" className="object-cover" />
             </div>
           </li>

@@ -44,7 +44,7 @@ export default async function ProductPage({ params }: PageProps<"/produtos/[slug
   const related = relatedProducts(product, items);
 
   return (
-    <main className="mx-auto w-full max-w-[1312px] px-4 pb-[120px] max-md:pb-16">
+    <main className="mx-auto w-full max-w-[1312px] px-4 pb-[100px] max-md:pb-16">
       <nav aria-label="Trilha" className="pt-[26px] text-[14px]">
         <ol className="flex flex-wrap gap-1.5 text-muted">
           <li>
@@ -105,7 +105,7 @@ export default async function ProductPage({ params }: PageProps<"/produtos/[slug
           >
             Combine com
           </h2>
-          <ul aria-label="Combine com" className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-4">
+          <ul aria-label="Combine com" className="mt-[18px] grid grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-4">
             {related.map((item) => (
               <li key={item.id}>
                 <ProductCard item={item} layout="related" />

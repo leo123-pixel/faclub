@@ -126,6 +126,8 @@ test.describe("Home", () => {
   });
 
   test("HOME-01.11: Instagram e grupo vazios escondem os botões; preenchidos, eles aparecem", async ({ page }) => {
+    await serviceClient().from("settings").update({ group_link: null, instagram: null }).eq("id", 1);
+    await refreshSite();
     await page.goto("/");
     await expect(page.getByRole("link", { name: "Entrar no grupo de ofertas" })).toHaveCount(0);
     await expect(page.getByRole("contentinfo").getByRole("link", { name: "Instagram" })).toHaveCount(0);

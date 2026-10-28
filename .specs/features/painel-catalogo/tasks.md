@@ -238,7 +238,7 @@ T26 → T27 → T28
 
 ---
 
-### T8: Popular o Supabase local com os dados das capturas
+### T8: Popular o Supabase local com os dados das capturas ✅
 
 **What**: `scripts/local-supabase/seed.mjs` cria o admin `contato@onbind.com.br` (papel admin), um usuário sem papel e os 8 produtos da captura da lista, com estoques 48, 32, 4, 12, 9, 3, 15 e 60, três em oferta e um oculto; mais `scripts/create-admin.mjs` para a Onbind criar admins no Supabase real.
 **Where**: `scripts/local-supabase/seed.mjs`
@@ -248,8 +248,8 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `node scripts/local-supabase/seed.mjs` roda duas vezes seguidas sem erro e sem duplicar dados
-- [ ] Gate check passes: build gate
+- [x] `node scripts/local-supabase/seed.mjs` roda duas vezes seguidas sem erro e sem duplicar dados
+- [x] Gate check passes: build gate
 
 **Tests**: none
 **Gate**: build

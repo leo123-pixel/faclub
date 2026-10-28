@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { acceptPhoto, resizeTarget, setCover, withNewPhoto, withoutPhoto, type Photo } from "./photos";
+import { acceptPhoto, resizeTarget, setCover, withNewPhoto, withoutPhoto, withValidCover, type Photo } from "./photos";
 
 const MB = 1024 * 1024;
 const p = (id: string, isCover = false): Photo => ({ id, path: `products/x/${id}.webp`, isCover });
@@ -48,5 +48,19 @@ describe("regras das fotos", () => {
     expect(withoutPhoto(photos, "b")).toEqual([p("a", true), p("c")]);
     expect(withoutPhoto(photos, "c")).toEqual([p("a"), p("b", true)]);
     expect(withoutPhoto([p("a", true)], "a")).toEqual([]);
+  });
+
+  it("foto com envio falho não fica com a capa", () => {
+    const failedCover = { ...p("a", true), failed: true };
+    expect(withValidCover([failedCover, p("b")])).toEqual([{ ...p("a"), failed: true }, p("b", true)]);
+    expect(withValidCover([p("a"), p("b", true)])).toEqual([p("a"), p("b", true)]);
+    expect(withValidCover([{ ...p("a", true), failed: true }])).toEqual([{ ...p("a"), failed: true }]);
+  });
+
+  it("respeita um limite menor que 6 (logo de marca)", () => {
+    expect(acceptPhoto({ type: "image/png", size: 10, name: "a.png" }, 1, 1)).toEqual({
+      ok: false,
+      message: "Máximo de 6 fotos por produto.",
+    });
   });
 });

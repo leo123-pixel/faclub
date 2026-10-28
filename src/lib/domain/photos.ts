@@ -18,8 +18,9 @@ export function isHeic(file: { type: string; name: string }) {
 export function acceptPhoto(
   file: { type: string; size: number; name: string },
   currentCount: number,
+  max = MAX_PHOTOS,
 ): { ok: true } | { ok: false; message: string } {
-  if (currentCount >= MAX_PHOTOS) return { ok: false, message: PHOTO_MESSAGES.tooMany };
+  if (currentCount >= max) return { ok: false, message: PHOTO_MESSAGES.tooMany };
   const typeOk = TYPES.includes(file.type) || isHeic(file);
   if (!typeOk || file.size > MAX_PHOTO_BYTES) return { ok: false, message: PHOTO_MESSAGES.badFile };
   return { ok: true };
@@ -44,4 +45,14 @@ export function withoutPhoto(photos: Photo[], id: string): Photo[] {
   const rest = photos.filter((ph) => ph.id !== id);
   if (removed?.isCover && rest.length > 0) return setCover(rest, rest[0].id);
   return rest;
+}
+
+/**
+ * A capa fica numa foto que não falhou: a atual, se ainda vale, ou a primeira
+ * que vale. Foto com envio falho nunca é capa.
+ */
+export function withValidCover<T extends Photo & { failed?: boolean }>(photos: T[]): T[] {
+  const usable = photos.filter((p) => !p.failed);
+  const cover = usable.find((p) => p.isCover) ?? usable[0];
+  return photos.map((p) => ({ ...p, isCover: p === cover }));
 }

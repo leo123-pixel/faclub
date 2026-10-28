@@ -1,13 +1,13 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { acceptPhoto, MAX_PHOTOS, setCover, withNewPhoto, withoutPhoto, type Photo } from "@/lib/domain/photos";
+import { acceptPhoto, MAX_PHOTOS, setCover, withNewPhoto, withoutPhoto, withValidCover, type Photo } from "@/lib/domain/photos";
 import { publicImageUrl } from "@/lib/storage";
 
 export type UploadFn = (blob: Blob, path: string) => Promise<{ ok: boolean }>;
 export type PrepareFn = (file: File) => Promise<Blob>;
 
-type Item = Photo & { status: "ok" | "uploading" | "failed"; preview?: string; blob?: Blob };
+type Item = Photo & { status: "ok" | "uploading" | "failed"; failed?: boolean; preview?: string; blob?: Blob };
 
 type Props = {
   productId: string;
@@ -29,10 +29,11 @@ export function PhotoUploader({ productId, photos, onChange, upload, prepare, fo
   const input = useRef<HTMLInputElement>(null);
   const dir = folder ?? `products/${productId}`;
 
-  // Só as fotos já enviadas valem para o produto.
+  // Só as fotos já enviadas valem para o produto, e a capa nunca fica numa que falhou.
   function commit(next: Item[]) {
-    setItems(next);
-    onChange(next.filter((i) => i.status === "ok").map(({ id, path, isCover }) => ({ id, path, isCover })));
+    const fixed = withValidCover(next.map((i) => ({ ...i, failed: i.status === "failed" })));
+    setItems(fixed);
+    onChange(fixed.filter((i) => i.status === "ok").map(({ id, path, isCover }) => ({ id, path, isCover })));
   }
 
   async function send(item: Item, current: Item[]) {
@@ -47,9 +48,10 @@ export function PhotoUploader({ productId, photos, onChange, upload, prepare, fo
 
   async function addFiles(files: FileList | File[]) {
     setMessage(null);
-    let current = items;
-    for (const file of Array.from(files)) {
-      const check = acceptPhoto(file, current.length);
+    // Com uma foto só (logo), a nova troca a anterior.
+    let current = max === 1 ? [] : items;
+    for (const file of Array.from(files).slice(0, max === 1 ? 1 : undefined)) {
+      const check = acceptPhoto(file, current.length, max);
       if (!check.ok) {
         setMessage(check.message);
         continue;
@@ -113,7 +115,7 @@ export function PhotoUploader({ productId, photos, onChange, upload, prepare, fo
           <figure
             key={item.id}
             aria-label={`Foto ${index + 1}`}
-            className="relative h-[168px] w-[134px] overflow-hidden rounded-xl bg-navy-2"
+            className="group relative h-[168px] w-[134px] overflow-hidden rounded-xl bg-navy-2"
           >
             {/* eslint-disable-next-line @next/next/no-img-element -- prévia local ou foto do Storage */}
             <img
@@ -138,7 +140,7 @@ export function PhotoUploader({ productId, photos, onChange, upload, prepare, fo
                 Falhou · tentar de novo
               </button>
             ) : (
-              <figcaption className="absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-gradient-to-t from-navy/90 p-2">
+              <figcaption className="absolute inset-x-0 bottom-0 flex flex-col gap-1 bg-gradient-to-t from-navy/90 p-2 transition-opacity lg:opacity-0 lg:group-focus-within:opacity-100 lg:group-hover:opacity-100">
                 {!item.isCover && (
                   <button
                     type="button"

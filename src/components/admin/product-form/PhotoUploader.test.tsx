@@ -13,9 +13,11 @@ const prepare = async (f: File) => new Blob([f], { type: "image/webp" });
 const okUpload: UploadFn = async () => ({ ok: true });
 const user = () => userEvent.setup({ applyAccept: false });
 
-function setup(photos: Photo[] = [], upload: UploadFn = okUpload) {
+function setup(photos: Photo[] = [], upload: UploadFn = okUpload, max?: number) {
   const onChange = vi.fn<(p: Photo[]) => void>();
-  render(<PhotoUploader productId="p1" photos={photos} onChange={onChange} upload={upload} prepare={prepare} />);
+  render(
+    <PhotoUploader productId="p1" photos={photos} onChange={onChange} upload={upload} prepare={prepare} max={max} />,
+  );
   return { onChange, input: () => screen.getByLabelText("Enviar fotos") };
 }
 
@@ -89,5 +91,26 @@ describe("PhotoUploader", () => {
     expect(lastCall(onChange)).toHaveLength(1);
     await user().click(within(second).getByRole("button", { name: "Falhou · tentar de novo" }));
     expect(lastCall(onChange)).toHaveLength(2);
+  });
+
+  it("se a 1ª foto falha e a 2ª é enviada, a 2ª vira capa", async () => {
+    let calls = 0;
+    const firstFails: UploadFn = async () => ({ ok: calls++ !== 0 });
+    const { input, onChange } = setup([], firstFails);
+    await user().upload(input(), [file("a.jpg", "image/jpeg"), file("b.jpg", "image/jpeg")]);
+    expect(lastCall(onChange)).toEqual([expect.objectContaining({ isCover: true })]);
+    expect(within(screen.getByRole("figure", { name: "Foto 2" })).getByText("Capa")).toBeVisible();
+    expect(within(screen.getByRole("figure", { name: "Foto 1" })).queryByText("Capa")).toBeNull();
+  });
+
+  it("com max 1 (logo), uma segunda foto troca a primeira", async () => {
+    const { input, onChange } = setup([], okUpload, 1);
+    await user().upload(input(), file("a.png", "image/png"));
+    const first = lastCall(onChange)[0].path;
+    await user().upload(input(), file("b.png", "image/png"));
+    const photos = lastCall(onChange);
+    expect(photos).toHaveLength(1);
+    expect(photos[0].path).not.toBe(first);
+    expect(screen.getAllByRole("figure")).toHaveLength(1);
   });
 });

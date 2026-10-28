@@ -364,7 +364,7 @@ T13 → T14 → T15
 
 ---
 
-### T15: Status e filtro dos pedidos
+### T15: Status e filtro dos pedidos ✅
 
 **What**: Seletor de status por pedido com gravação sem recarregar (Server Action com `requireAdmin` e `revalidatePath`) e abas "Todos", "Novo", "Atendido" e "Cancelado" na URL (`?status=`).
 **Where**: `src/app/admin/(painel)/pedidos/OrderStatus.tsx`
@@ -374,9 +374,9 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `tests/e2e/orders.spec.ts` prova: trocar "Novo" por "Atendido" grava sem recarregar e continua depois de recarregar (C27); a aba "Atendido" mostra só os atendidos e "Novo" só os novos (C28)
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
-- [ ] Test count: 2 e2e tests pass
+- [x] `tests/e2e/orders.spec.ts` prova: trocar "Novo" por "Atendido" grava sem recarregar e continua depois de recarregar (C27); a aba "Atendido" mostra só os atendidos e "Novo" só os novos (C28)
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
+- [x] Test count: 2 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build

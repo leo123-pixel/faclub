@@ -63,8 +63,8 @@ test.describe("pedidos no painel", () => {
     await expect(card).toContainText("João");
     await expect(card).toContainText("ABC1D23");
     await expect(card).toContainText("FACLUB10");
-    await expect(card).toContainText("Novo");
-    await expect(page.getByRole("listitem", { name: `Pedido nº ${first}` })).toContainText("Atendido");
+    await expect(card.getByRole("combobox", { name: `Status do pedido nº ${second}` })).toHaveValue("Novo");
+    await expect(page.getByRole("combobox", { name: `Status do pedido nº ${first}` })).toHaveValue("Atendido");
   });
 
   test("ORD-01.5: sem pedidos a lista mostra Nenhum pedido ainda.", async ({ page }) => {
@@ -72,4 +72,39 @@ test.describe("pedidos no painel", () => {
     await expect(page.getByText("Nenhum pedido ainda.")).toBeVisible();
     await expect(page.getByRole("list", { name: "Pedidos" })).toHaveCount(0);
   });
+
+  test("ORD-01.2: mudar o status grava sem recarregar a página", async ({ page }) => {
+    const [, second] = await addOrders();
+    await open(page);
+    await page.evaluate(() => ((window as unknown as { __marca: boolean }).__marca = true));
+    const select = page.getByRole("combobox", { name: `Status do pedido nº ${second}` });
+    await select.selectOption("Atendido");
+    await expect(select).toHaveValue("Atendido");
+    await expect(select).toBeEnabled();
+    expect(await page.evaluate(() => (window as unknown as { __marca?: boolean }).__marca)).toBe(true);
+    const { data } = await serviceClient().from("orders").select("status").eq("id", second).single();
+    expect(data).toEqual({ status: "Atendido" });
+    await page.reload();
+    await expect(page.getByRole("combobox", { name: `Status do pedido nº ${second}` })).toHaveValue("Atendido");
+  });
+
+  test("ORD-01.3: o filtro por status mostra só os pedidos daquele status", async ({ page }) => {
+    const [first, second, third] = await addOrders();
+    await open(page);
+    const filters = page.getByRole("navigation", { name: "Filtrar por status" });
+    await filters.getByRole("link", { name: "Atendido" }).click();
+    await expect(page).toHaveURL(/status=Atendido$/);
+    await expect(cards(page)).toHaveCount(1);
+    await expect(cards(page)).toHaveAttribute("aria-label", `Pedido nº ${first}`);
+    await filters.getByRole("link", { name: "Novo" }).click();
+    expect(await cards(page).evaluateAll((els) => els.map((e) => e.getAttribute("aria-label")))).toEqual([
+      `Pedido nº ${third}`,
+      `Pedido nº ${second}`,
+    ]);
+    await filters.getByRole("link", { name: "Cancelado" }).click();
+    await expect(page.getByText("Nenhum pedido com o status Cancelado.")).toBeVisible();
+    await filters.getByRole("link", { name: "Todos" }).click();
+    await expect(cards(page)).toHaveCount(3);
+  });
 });
+

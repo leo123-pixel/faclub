@@ -271,9 +271,9 @@ T17 → T18 → T19
 
 ---
 
-### T10: Topo, faixa e marcas da Home
+### T10: Topo, faixa e marcas da Home ✅
 
-**What**: Topo com o banner ativo (título, texto, foto e link) ou o padrão com a foto do box de serviço, "Agendar pelo WhatsApp" e "Ver produtos"; faixa com horários, endereço e o selo do cupom; seção de marcas em texto cinza (logo quando houver).
+**What**: Topo com o banner ativo (título, texto, foto e link) ou o padrão com a foto do box de serviço, "Agendar pelo WhatsApp" e "Ver produtos"; faixa com horários, endereço e o selo do cupom; seção de marcas em texto cinza (logo quando houver), em ordem alfabética.
 **Where**: `src/app/(site)/page.tsx`
 **Depends on**: T9
 **Reuses**: `activeBanner`, `couponBadge`, `loadHomeData`, `next/image`
@@ -281,9 +281,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `tests/e2e/site-home.spec.ts` prova: com o banner do seed o topo mostra título, texto, foto e o link dele (C8); a faixa mostra "Seg a Sex 7h às 18h", "Sábado 8h às 13h", o endereço e "10% OFF · FACLUB10" (C9); a seção de marcas lista Lubrax, Mobil, Shell e as demais do seed (C10); "Ver produtos" abre `/produtos` (C12)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 4 e2e tests pass
+- [x] `tests/e2e/site-home.spec.ts` prova: com o banner do seed o topo mostra título, texto, foto e o link dele (C8); a faixa mostra "Seg a Sex 7h às 18h", "Sábado 8h às 13h", o endereço e "10% OFF · FACLUB10" (C9); a seção de marcas lista as marcas do seed e uma nova, em ordem alfabética, já que `brands` não tem campo de ordem (C10); "Ver produtos" abre `/produtos` (C12)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 4 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

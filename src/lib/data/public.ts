@@ -40,7 +40,7 @@ export async function loadHomeData() {
   const supabase = createPublicSupabase();
   const [banners, brands, items, coupon] = await Promise.all([
     supabase.from("banners").select("image_path, title, subtitle, link, is_active, position"),
-    supabase.from("brands").select("name, logo_path").order("created_at").order("name"),
+    supabase.from("brands").select("name, logo_path").order("name"),
     loadVisibleProducts(),
     loadCoupon(),
   ]);

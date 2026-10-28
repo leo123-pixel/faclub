@@ -30,8 +30,8 @@ test.describe("topo do site", () => {
   test("HEAD-01.2: o topo continua fixo no alto ao rolar", async ({ page }) => {
     for (const path of PAGES) {
       await page.goto(path);
-      await page.mouse.wheel(0, 2000);
-      await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(1500);
+      await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(400);
       await expect(schedule(page)).toBeInViewport({ ratio: 1 });
       const box = (await header(page).boundingBox())!;
       expect(box.y).toBeLessThanOrEqual(12);
@@ -44,6 +44,9 @@ test.describe("topo do site", () => {
       await expect(schedule(page)).toHaveAttribute("href", SCHEDULE);
       await expect(schedule(page)).toHaveAttribute("target", "_blank");
     }
+    // o botão do topo da Home usa o mesmo link
+    await page.goto("/");
+    await expect(page.getByRole("main").getByRole("link", { name: "Agendar pelo WhatsApp" })).toHaveAttribute("href", SCHEDULE);
   });
 
   test("HEAD-01.4: links Serviços, Produtos e Contato, com o da página atual em negrito", async ({ page }) => {

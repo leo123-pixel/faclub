@@ -469,7 +469,7 @@ T26 → T27 → T28
 
 ---
 
-### T19: Interruptor com atualização otimista
+### T19: Interruptor com atualização otimista ✅
 
 **What**: `Switch` acessível (`role="switch"`, 44 px de alvo) e `RowToggle`, que muda na hora, chama a action recebida por prop e volta com a mensagem quando ela falha.
 **Where**: `src/components/admin/RowToggle.tsx`
@@ -479,9 +479,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `src/components/admin/RowToggle.test.tsx` prova: clique muda `aria-checked` na hora; action que devolve `{ ok: false }` volta o interruptor e mostra "Não foi possível salvar. Tente de novo." (C28); action que devolve a mensagem de oferta mostra essa mensagem
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 3 tests pass
+- [x] `src/components/admin/RowToggle.test.tsx` prova: clique muda `aria-checked` na hora; action que devolve `{ ok: false }` volta o interruptor e mostra "Não foi possível salvar. Tente de novo." (C28); action que devolve a mensagem de oferta mostra essa mensagem
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 3 tests pass
 
 **Tests**: unit
 **Gate**: quick

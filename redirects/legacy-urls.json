@@ -1,0 +1,14 @@
+[
+  { "from": "/a-empresa/", "to": "/" },
+  { "from": "/about/", "to": "/" },
+  { "from": "/servicos/", "to": "/#servicos" },
+  { "from": "/services/", "to": "/#servicos" },
+  { "from": "/contato/", "to": "/#contato" },
+  { "from": "/2019/10/22/hello-world/", "to": "/" },
+  { "from": "/2018/03/16/hello-world-2/", "to": "/" },
+  { "from": "/category/uncategorized/", "to": "/" },
+  { "from": "/style_category/simple-pattern-style/", "to": "/" },
+  { "from": "/style_category/christmas-style/", "to": "/" },
+  { "from": "/style_category/valentines-day-style/", "to": "/" },
+  { "from": "/author/Lirolla/", "to": "/" }
+]

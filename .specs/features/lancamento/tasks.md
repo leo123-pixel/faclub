@@ -132,7 +132,7 @@ T11 → T12 → T13
 
 ---
 
-### T4: Sitemap e URLs antigas
+### T4: Sitemap e URLs antigas ✅
 
 **What**: `sitemapEntries(siteUrl, products, now)` e `buildRedirects(list)` (301 com e sem barra final, mais `/wp-content/*`, `/wp-admin/*` e `/feed/*` para a Home); `redirects/legacy-urls.json` com as 12 URLs do `wp-sitemap.xml` do WordPress (a Home não precisa de redirecionamento).
 **Where**: `src/lib/domain/legacy-redirects.ts`
@@ -142,10 +142,10 @@ T11 → T12 → T13
 
 **Done when**:
 
-- [ ] `src/lib/domain/legacy-redirects.test.ts` prova: cada par do arquivo é um caminho antigo começando com `/` e um destino interno do site novo, sem caminho repetido, e `buildRedirects` gera para ele uma entrada 301 com e sem a barra final (C19); as regras gerais existem
-- [ ] `src/lib/domain/sitemap.test.ts` cobre: Home, `/produtos`, política e cada produto com a data de alteração; URLs absolutas
-- [ ] Gate check passes: `npm run typecheck && npx vitest run`
-- [ ] Test count: 4 tests pass
+- [x] `src/lib/domain/legacy-redirects.test.ts` prova: cada par do arquivo é um caminho antigo começando com `/` e um destino interno do site novo, sem caminho repetido, e `buildRedirects` gera para ele uma entrada 301 com e sem a barra final (C19); as regras gerais existem
+- [x] `src/lib/domain/sitemap.test.ts` cobre: Home, `/produtos`, política e cada produto com a data de alteração; URLs absolutas
+- [x] Gate check passes: `npm run typecheck && npx vitest run`
+- [x] Test count: 5 tests pass
 
 **Tests**: unit
 **Gate**: quick

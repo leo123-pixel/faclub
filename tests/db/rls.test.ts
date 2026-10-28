@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ADMIN, tx, USER, type Claims, type Tx } from "./setup/db";
+import { ADMIN, SELF_DECLARED_ADMIN, tx, USER, type Claims, type Tx } from "./setup/db";
 
 type Fixture = { visible: string; hidden: string; brand: string; category: string };
 
@@ -66,6 +66,10 @@ describe("RLS do catálogo", () => {
 
     it(`AUTH-01.8: autenticado sem papel admin não insere, altera nem exclui em ${table}`, async () => {
       await tx((db) => expectNoWrite(db, "authenticated", USER, table));
+    });
+
+    it(`AUTH-01.8: role admin em user_metadata não dá acesso de escrita em ${table}`, async () => {
+      await tx((db) => expectNoWrite(db, "authenticated", SELF_DECLARED_ADMIN, table));
     });
 
     it(`admin insere, altera e exclui em ${table}`, async () => {

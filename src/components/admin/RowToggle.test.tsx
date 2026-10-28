@@ -37,6 +37,17 @@ describe("RowToggle", () => {
     expect(sw).toHaveAttribute("aria-checked", "true");
   });
 
+  it("PTOG-01.4: depois de um sucesso, a falha volta à posição anterior, não à inicial", async () => {
+    const results: ToggleResult[] = [{ ok: true }, { ok: false, message: "Não foi possível salvar. Tente de novo." }];
+    render(<RowToggle initial={false} label="Em oferta: Delvac" action={async () => results.shift()!} />);
+    const sw = screen.getByRole("switch", { name: "Em oferta: Delvac" });
+    await userEvent.click(sw); // liga: gravou
+    await screen.findByRole("switch", { name: "Em oferta: Delvac", checked: true });
+    await userEvent.click(sw); // desliga: falhou
+    expect(await screen.findByRole("alert")).toHaveTextContent("Não foi possível salvar. Tente de novo.");
+    expect(sw).toHaveAttribute("aria-checked", "true");
+  });
+
   it("mostra a mensagem que a action devolve e trata exceção como falha", async () => {
     const { unmount } = render(
       <RowToggle

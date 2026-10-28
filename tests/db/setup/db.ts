@@ -1,7 +1,12 @@
 import { Client } from "pg";
 import { inject } from "vitest";
 
-export type Claims = { sub?: string; role?: string; app_metadata?: Record<string, unknown> };
+export type Claims = {
+  sub?: string;
+  role?: string;
+  app_metadata?: Record<string, unknown>;
+  user_metadata?: Record<string, unknown>;
+};
 
 export type Tx = {
   query: <R = Record<string, unknown>>(sql: string, params?: unknown[]) => Promise<R[]>;
@@ -22,6 +27,13 @@ export const USER: Claims = {
   sub: "00000000-0000-0000-0000-00000000b001",
   role: "authenticated",
   app_metadata: {},
+};
+/** Usuário que se declarou admin em user_metadata, campo que ele mesmo edita. */
+export const SELF_DECLARED_ADMIN: Claims = {
+  sub: "00000000-0000-0000-0000-00000000c001",
+  role: "authenticated",
+  app_metadata: {},
+  user_metadata: { role: "admin" },
 };
 
 /** Roda fn numa transação que sempre volta atrás, isolando cada teste. */

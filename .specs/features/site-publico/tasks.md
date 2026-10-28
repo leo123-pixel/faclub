@@ -356,7 +356,7 @@ T17 → T18 → T19
 
 ---
 
-### T14: Catálogo
+### T14: Catálogo ✅
 
 **What**: `(site)/produtos/page.tsx` com título, texto, e `CatalogBrowser` (cliente): chips de categoria na ordem do painel, busca, ordem, contador, grade de `ProductCard`, "Carregar mais" e o vazio com "Chamar no WhatsApp"; estado em `?categoria=`, `?q=` e `?ordem=` com `history.replaceState`.
 **Where**: `src/components/site/CatalogBrowser.tsx`
@@ -366,10 +366,10 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] O catálogo a 1440 px confere com `.specs/features/site-publico/captures/catalogo.png`, sem "Carregar mais" com os 12 produtos (C26, provado no walk)
-- [ ] `tests/e2e/site-catalog.spec.ts` prova: o produto oculto do seed não aparece na lista nem na busca pelo nome (C27); clicar "Linha pesada" filtra sem recarregar (um marcador em `window` sobrevive) e a URL ganha `?categoria=linha-pesada` (C28); abrir `/produtos?categoria=filtros` já mostra só filtros com o chip marcado (C29); com 15 produtos visíveis aparecem 12 e "Carregar mais", e o clique mostra 15 e esconde o botão (C36); busca "xyz" mostra "Nenhum produto encontrado. Tente outra busca ou fale com a gente no WhatsApp." e "Chamar no WhatsApp" com o link do WhatsApp, e o mesmo vale com 0 produtos visíveis (C37)
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
-- [ ] Test count: 5 e2e tests pass
+- [x] O catálogo a 1440 px confere com `.specs/features/site-publico/captures/catalogo.png`, sem "Carregar mais" com os 12 produtos (C26, provado no walk)
+- [x] `tests/e2e/site-catalog.spec.ts` prova: o produto oculto do seed não aparece na lista nem na busca pelo nome (C27); clicar "Linha pesada" filtra sem recarregar (um marcador em `window` sobrevive) e a URL ganha `?categoria=linha-pesada` (C28); abrir `/produtos?categoria=filtros` já mostra só filtros com o chip marcado (C29); com 15 produtos visíveis aparecem 12 e "Carregar mais", e o clique mostra 15 e esconde o botão (C36); busca "xyz" mostra "Nenhum produto encontrado. Tente outra busca ou fale com a gente no WhatsApp." e "Chamar no WhatsApp" com o link do WhatsApp, e o mesmo vale com 0 produtos visíveis (C37)
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
+- [x] Test count: 5 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build

@@ -2,7 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { seedSite } from "./support/site";
 
 // Páginas públicas que o topo precisa cobrir; cresce com as tarefas do site.
-const PAGES = ["/"];
+const PAGES = ["/", "/produtos"];
 
 const SCHEDULE =
   "https://wa.me/551129545764?text=" + encodeURIComponent("Olá! Quero agendar uma troca de óleo.");
@@ -58,6 +58,11 @@ test.describe("topo do site", () => {
     await expect(nav.getByRole("link", { name: "Contato" })).toHaveAttribute("href", "/#contato");
     // na Home nenhum dos três é a página atual
     await expect(nav.locator("[aria-current=page]")).toHaveCount(0);
+    await page.goto("/produtos");
+    const current = nav.locator("[aria-current=page]");
+    await expect(current).toHaveText("Produtos");
+    await expect(current).toHaveCSS("font-weight", "600");
+    await expect(nav.getByRole("link", { name: "Serviços" })).toHaveCSS("font-weight", "500");
   });
 
   test("HEAD-01.5: abaixo de 768 px os links ficam atrás de Abrir menu e Agendar troca segue à vista", async ({ page }) => {

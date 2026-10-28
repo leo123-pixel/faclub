@@ -313,7 +313,7 @@ T17 → T18 → T19
 
 ---
 
-### T12: Bloco do cupom
+### T12: Bloco do cupom ✅
 
 **What**: `CouponBlock` com o código, "Copiar" (rótulo "Copiado" por 2 s; sem permissão, seleciona o código e mostra "Selecione e copie o código."), o texto da spec, o aviso de que vale só para serviços na loja e "Entrar no grupo de ofertas" em nova aba (escondido sem link); a seção some sem cupom ativo.
 **Where**: `src/components/site/CouponBlock.tsx`
@@ -323,9 +323,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `src/components/site/CouponBlock.test.tsx` cobre: "Copiar" grava FACLUB10 na área de transferência e o rótulo vira "Copiado" e volta depois de 2 s (C22); com `clipboard.writeText` recusado o código fica selecionado e aparece "Selecione e copie o código." (C23); o texto "Mostre o cupom no atendimento e entre no grupo para receber as ofertas da semana." e o aviso de serviços na loja aparecem (C24); "Entrar no grupo de ofertas" tem o link do grupo, `target="_blank"` e `rel="noopener noreferrer"` (C25)
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 5 tests pass
+- [x] `src/components/site/CouponBlock.test.tsx` cobre: "Copiar" grava FACLUB10 na área de transferência e o rótulo vira "Copiado" e volta depois de 2 s (C22); com `clipboard.writeText` recusado o código fica selecionado e aparece "Selecione e copie o código." (C23); o texto "Mostre o cupom no atendimento e entre no grupo para receber as ofertas da semana." e o aviso de serviços na loja aparecem (C24); "Entrar no grupo de ofertas" tem o link do grupo, `target="_blank"` e `rel="noopener noreferrer"` (C25)
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 5 tests pass
 
 **Tests**: unit
 **Gate**: quick

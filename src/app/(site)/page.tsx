@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { HomeBrands } from "@/components/site/home/HomeBrands";
+import { HomeCoupon } from "@/components/site/home/HomeCoupon";
 import { HomeFeatured } from "@/components/site/home/HomeFeatured";
 import { HomeHero } from "@/components/site/home/HomeHero";
 import { HomeServices } from "@/components/site/home/HomeServices";
@@ -31,6 +32,7 @@ export default async function Home() {
       <HomeServices budgetHref={budgetLink(settings)} />
       <HomeWhy />
       <HomeFeatured items={featuredProducts(items)} />
+      <HomeCoupon coupon={coupon} groupLink={settings.groupLink} />
     </main>
   );
 }

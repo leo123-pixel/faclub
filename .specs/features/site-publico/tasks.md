@@ -250,7 +250,7 @@ T17 → T18 → T19
 
 ---
 
-### T9: Card de produto
+### T9: Card de produto ✅
 
 **What**: `ProductCard` da captura: foto (ou imagem neutra quando não há foto ou ela não carrega), selo "Oferta", "Marca · Embalagem", nome, preço com o normal riscado em oferta e o botão "+" com o aviso "O carrinho chega em breve. Peça pelo WhatsApp."; o card inteiro leva a `/produtos/<slug>`.
 **Where**: `src/components/site/ProductCard.tsx`
@@ -260,9 +260,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `src/components/site/ProductCard.test.tsx` cobre: item em oferta mostra "Oferta", o promocional e o normal riscado, e fora de oferta só o preço (C38); mostra marca, embalagem, nome e "R$ 1.234,56" para 1234.56 (C39); `onError` da foto troca pela imagem neutra (Edge Case); o link vai para `/produtos/<slug>`
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 4 tests pass
+- [x] `src/components/site/ProductCard.test.tsx` cobre: item em oferta mostra "Oferta", o promocional e o normal riscado, e fora de oferta só o preço (C38); mostra marca, embalagem, nome e "R$ 1.234,56" para 1234.56 (C39); `onError` da foto troca pela imagem neutra (Edge Case); o link vai para `/produtos/<slug>`
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 4 tests pass
 
 **Tests**: unit
 **Gate**: quick

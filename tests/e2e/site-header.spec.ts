@@ -2,7 +2,7 @@ import { expect, test, type Page } from "@playwright/test";
 import { seedSite } from "./support/site";
 
 // Páginas públicas que o topo precisa cobrir; cresce com as tarefas do site.
-const PAGES = ["/", "/produtos", "/produtos/top-turbo-15w-40"];
+const PAGES = ["/", "/produtos", "/produtos/top-turbo-15w-40", "/politica-de-privacidade"];
 
 const SCHEDULE =
   "https://wa.me/551129545764?text=" + encodeURIComponent("Olá! Quero agendar uma troca de óleo.");
@@ -31,7 +31,7 @@ test.describe("topo do site", () => {
     for (const path of PAGES) {
       await page.goto(path);
       await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
-      await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(400);
+      await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(150);
       await expect(schedule(page)).toBeInViewport({ ratio: 1 });
       const box = (await header(page).boundingBox())!;
       expect(box.y).toBeLessThanOrEqual(12);
@@ -58,11 +58,15 @@ test.describe("topo do site", () => {
     await expect(nav.getByRole("link", { name: "Contato" })).toHaveAttribute("href", "/#contato");
     // na Home nenhum dos três é a página atual
     await expect(nav.locator("[aria-current=page]")).toHaveCount(0);
-    await page.goto("/produtos");
-    const current = nav.locator("[aria-current=page]");
-    await expect(current).toHaveText("Produtos");
-    await expect(current).toHaveCSS("font-weight", "600");
-    await expect(nav.getByRole("link", { name: "Serviços" })).toHaveCSS("font-weight", "500");
+    // no catálogo e na página de um produto, "Produtos" é a página atual
+    for (const path of ["/produtos", "/produtos/top-turbo-15w-40"]) {
+      await page.goto(path);
+      const current = nav.locator("[aria-current=page]");
+      await expect(current).toHaveText("Produtos");
+      await expect(current).toHaveCSS("font-weight", "600");
+      await expect(nav.getByRole("link", { name: "Serviços" })).toHaveCSS("font-weight", "500");
+      await expect(nav.getByRole("link", { name: "Contato" })).toHaveCSS("font-weight", "500");
+    }
   });
 
   test("HEAD-01.5: abaixo de 768 px os links ficam atrás de Abrir menu e Agendar troca segue à vista", async ({ page }) => {

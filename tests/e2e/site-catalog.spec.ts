@@ -82,13 +82,17 @@ test.describe("catálogo", () => {
     await page.goto("/produtos");
     await expect(grid(page).getByRole("listitem")).toHaveCount(12);
     await expect(page.getByRole("button", { name: "Carregar mais" })).toHaveCount(0);
-    await addVisibleProducts(3);
+    // 27 visíveis: 12, depois 24, depois os 27 e o botão some
+    await addVisibleProducts(15);
     await refreshSite();
     await page.goto("/produtos");
-    await expect(count(page)).toHaveText("15 produtos");
+    await expect(count(page)).toHaveText("27 produtos");
     await expect(grid(page).getByRole("listitem")).toHaveCount(12);
     await page.getByRole("button", { name: "Carregar mais" }).click();
-    await expect(grid(page).getByRole("listitem")).toHaveCount(15);
+    await expect(grid(page).getByRole("listitem")).toHaveCount(24);
+    await expect(page.getByRole("button", { name: "Carregar mais" })).toBeVisible();
+    await page.getByRole("button", { name: "Carregar mais" }).click();
+    await expect(grid(page).getByRole("listitem")).toHaveCount(27);
     await expect(page.getByRole("button", { name: "Carregar mais" })).toHaveCount(0);
   });
 

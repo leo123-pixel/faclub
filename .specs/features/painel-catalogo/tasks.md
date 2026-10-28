@@ -153,7 +153,7 @@ T26 → T27 → T28
 
 ---
 
-### T4: Criar `is_admin()` e as políticas RLS
+### T4: Criar `is_admin()` e as políticas RLS ✅
 
 **What**: Migração com `public.is_admin()` e RLS em todas as tabelas: leitura pública só de produtos visíveis (e suas embalagens e fotos), categorias, marcas, banners ativos, cupons ativos e settings; escrita e leitura total só para admin; `orders` fechada para `anon`.
 **Where**: `supabase/migrations/20261028000200_rls.sql`
@@ -163,9 +163,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/db/rls.test.ts` prova para `anon`, autenticado sem papel e admin: leitura de produto visível e oculto; insert, update e delete em products, product_variants, product_images, categories e brands; leitura de orders (settles C8)
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 18 tests pass
+- [x] `tests/db/rls.test.ts` prova para `anon`, autenticado sem papel e admin: leitura de produto visível e oculto; insert, update e delete em products, product_variants, product_images, categories e brands; leitura de orders (settles C8)
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 18 tests pass
 
 **Tests**: integration
 **Gate**: quick

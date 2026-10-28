@@ -76,3 +76,5 @@ Nota de ambiente (não é linha do inventário): o build em `.next` usado aqui n
 | "Destaque na home" / "Entra na vitrine da página inicial" com interruptor desligado | same | |
 | cartão escuro "Prévia no site" abaixo da Publicação | same | |
 | card da prévia: área da foto com selo dourado "Oferta" no canto, depois "Lubrax", "Top Turbo 15W-40", "Balde 20L" e preço dourado | same | nota: a área da foto mostra a capa enviada; o preço aparece como "R$ —" porque nenhum preço foi digitado ("[PREÇO]" é marcador) |
+
+**Nota do orquestrador (2026-10-28):** o gate pede a imagem no tamanho da captura (1440×1446). A imagem do round 2 era de página inteira (1440×1515, o formulário cresceu com os preços por embalagem, AD-003). Ela foi refeita com o mesmo script do screens sub-agent (`shot.js`), no mesmo estado e em build novo, só trocando `fullPage: true` por `fullPage: false`; o recorte tira os 69 px finais da Ficha técnica e não muda nenhuma linha julgada.

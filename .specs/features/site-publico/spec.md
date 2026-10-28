@@ -89,6 +89,10 @@ O site atual é um WordPress de 2016, sem catálogo, e não ajuda a vender. O mo
 9. WHEN o visitante usa o telefone THEN o sistema SHALL abrir `tel:` com o número; WHEN usa o e-mail THEN SHALL abrir `mailto:`
 10. The rodapé SHALL mostrar "© <ano atual> FAC Lubrificantes" e os links "Instagram", "Produtos", "Política de privacidade" e "Área administrativa"
 11. WHERE o link do Instagram ou do grupo estiver vazio nas configurações o sistema SHALL esconder o botão correspondente
+12. WHEN o administrador salva um banner, o cupom ou as configurações no painel THEN a Home SHALL mostrar a mudança em até 1 minuto
+13. WHEN o administrador desativa o único banner ativo THEN a Home SHALL mostrar o topo padrão em até 1 minuto
+14. IF não houver cupom ativo THEN a Home e a página do produto SHALL esconder os blocos de cupom
+15. WHEN o administrador muda o WhatsApp nas configurações THEN todos os botões de WhatsApp do site SHALL usar o novo número em até 1 minuto
 
 **Independent Test**: Abrir `/` com os dados de exemplo e comparar com a captura; trocar o horário no painel e ver a Home mudar.
 
@@ -203,6 +207,7 @@ O site atual é um WordPress de 2016, sem catálogo, e não ajuda a vender. O mo
 
 - IF o Supabase estiver fora do ar no momento da revalidação THEN o site SHALL continuar servindo a última versão gerada das páginas
 - IF uma foto do produto não carregar THEN o card SHALL mostrar a imagem neutra no lugar
+- IF a tabela `settings` estiver vazia THEN o site SHALL usar os valores iniciais de painel-conteudo (Assumptions)
 - WHEN o catálogo tem 0 produtos visíveis THEN `/produtos` SHALL mostrar a mesma mensagem de "Nenhum produto encontrado."
 - The site SHALL atender WCAG 2.1 AA: contraste de 4,5:1, navegação por teclado com foco visível, `alt` em toda foto e alvos de toque de 44 px
 
@@ -213,7 +218,7 @@ O site atual é um WordPress de 2016, sem catálogo, e não ajuda a vender. O mo
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
 | HEAD-01 | P1: Agendar a troca em um toque (AC 1-6) | Design | Pending |
-| HOME-01 | P1: Ver a Home (AC 1-11) | Design | Pending |
+| HOME-01 | P1: Ver a Home (AC 1-15) | Design | Pending |
 | CUPOM-01 | P2: Copiar o cupom e entrar no grupo (AC 1-4) | Design | Pending |
 | CAT-01 | P1: Encontrar o produto no catálogo (AC 1-17) | Design | Pending |
 | PDP-01 | P1: Ver a página do produto (AC 1-14) | Design | Pending |

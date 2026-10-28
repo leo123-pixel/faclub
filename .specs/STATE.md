@@ -114,6 +114,14 @@
 - **Date**: 2026-10-28
 - **Status**: active
 
+### AD-015 · active
+- **Decision**: Onde um critério aprovado da spec de site-publico pede outra coisa que a captura desenha, vale o critério: "Carregar mais" só aparece com mais de 12 produtos (CAT-01 AC 10 e 11; a captura desenha "12 produtos" com o botão), "Combine com" traz produtos de outras categorias (PDP-01 AC 12; a captura põe o Rimula, da mesma categoria do Top Turbo) e o bloco do cupom diz que o desconto vale só para serviços na loja (CUPOM-01 AC 3; a captura não tem essa linha).
+- **Reason**: Os três vêm de premissas e critérios da spec aprovada com a captura à vista ("Itens por carga no catálogo: 12 produtos; Carregar mais traz mais 12" e "'Combine com': até 4 produtos visíveis de outras categorias", ambas citando a captura) - user: "ok para todas as recomendações, pode seguir"; o Verifier e o sub-agente de telas apontaram as diferenças em 2026-10-28.
+- **Trade-off**: As telas do catálogo, do produto e da Home diferem da captura nesses três pontos.
+- **Scope**: site-publico
+- **Date**: 2026-10-28
+- **Status**: active
+
 ## Handoff
 
 - **Feature**: site-publico (`.specs/features/site-publico`)

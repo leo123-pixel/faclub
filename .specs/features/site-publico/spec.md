@@ -238,6 +238,9 @@ PRD coberto aqui: RF01 a RF10, US01, US02, US04, metatags da seção 8.
 | Botão "Pedir pelo WhatsApp" na página do produto | Botão "Adicionar ao carrinho" | y - AD-004 |
 | Topo sem carrinho | Ícone de sacola com contador entre o menu e "Agendar troca" | y - AD-005 |
 | Rodapé com "Instagram", "Produtos" e "Área administrativa" | Rodapé com "Política de privacidade" a mais, exigido pelo RF10 | y - AD-005 |
+| Catálogo com "12 produtos" e "Carregar mais" ao mesmo tempo | "Carregar mais" só com mais de 12 produtos (CAT-01 AC 11) | y - AD-015 |
+| "Combine com" do Top Turbo com o Rimula R4, da mesma categoria | "Combine com" só com produtos de outras categorias (PDP-01 AC 12) | y - AD-015 |
+| Bloco do cupom sem dizer onde o desconto vale | Linha "O desconto vale só para serviços feitos na loja." (CUPOM-01 AC 3) | y - AD-015 |
 
 ## Sources
 

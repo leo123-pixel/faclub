@@ -5,7 +5,7 @@ import { useActionState } from "react";
 import { signIn } from "../actions";
 import type { SignInState } from "../messages";
 
-export function LoginForm({ initialError }: { initialError: string | null }) {
+export function LoginForm({ initialError, back }: { initialError: string | null; back?: string }) {
   const [state, action, pending] = useActionState<SignInState, FormData>(signIn, {
     error: initialError,
     email: "",
@@ -14,6 +14,7 @@ export function LoginForm({ initialError }: { initialError: string | null }) {
   return (
     <form action={action} className="space-y-4">
       <h1 className="font-display text-xl font-semibold text-ink">Entrar no painel</h1>
+      {back && <input type="hidden" name="volta" value={back} />}
       <label className="block text-sm font-medium text-ink">
         E-mail
         <input

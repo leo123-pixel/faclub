@@ -5,6 +5,7 @@ import { adminKpis, filterAdminProducts, productTitle, type AdminTab } from "@/l
 import { requireAdmin } from "@/lib/supabase/admin-guard";
 import { PageHeader } from "../PageHeader";
 import { setPromo, setVisibility } from "./actions";
+import { PRODUCT_SAVED } from "./messages";
 import { KpiCards } from "./KpiCards";
 import { ProductFilters } from "./ProductFilters";
 import { ProductsTable } from "./ProductsTable";
@@ -60,6 +61,11 @@ export default async function ProductsPage({ searchParams }: PageProps<"/admin/p
           </>
         }
       />
+      {one(sp.salvo) === "1" && (
+        <p role="status" className="mb-4 rounded-xl bg-ok/10 px-4 py-3 font-semibold text-ok">
+          {PRODUCT_SAVED}
+        </p>
+      )}
       <KpiCards kpis={adminKpis(rows, orders30)} />
 
       <section aria-label="Lista de produtos" className="overflow-hidden rounded-2xl border border-line-soft bg-white">

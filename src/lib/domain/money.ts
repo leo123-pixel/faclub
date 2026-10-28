@@ -15,3 +15,8 @@ const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" 
 export function formatBRL(value: number): string {
   return brl.format(value).replace(/ /g, " ");
 }
+
+/** Valor para preencher um campo de preço: 389.9 vira "389,90". */
+export function toInputBRL(value: number | null): string {
+  return value === null ? "" : value.toFixed(2).replace(".", ",");
+}

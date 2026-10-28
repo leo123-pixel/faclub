@@ -176,25 +176,40 @@ export function ProductForm(props: Props) {
           </div>
         </Section>
 
-        <Section title="Publicação" className="order-2 lg:col-start-2 lg:row-start-1">
-          <div className="divide-y divide-line-soft">
-            {(
-              [
-                ["isVisible", "Visível no site", "Aparece no catálogo"],
-                ["isPromo", "Em oferta", "Selo de oferta e preço promocional"],
-                ["isFeatured", "Destaque na home", "Entra na vitrine da página inicial"],
-              ] as const
-            ).map(([key, title, hint]) => (
-              <div key={key} className="flex items-center justify-between gap-3 py-2">
-                <div className="leading-tight">
-                  <p className="font-semibold text-ink">{title}</p>
-                  <p className="text-[13px] text-muted">{hint}</p>
+        {/* No celular as duas caixas da direita entram na coluna única (contents); no computador viram a coluna lateral. */}
+        <div className="contents lg:col-start-2 lg:row-span-5 lg:row-start-1 lg:flex lg:flex-col lg:gap-5">
+          <Section title="Publicação" className="order-2">
+            <div className="divide-y divide-line-soft">
+              {(
+                [
+                  ["isVisible", "Visível no site", "Aparece no catálogo"],
+                  ["isPromo", "Em oferta", "Selo de oferta e preço promocional"],
+                  ["isFeatured", "Destaque na home", "Entra na vitrine da página inicial"],
+                ] as const
+              ).map(([key, title, hint]) => (
+                <div key={key} className="flex items-center justify-between gap-3 py-2">
+                  <div className="leading-tight">
+                    <p className="font-semibold text-ink">{title}</p>
+                    <p className="text-[13px] text-muted">{hint}</p>
+                  </div>
+                  <Switch checked={values[key]} label={title} onChange={(v) => set(key, v)} />
                 </div>
-                <Switch checked={values[key]} label={title} onChange={(v) => set(key, v)} />
-              </div>
-            ))}
+              ))}
+            </div>
+          </Section>
+          <div className="order-6">
+            <PreviewCard
+              brandName={brandName}
+              name={values.name}
+              packageLabel={first?.label ?? ""}
+              price={first ? parseBRL(first.price) : null}
+              promoPrice={first?.promoPrice ? parseBRL(first.promoPrice) : null}
+              isPromo={values.isPromo}
+              coverUrl={cover ? publicImageUrl(cover.path) : null}
+            />
           </div>
-        </Section>
+        </div>
+
 
         <Section title="Fotos" className="order-3 lg:col-start-1">
           <PhotoUploader
@@ -269,18 +284,6 @@ export function ProductForm(props: Props) {
             </label>
           </div>
         </Section>
-
-        <div className="order-6 lg:col-start-2 lg:row-span-4 lg:row-start-2">
-          <PreviewCard
-            brandName={brandName}
-            name={values.name}
-            packageLabel={first?.label ?? ""}
-            price={first ? parseBRL(first.price) : null}
-            promoPrice={first?.promoPrice ? parseBRL(first.promoPrice) : null}
-            isPromo={values.isPromo}
-            coverUrl={cover ? publicImageUrl(cover.path) : null}
-          />
-        </div>
       </div>
     </form>
   );

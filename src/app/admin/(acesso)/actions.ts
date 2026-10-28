@@ -18,5 +18,6 @@ export async function signIn(_prev: SignInState, form: FormData): Promise<SignIn
     await supabase.auth.signOut();
     return { error: SIGN_IN_MESSAGES.forbidden, email };
   }
-  redirect("/admin/produtos");
+  const back = String(form.get("volta") ?? "");
+  redirect(back.startsWith("/admin/") && !back.startsWith("//") ? back : "/admin/produtos");
 }

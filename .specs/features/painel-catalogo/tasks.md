@@ -595,7 +595,7 @@ T26 → T27 → T28
 
 ---
 
-### T25: Páginas de novo produto e edição
+### T25: Páginas de novo produto e edição ✅
 
 **What**: `/admin/produtos/novo` e `/admin/produtos/[id]` com `ProductForm`, action `saveProduct` (valida de novo, chama `save_product`, revalida e volta com "Produto salvo."), `BrandQuickCreate` ("+ Nova marca") e rascunho em `sessionStorage` quando a sessão expira.
 **Where**: `src/app/admin/(painel)/produtos/[id]/page.tsx`
@@ -605,10 +605,10 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] A tela de "Novo produto" a 1440 px confere com `.specs/features/painel-catalogo/captures/admin-cadastro.png` (C29, provado no walk)
-- [ ] `tests/e2e/product-form.spec.ts` prova: "Editar" abre o formulário com nome, marca, categoria, embalagens, preços e fotos do produto (C30); uma foto PNG de 3000×2000 chega ao Storage como `image/webp` com 1600×1067 (C34); salvar um produto válido volta para a lista com "Produto salvo." e a linha nova (C42); ligar "Destaque na home", salvar e reabrir mostra o interruptor ligado (C43); a 390 px as seções ficam numa coluna com Publicação logo depois de Informações básicas (C47); "+ Nova marca" com "Ipiranga" cria a marca e já a deixa selecionada (C57)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 6 e2e tests pass
+- [x] A tela de "Novo produto" a 1440 px confere com `.specs/features/painel-catalogo/captures/admin-cadastro.png` (C29, provado no walk)
+- [x] `tests/e2e/product-form.spec.ts` prova: "Editar" abre o formulário com nome, marca, categoria, embalagens, preços e fotos do produto (C30); uma foto PNG de 3000×2000 chega ao Storage como `image/webp` com 1600×1067 (C34); salvar um produto válido volta para a lista com "Produto salvo." e a linha nova (C42); ligar "Destaque na home", salvar e reabrir mostra o interruptor ligado (C43); a 390 px as seções ficam numa coluna com Publicação logo depois de Informações básicas (C47); "+ Nova marca" com "Ipiranga" cria a marca e já a deixa selecionada (C57)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 6 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

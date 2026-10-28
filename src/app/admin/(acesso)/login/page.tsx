@@ -5,6 +5,11 @@ import { LoginForm } from "./LoginForm";
 export const metadata: Metadata = { title: "Entrar | FAC LUB Painel", robots: { index: false } };
 
 export default async function LoginPage({ searchParams }: PageProps<"/admin/login">) {
-  const { erro } = await searchParams;
-  return <LoginForm initialError={erro === "sem-permissao" ? SIGN_IN_MESSAGES.forbidden : null} />;
+  const { erro, volta } = await searchParams;
+  return (
+    <LoginForm
+      initialError={erro === "sem-permissao" ? SIGN_IN_MESSAGES.forbidden : null}
+      back={typeof volta === "string" ? volta : undefined}
+    />
+  );
 }

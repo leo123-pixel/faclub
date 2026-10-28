@@ -78,11 +78,38 @@ test.describe("envio do pedido", () => {
     ]);
   });
 
-  test("o 6º envio em 10 minutos responde 429", async ({ request }) => {
-    for (let i = 0; i < 5; i++) expect((await request.post("/api/pedidos", { data: await body() })).status()).toBe(200);
-    const res = await request.post("/api/pedidos", { data: await body() });
+  test("o 6º envio do mesmo IP em 10 minutos responde 429; outro IP continua enviando", async ({ request }) => {
+    const from = (ip: string) => ({ "x-forwarded-for": `${ip}, 10.0.0.1` });
+    for (let i = 0; i < 5; i++) {
+      expect((await request.post("/api/pedidos", { data: await body(), headers: from("200.1.1.1") })).status()).toBe(200);
+    }
+    const res = await request.post("/api/pedidos", { data: await body(), headers: from("200.1.1.1") });
     expect(res.status()).toBe(429);
     expect(await res.json()).toEqual({ error: "Muitos pedidos seguidos. Espere alguns minutos ou fale direto no WhatsApp." });
+    expect((await request.post("/api/pedidos", { data: await body(), headers: from("200.2.2.2") })).status()).toBe(200);
+    const { count } = await serviceClient().from("orders").select("id", { count: "exact", head: true });
+    expect(count).toBe(6);
+  });
+
+  test("CART-04.5: a rota ignora preço, total e título vindos do navegador e usa o banco", async ({ request }) => {
+    const id = (await cartLine("rimula-r4-15w-40", "Balde 20L", 1)).productId;
+    const res = await request.post("/api/pedidos", {
+      data: {
+        ...(await body()),
+        lines: [{ productId: id, label: "Balde 20L", qty: 2, price: 1, promoPrice: 0.5, title: "Barato" }],
+        total: 1,
+        items: [{ title: "Barato", price: 1 }],
+      },
+    });
+    expect(res.status()).toBe(200);
+    const json = await res.json();
+    // Rimula tem promocional cadastrado, mas sem oferta ligada: vale o preço normal
+    expect(json.total).toBe(919.8);
+    const { data } = await serviceClient().from("orders").select("items, total_estimated").eq("id", json.number).single();
+    expect(data!.total_estimated).toBe(919.8);
+    expect(data!.items).toEqual([
+      { productId: id, title: "Shell Rimula R4 15W-40", label: "Balde 20L", qty: 2, price: 459.9, subtotal: 919.8 },
+    ]);
   });
 });
 

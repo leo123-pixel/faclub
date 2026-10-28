@@ -190,9 +190,38 @@ test.describe("falhas no envio", () => {
     await page.getByLabel("Nome (opcional)").fill("João");
     const started = Date.now();
     sent = await sendAndRead(context, page);
+    // espera os 5 s antes de desistir do servidor, e não mais que isso
+    expect(Date.now() - started).toBeGreaterThanOrEqual(4900);
     expect(Date.now() - started).toBeLessThan(5900);
     expect(sent.text).toBe(expected);
     expect(sent.text).not.toContain("Pedido nº");
+  });
+});
+
+test.describe("plano B sem cotação", () => {
+  test("CART-05.1: sem cotação e sem gravação, os itens saem com preço a confirmar", async ({ context, page }) => {
+    await page.route("**/api/carrinho", (route) => route.fulfill({ status: 500, body: "erro" }));
+    await page.route("**/api/pedidos", (route) => route.fulfill({ status: 500, body: "erro" }));
+    await page.goto("/politica-de-privacidade");
+    const lines = await twoItems();
+    await page.evaluate(
+      (l) => window.localStorage.setItem("faclub:carrinho", JSON.stringify({ version: 1, updatedAt: new Date().toISOString(), lines: l })),
+      lines,
+    );
+    await page.goto("/carrinho");
+    await expect(page.getByText("Não foi possível atualizar os preços.")).toBeVisible();
+    const sent = await sendAndRead(context, page);
+    expect(sent.text).toBe(
+      [
+        "Olá! Quero fazer este pedido pelo site:",
+        "",
+        "- Lubrax Top Turbo 15W-40 · Balde 20L · 2 x preço a confirmar",
+        "- Mobil Filtro de ar · Unidade · 1 x preço a confirmar",
+        "",
+        "Total estimado: a confirmar",
+      ].join("\n"),
+    );
+    await expect(page.getByText("Pedido enviado! Termine a conversa no WhatsApp.")).toBeVisible();
   });
 });
 

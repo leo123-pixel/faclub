@@ -118,6 +118,32 @@ describe("mensagem do pedido", () => {
   });
 });
 
+describe("plano B sem cotação", () => {
+  it("CART-05.1: item sem preço sai com preço a confirmar e o total com a confirmar", () => {
+    const text = orderMessage({
+      number: null,
+      items: [
+        { title: "Lubrax Top Turbo 15W-40", label: "Balde 20L", qty: 2, price: 349.9, subtotal: 699.8 },
+        { title: "Mobil Filtro de ar", label: "Unidade", qty: 1, price: null, subtotal: null },
+      ],
+      total: null,
+      name: "",
+      vehicle: "",
+      coupon: null,
+    });
+    expect(text).toBe(
+      [
+        "Olá! Quero fazer este pedido pelo site:",
+        "",
+        "- Lubrax Top Turbo 15W-40 · Balde 20L · 2 x R$ 349,90 = R$ 699,80",
+        "- Mobil Filtro de ar · Unidade · 1 x preço a confirmar",
+        "",
+        "Total estimado: a confirmar",
+      ].join("\n"),
+    );
+  });
+});
+
 describe("validação do pedido", () => {
   const valid = { lines: [{ productId: "p1", label: "Balde 20L", qty: 2 }], name: "", vehicle: "", coupon: false, sourceUrl: "/carrinho" };
 
@@ -127,6 +153,31 @@ describe("validação do pedido", () => {
       expect(validateOrderInput(body)).toEqual({ ok: false, message: "Use até 80 caracteres no nome e 40 no veículo." });
     }
     expect(ORDER_MESSAGES.length).toBe("Use até 80 caracteres no nome e 40 no veículo.");
+  });
+
+  it("conta caracteres como o banco: acentos decompostos e emojis valem 1", () => {
+    const decomposed = "e\u0301".repeat(80); // 80 "é" escritos com acento separado
+    const ok = validateOrderInput({ ...valid, name: decomposed, vehicle: "🚗".repeat(40) });
+    expect(ok.ok).toBe(true);
+    expect(ok.ok && Array.from(ok.value.name)).toHaveLength(80);
+    expect(validateOrderInput({ ...valid, vehicle: "🚗".repeat(41) })).toEqual({ ok: false, message: ORDER_MESSAGES.length });
+  });
+
+  it("linhas repetidas do mesmo produto e embalagem somam e não passam de 99", () => {
+    const merged = validateOrderInput({
+      ...valid,
+      lines: [
+        { productId: "p1", label: "Balde 20L", qty: 40 },
+        { productId: "p1", label: "Frasco 1L", qty: 1 },
+        { productId: "p1", label: "Balde 20L", qty: 59 },
+      ],
+    });
+    expect(merged.ok && merged.value.lines).toEqual([
+      { productId: "p1", label: "Balde 20L", qty: 99 },
+      { productId: "p1", label: "Frasco 1L", qty: 1 },
+    ]);
+    const over = validateOrderInput({ ...valid, lines: Array.from({ length: 30 }, () => ({ productId: "p1", label: "Balde 20L", qty: 99 })) });
+    expect(over).toEqual({ ok: false, message: ORDER_MESSAGES.invalid });
   });
 
   it("até 30 linhas e quantidade inteira de 1 a 99; o resto recusa", () => {

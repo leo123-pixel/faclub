@@ -109,6 +109,20 @@ Cupom: <código> (troca na loja)
 
 ---
 
+### P1: Plano B sem cotação
+
+**User Story**: Como comprador, quero que o pedido chegue à loja mesmo quando o site não consegue buscar os preços nem gravar o pedido.
+
+**Why P1**: Achado do Verifier em 2026-10-28: com o Supabase fora do ar, o plano B de CART-04 AC 12 mandava a mensagem sem nenhum item.
+
+**Acceptance Criteria**:
+
+1. IF o plano B de CART-04 AC 12 não tiver o preço de um item THEN a mensagem SHALL listar o item como "- <marca> <nome> · <embalagem> · <qtd> x preço a confirmar" e o total como "Total estimado: a confirmar"
+
+**Independent Test**: Com a cotação e a gravação fora do ar, enviar 2 itens: o WhatsApp abre com os dois itens e "preço a confirmar".
+
+---
+
 ### P2: Ver os pedidos no painel
 
 **User Story**: Como administrador, quero ver os pedidos enviados pelo site e marcar o andamento.
@@ -141,9 +155,10 @@ Cupom: <código> (troca na loja)
 | --- | --- | --- | --- |
 | CART-01 | P1: Montar o carrinho (AC 1-11) | Design | Pending |
 | CART-04 | P1: Enviar o pedido pelo WhatsApp (AC 1-14) | Design | Pending |
+| CART-05 | P1: Plano B sem cotação (AC 1) | Execute | Pending |
 | ORD-01 | P2: Ver os pedidos no painel (AC 1-5) | Design | Pending |
 
-**Coverage:** 3 total, 0 mapped to tasks, 3 unmapped ⚠️ (tasks vêm depois da aprovação)
+**Coverage:** 4 total; CART-05 entrou depois do Verifier (2026-10-28) e é provado por C31.
 
 PRD coberto aqui: RF11 a RF15, RF25, US03, US07.
 

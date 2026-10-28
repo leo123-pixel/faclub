@@ -129,10 +129,19 @@ export function CartView({ whatsapp, coupon }: { whatsapp: string; coupon: Coupo
     };
     // plano B: a mesma mensagem com a última cotação, sem o número do pedido
     const openWithoutNumber = () => {
+      // itens que ainda não têm preço entram com "preço a confirmar" (CART-05)
+      const unpriced = new Set(view.pending.map((l) => `${l.productId}|${l.label}`));
+      const pricedItems = new Map(view.items.map((i) => [`${i.productId}|${i.label}`, i]));
+      const items = cart.lines.flatMap((l): { title: string; label: string; qty: number; price: number | null; subtotal: number | null }[] => {
+        const k = `${l.productId}|${l.label}`;
+        const p = pricedItems.get(k);
+        if (p) return [p];
+        return unpriced.has(k) ? [{ title: l.title, label: l.label, qty: l.qty, price: null, subtotal: null }] : [];
+      });
       const message = orderMessage({
         number: null,
-        items: view.items,
-        total: view.total,
+        items,
+        total: unpriced.size > 0 ? null : view.total,
         name,
         vehicle,
         coupon: withCoupon && coupon ? coupon.code : null,

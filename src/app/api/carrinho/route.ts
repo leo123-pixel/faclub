@@ -9,11 +9,11 @@ export async function POST(request: NextRequest) {
   const body = await request.json().catch(() => null);
   const checked = validateOrderInput({ lines: body?.lines });
   if (!checked.ok) return Response.json({ error: checked.message }, { status: 400 });
-  const lines: CartLine[] = (body.lines as Partial<CartLine>[]).map((l, i) => ({
-    ...checked.value.lines[i],
-    slug: typeof l.slug === "string" ? l.slug : "",
-    title: typeof l.title === "string" ? l.title : "",
-  }));
+  const sent = body.lines as Partial<CartLine>[];
+  const lines: CartLine[] = checked.value.lines.map((l) => {
+    const from = sent.find((s) => s.productId === l.productId && s.label === l.label);
+    return { ...l, slug: typeof from?.slug === "string" ? from.slug : "", title: typeof from?.title === "string" ? from.title : "" };
+  });
   const rows = await loadPriceRows(createPublicSupabase(), lines);
   return Response.json(priceCart(lines, rows));
 }

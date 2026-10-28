@@ -66,14 +66,16 @@ export type OrderInput = {
 };
 
 const isQty = (n: unknown) => Number.isInteger(n) && (n as number) >= 1 && (n as number) <= 99;
-const text = (v: unknown) => (typeof v === "string" ? v.trim() : "");
+const text = (v: unknown) => (typeof v === "string" ? v.normalize("NFC").trim() : "");
+/** Conta caracteres como o banco (`char_length`): "é" e um emoji contam 1, não 2. */
+const chars = (v: string) => Array.from(v).length;
 
 /** O que o navegador manda em `POST /api/pedidos` (CART-04 AC 8 e 9). */
 export function validateOrderInput(body: unknown): { ok: true; value: OrderInput } | { ok: false; message: string } {
   const b = (body ?? {}) as Record<string, unknown>;
   const name = text(b.name);
   const vehicle = text(b.vehicle);
-  if (name.length > NAME_MAX || vehicle.length > VEHICLE_MAX) return { ok: false, message: ORDER_MESSAGES.length };
+  if (chars(name) > NAME_MAX || chars(vehicle) > VEHICLE_MAX) return { ok: false, message: ORDER_MESSAGES.length };
   const lines = b.lines;
   const validLines =
     Array.isArray(lines) &&
@@ -81,10 +83,18 @@ export function validateOrderInput(body: unknown): { ok: true; value: OrderInput
     lines.length <= ORDER_MAX_LINES &&
     lines.every((l) => l && typeof l.productId === "string" && typeof l.label === "string" && l.label !== "" && isQty(l.qty));
   if (!validLines) return { ok: false, message: ORDER_MESSAGES.invalid };
+  // linhas repetidas do mesmo produto e embalagem somam e continuam no limite de 99
+  const merged = new Map<string, OrderInput["lines"][number]>();
+  for (const l of lines as OrderInput["lines"]) {
+    const k = `${l.productId}|${l.label}`;
+    const prev = merged.get(k);
+    merged.set(k, { productId: l.productId, label: l.label, qty: (prev?.qty ?? 0) + l.qty });
+  }
+  if ([...merged.values()].some((l) => !isQty(l.qty))) return { ok: false, message: ORDER_MESSAGES.invalid };
   return {
     ok: true,
     value: {
-      lines: (lines as OrderInput["lines"]).map((l) => ({ productId: l.productId, label: l.label, qty: l.qty })),
+      lines: [...merged.values()],
       name,
       vehicle,
       coupon: b.coupon === true,
@@ -93,20 +103,32 @@ export function validateOrderInput(body: unknown): { ok: true; value: OrderInput
   };
 }
 
-type MessageItem = { title: string; label: string; qty: number; price: number; subtotal: number };
+/** `price` null: item que o plano B não conseguiu cotar (CART-05). */
+type MessageItem = { title: string; label: string; qty: number; price: number | null; subtotal: number | null };
 
-/** O "Modelo da mensagem" de CART-04; linhas vazias somem (AC 3) e, sem número, o trecho do pedido também (AC 12). */
+export const PRICE_TO_CONFIRM = "preço a confirmar";
+
+/**
+ * O "Modelo da mensagem" de CART-04; linhas vazias somem (AC 3) e, sem número,
+ * o trecho do pedido também (AC 12). Item sem preço sai com "preço a confirmar"
+ * e o total, com "a confirmar" (CART-05).
+ */
 export function orderMessage(o: {
   number: number | null;
   items: MessageItem[];
-  total: number;
+  total: number | null;
   name: string;
   vehicle: string;
   coupon: string | null;
 }): string {
   const head = o.number ? `Olá! Quero fazer este pedido pelo site (Pedido nº ${o.number}):` : "Olá! Quero fazer este pedido pelo site:";
-  const lines = o.items.map((i) => `- ${i.title} · ${i.label} · ${i.qty} x ${formatBRL(i.price)} = ${formatBRL(i.subtotal)}`);
-  const tail = [`Total estimado: ${formatBRL(o.total)}`];
+  const lines = o.items.map((i) =>
+    i.price === null || i.subtotal === null
+      ? `- ${i.title} · ${i.label} · ${i.qty} x ${PRICE_TO_CONFIRM}`
+      : `- ${i.title} · ${i.label} · ${i.qty} x ${formatBRL(i.price)} = ${formatBRL(i.subtotal)}`,
+  );
+  const unpriced = o.total === null || o.items.some((i) => i.price === null);
+  const tail = [`Total estimado: ${unpriced ? "a confirmar" : formatBRL(o.total as number)}`];
   if (o.name.trim()) tail.push(`Nome: ${o.name.trim()}`);
   if (o.vehicle.trim()) tail.push(`Veículo: ${o.vehicle.trim()}`);
   if (o.coupon) tail.push(`Cupom: ${o.coupon} (troca na loja)`);

@@ -132,11 +132,11 @@
 
 ## Handoff
 
-- **Feature**: site-publico concluída; próxima: carrinho-pedidos (`.specs/features/carrinho-pedidos`)
-- **Phase / Task**: site-publico Done - gate `validate_verification.py` com 0 erros no HEAD b9bb515 (64/64 checks e build, 3 mutações mortas, 8 achados fechados, telas aprovadas no round 2 com AD-016, 6 lições candidatas)
+- **Feature**: carrinho-pedidos (`.specs/features/carrinho-pedidos`)
+- **Phase / Task**: Design e Tasks escritos (15 tarefas, 30 checks), `validate_tasks.py` com 0 erros; aguardando aprovação de design.md e tasks.md
 - **Completed**: painel-catalogo, painel-conteudo e site-publico
 - **In-progress** (file:line): none
-- **Next step**: carrinho-pedidos - Design e tasks.md para aprovação (spec já aprovada); ligar "Adicionar ao carrinho" (`src/components/site/PurchaseBox.tsx`), o "+" do card (`src/components/site/ProductCard.tsx`) e o contador da sacola (`src/components/site/SiteHeader.tsx`), que hoje mostram o aviso `CART_SOON`
-- **Blockers**: none
+- **Next step**: com a aprovação, executar T1 (`src/lib/domain/cart.ts`)
+- **Blockers**: aprovação do usuário (segunda parada)
 - **Uncommitted files**: none
 - **Branch**: claude/festive-sagan-40ifio

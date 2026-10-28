@@ -1,7 +1,7 @@
-import { isHeic, resizeTarget } from "@/lib/domain/photos";
+import { isHeic, MAX_SIDE, resizeTarget } from "@/lib/domain/photos";
 
-/** Reduz para o lado maior de 1600 px e converte para WebP (qualidade 0,8). */
-export async function compressToWebp(file: File): Promise<Blob> {
+/** Reduz para o lado maior de `maxSide` px (1600 nas fotos de produto) e converte para WebP (qualidade 0,8). */
+export async function compressToWebp(file: File, maxSide = MAX_SIDE): Promise<Blob> {
   let source: Blob = file;
   if (isHeic(file)) {
     const { default: heic2any } = await import("heic2any");
@@ -9,7 +9,7 @@ export async function compressToWebp(file: File): Promise<Blob> {
     source = Array.isArray(out) ? out[0] : out;
   }
   const bitmap = await createImageBitmap(source);
-  const { width, height } = resizeTarget(bitmap.width, bitmap.height);
+  const { width, height } = resizeTarget(bitmap.width, bitmap.height, maxSide);
   const canvas = document.createElement("canvas");
   canvas.width = width;
   canvas.height = height;

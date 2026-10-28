@@ -152,7 +152,7 @@ T5 → T6 → T7 → T8 → T9
 
 ---
 
-### T5: Redução com lado maior configurável
+### T5: Redução com lado maior configurável ✅
 
 **What**: `compressToWebp(file, maxSide)` e a prop `maxSide` do `PhotoUploader` (padrão 1600); renomeia o teste de linha única de `settings` para a prova de CONF-01 AC 7.
 **Where**: `src/components/admin/product-form/compress.ts`
@@ -162,10 +162,10 @@ T5 → T6 → T7 → T8 → T9
 
 **Done when**:
 
-- [ ] `src/lib/domain/photos.test.ts` prova que 3000×2000 com máximo 2400 vira 2400×1600 e que 2000×1500 fica igual
-- [ ] `tests/db/schema.test.ts` tem o teste "CONF-01.7: aceita só uma linha em settings" (C19)
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build && npx vitest run && npx playwright test`
-- [ ] Test count: os testes de fotos continuam passando
+- [x] `src/lib/domain/photos.test.ts` prova que 3000×2000 com máximo 2400 vira 2400×1600 e que 2000×1500 fica igual
+- [x] `tests/db/schema.test.ts` tem o teste "CONF-01.7: aceita só uma linha em settings" (C19)
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build && npx vitest run && npx playwright test`
+- [x] Test count: os testes de fotos continuam passando
 
 **Tests**: unit
 **Gate**: build

@@ -32,6 +32,11 @@ describe("regras das fotos", () => {
     expect(resizeTarget(2000, 3000)).toEqual({ width: 1067, height: 1600 });
   });
 
+  it("aceita outro lado maior, como os 2400 px do banner", () => {
+    expect(resizeTarget(3000, 2000, 2400)).toEqual({ width: 2400, height: 1600 });
+    expect(resizeTarget(2000, 1500, 2400)).toEqual({ width: 2000, height: 1500 });
+  });
+
   it("não amplia foto pequena", () => {
     expect(resizeTarget(800, 600)).toEqual({ width: 800, height: 600 });
   });

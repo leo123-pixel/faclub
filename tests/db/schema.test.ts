@@ -62,7 +62,7 @@ describe("esquema do MVP", () => {
     });
   });
 
-  it("aceita só uma linha em settings", async () => {
+  it("CONF-01.7: aceita só uma linha em settings", async () => {
     await tx(async (db) => {
       expect(await db.error("insert into settings (id, whatsapp) values (2, '11999999999')")).toMatch(
         /check constraint/,

@@ -132,7 +132,7 @@ T26 → T27 → T28
 
 ---
 
-### T3: Criar o esquema do MVP com dados iniciais
+### T3: Criar o esquema do MVP com dados iniciais ✅
 
 **What**: Migração com as tabelas do design (categories, brands, products, product_variants, product_images, orders, coupons, banners, settings), restrições e seeds: 4 categorias, 6 marcas, cupom FACLUB10 e a linha de settings com os valores iniciais.
 **Where**: `supabase/migrations/20261028000100_schema.sql`
@@ -142,9 +142,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/db/schema.test.ts` cobre: promo maior ou igual ao preço recusado; preço 0 recusado; estoque negativo recusado; segunda capa no mesmo produto recusada; nome de categoria repetido com outra caixa recusado; nome de marca repetido recusado; settings com `id <> 1` recusado; seeds presentes
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 10 tests pass
+- [x] `tests/db/schema.test.ts` cobre: promo maior ou igual ao preço recusado; preço 0 recusado; estoque negativo recusado; segunda capa no mesmo produto recusada; nome de categoria repetido com outra caixa recusado; nome de marca repetido recusado; settings com `id <> 1` recusado; seeds presentes
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 10 tests pass
 
 **Tests**: integration
 **Gate**: quick

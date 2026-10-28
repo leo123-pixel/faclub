@@ -97,13 +97,17 @@ test.describe("pedidos no painel", () => {
     await expect(cards(page)).toHaveCount(1);
     await expect(cards(page)).toHaveAttribute("aria-label", `Pedido nº ${first}`);
     await filters.getByRole("link", { name: "Novo" }).click();
+    await expect(page).toHaveURL(/status=Novo$/);
+    await expect(cards(page)).toHaveCount(2);
     expect(await cards(page).evaluateAll((els) => els.map((e) => e.getAttribute("aria-label")))).toEqual([
       `Pedido nº ${third}`,
       `Pedido nº ${second}`,
     ]);
     await filters.getByRole("link", { name: "Cancelado" }).click();
+    await expect(page).toHaveURL(/status=Cancelado$/);
     await expect(page.getByText("Nenhum pedido com o status Cancelado.")).toBeVisible();
     await filters.getByRole("link", { name: "Todos" }).click();
+    await expect(page).toHaveURL(/\/admin\/pedidos$/);
     await expect(cards(page)).toHaveCount(3);
   });
 });

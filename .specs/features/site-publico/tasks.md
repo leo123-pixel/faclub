@@ -442,9 +442,9 @@ T17 → T18 → T19
 
 ---
 
-### T18: O site acompanha o painel
+### T18: O site acompanha o painel ✅
 
-**What**: `revalidate = 60` nas páginas do site; teste e2e que grava pelo painel e espera a mudança nas páginas públicas (recarregando até 60 s).
+**What**: `revalidate = 60` nas páginas do site (cada página já o exporta desde a sua tarefa); teste e2e que grava pelo painel e espera a mudança nas páginas públicas (recarregando até 60 s).
 **Where**: `tests/e2e/site-freshness.spec.ts`
 **Depends on**: T17
 **Reuses**: `login`, `seed`, `refreshSite`
@@ -452,9 +452,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `tests/e2e/site-freshness.spec.ts` prova: trocar o título do banner, o percentual do cupom e o horário de sábado no painel aparece na Home (C18); desligar o único banner ativo mostra o topo padrão (C19); desligar o FACLUB10 tira os blocos de cupom da Home e da página do produto (C20); trocar o WhatsApp muda "Agendar troca", "Agendar pelo WhatsApp" e "Chamar no WhatsApp" para o novo número (C21); um produto novo salvo visível aparece em `/produtos` (C40); ocultar, pôr em oferta e mudar o preço aparece no catálogo, na página do produto e na Home (C41); subir "Filtros" na ordem das categorias muda a ordem dos chips (C42)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 7 e2e tests pass
+- [x] `tests/e2e/site-freshness.spec.ts` prova: trocar o título do banner, o percentual do cupom e o horário de sábado no painel aparece na Home (C18); desligar o único banner ativo mostra o topo padrão (C19); desligar o FACLUB10 tira os blocos de cupom da Home e da página do produto (C20); trocar o WhatsApp muda "Agendar troca", "Agendar pelo WhatsApp" e "Chamar no WhatsApp" para o novo número (C21); um produto novo salvo visível aparece em `/produtos` (C40); ocultar, pôr em oferta e mudar o preço aparece no catálogo, na página do produto e na Home (C41); subir "Filtros" na ordem das categorias muda a ordem dos chips (C42)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 7 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

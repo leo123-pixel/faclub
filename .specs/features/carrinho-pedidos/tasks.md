@@ -343,7 +343,7 @@ T13 → T14 → T15
 
 ---
 
-### T14: Lista de pedidos no painel
+### T14: Lista de pedidos no painel ✅
 
 **What**: `/admin/pedidos` com os pedidos do mais novo ao mais antigo: número, data e hora, itens, total estimado, nome, veículo, cupom e status; "Nenhum pedido ainda." sem pedidos.
 **Where**: `src/app/admin/(painel)/pedidos/page.tsx`
@@ -353,9 +353,9 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `tests/e2e/orders.spec.ts` prova: com três pedidos gravados no teste, a lista mostra o mais novo primeiro com número, data e hora, itens, total, nome, veículo, cupom e status (C26); sem pedidos aparece "Nenhum pedido ainda." (C30)
-- [ ] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
-- [ ] Test count: 2 e2e tests pass
+- [x] `tests/e2e/orders.spec.ts` prova: com três pedidos gravados no teste, a lista mostra o mais novo primeiro com número, data e hora, itens, total, nome, veículo, cupom e status (C26); sem pedidos aparece "Nenhum pedido ainda." (C30)
+- [x] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
+- [x] Test count: 2 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

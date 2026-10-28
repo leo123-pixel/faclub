@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { filterOrders, isOrderStatus, orderItemsSummary, ORDER_STATUSES, type AdminOrder } from "./admin-orders";
+import { filterOrders, formatOrderDate, isOrderStatus, orderItemsSummary, ORDER_STATUSES, type AdminOrder } from "./admin-orders";
 
 const order = (id: number, status: AdminOrder["status"]): AdminOrder => ({
   id,
@@ -31,5 +31,10 @@ describe("lista de pedidos", () => {
         { title: "Mobil Filtro de óleo", label: "Unidade", qty: 1 },
       ]),
     ).toEqual(["2× Lubrax Top Turbo 15W-40 · Balde 20L", "1× Mobil Filtro de óleo · Unidade"]);
+  });
+
+  it("data e hora no horário de São Paulo", () => {
+    expect(formatOrderDate("2026-10-28T17:05:00Z")).toBe("28/10/2026 14:05");
+    expect(formatOrderDate("2026-10-29T02:30:00Z")).toBe("28/10/2026 23:30");
   });
 });

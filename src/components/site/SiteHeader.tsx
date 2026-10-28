@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useCart } from "./CartProvider";
 import { IconBag, IconClose, IconMenu } from "./icons";
 
 const LINKS = [
@@ -23,6 +24,7 @@ export function SiteHeader({ scheduleHref }: { scheduleHref: string }) {
   const [menuPath, setMenuPath] = useState<string | null>(null);
   const open = menuPath === path;
   const [scrolled, setScrolled] = useState(false);
+  const { count } = useCart();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -94,10 +96,19 @@ export function SiteHeader({ scheduleHref }: { scheduleHref: string }) {
             </button>
             <Link
               href="/carrinho"
-              aria-label="Carrinho"
-              className={`flex h-11 w-11 items-center justify-center rounded-full ${dark ? "text-white hover:bg-white/10" : "text-ink hover:bg-bg"}`}
+              aria-label={count > 0 ? `Carrinho, ${count} ${count === 1 ? "item" : "itens"}` : "Carrinho"}
+              className={`relative flex h-11 w-11 items-center justify-center rounded-full ${dark ? "text-white hover:bg-white/10" : "text-ink hover:bg-bg"}`}
             >
               <IconBag />
+              {count > 0 && (
+                <span
+                  aria-hidden="true"
+                  data-testid="contador-carrinho"
+                  className="absolute right-0.5 top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-gold px-1 text-[11px] font-bold text-ink"
+                >
+                  {count}
+                </span>
+              )}
             </Link>
             <a
               href={scheduleHref}

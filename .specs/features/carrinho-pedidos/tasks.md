@@ -218,9 +218,9 @@ T13 → T14 → T15
 
 ---
 
-### T8: Carrinho no navegador
+### T8: Carrinho no navegador ✅
 
-**What**: `CartProvider` no layout `(site)` (estado, `localStorage` com `try/catch` e memória quando o armazenamento falha) e o contador na sacola do `SiteHeader`.
+**What**: `useCart` em `CartProvider.tsx` (um store com `useSyncExternalStore`, sem provider: estado, `localStorage` com `try/catch`, memória quando o armazenamento falha e sincronia entre abas) e o contador na sacola do `SiteHeader`.
 **Where**: `src/components/site/CartProvider.tsx`
 **Depends on**: T7
 **Reuses**: `readCart`, `writeCart`, `addToCart`, `cartCount`
@@ -228,9 +228,9 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `src/components/site/CartProvider.test.tsx` cobre: com `localStorage` que lança erro, adicionar e ler funcionam na mesma visita e nada quebra (C10); o carrinho gravado é lido ao montar e cada alteração regrava com a data
-- [ ] Gate check passes: `npm run typecheck && npx vitest run`
-- [ ] Test count: 2 tests pass
+- [x] `src/components/site/CartProvider.test.tsx` cobre: com `localStorage` que lança erro, adicionar e ler funcionam na mesma visita e nada quebra (C10); o carrinho gravado é lido ao montar e cada alteração regrava com a data
+- [x] Gate check passes: `npm run typecheck && npx vitest run`
+- [x] Test count: 2 tests pass
 
 **Tests**: unit
 **Gate**: quick

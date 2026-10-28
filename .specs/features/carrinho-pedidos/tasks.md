@@ -91,7 +91,7 @@ T13 → T14 → T15
 
 ---
 
-### T2: Preço do carrinho
+### T2: Preço do carrinho ✅
 
 **What**: `priceCart(lines, rows)`: preço atual de cada linha com `variantPrice` (promocional só com oferta ativa), subtotal, total e a lista de indisponíveis (produto oculto ou removido, embalagem que saiu do cadastro); `unavailableNotice(n)`.
 **Where**: `src/lib/domain/order.ts`
@@ -101,9 +101,9 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `src/lib/domain/order.test.ts` cobre: produto em oferta usa o promocional e sem oferta usa o normal mesmo com promocional cadastrado, subtotal = preço × quantidade e total com centavos exatos (C16); produto ausente e embalagem removida ficam indisponíveis e fora do total; `unavailableNotice` dá "1 item indisponível ficou de fora." e "2 itens indisponíveis ficaram de fora."; o preço mudou desde a adição e vale o novo (Edge Case)
-- [ ] Gate check passes: `npm run typecheck && npx vitest run`
-- [ ] Test count: 4 tests pass
+- [x] `src/lib/domain/order.test.ts` cobre: produto em oferta usa o promocional e sem oferta usa o normal mesmo com promocional cadastrado, subtotal = preço × quantidade e total com centavos exatos (C16); produto ausente e embalagem removida ficam indisponíveis e fora do total; `unavailableNotice` dá "1 item indisponível ficou de fora." e "2 itens indisponíveis ficaram de fora."; o preço mudou desde a adição e vale o novo (Edge Case)
+- [x] Gate check passes: `npm run typecheck && npx vitest run`
+- [x] Test count: 4 tests pass
 
 **Tests**: unit
 **Gate**: quick

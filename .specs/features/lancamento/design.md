@@ -1,7 +1,7 @@
 # Lançamento: medição, SEO técnico e backup Design
 
 **Spec**: `.specs/features/lancamento/spec.md`
-**Status**: Draft (aprovado junto com tasks.md)
+**Status**: Approved (2026-10-28, junto com tasks.md - user: "aprovado, pode seguir")
 
 ---
 

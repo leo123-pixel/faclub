@@ -9,8 +9,8 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: `.specs/features/lancamento/design.md`
-**Status**: Draft
-**Approved**: pendente
+**Status**: In Progress
+**Approved**: 2026-10-28 - user: "aprovado, pode seguir"
 **Mutations**: 3
 **Build**: `npm run build:local; npm run typecheck; npm run lint`
 
@@ -69,7 +69,7 @@ T11 → T12 → T13
 
 ## Task Breakdown
 
-### T1: Escolha de cookies
+### T1: Escolha de cookies ✅
 
 **What**: `ConsentChoice`, `CONSENT_DAYS = 180`, `readConsent(raw, now)` (vencida, inválida ou ausente dá "sem escolha"), `writeConsent(choice, now)` e `canTrack(consent)`.
 **Where**: `src/lib/domain/consent.ts`
@@ -79,9 +79,9 @@ T11 → T12 → T13
 
 **Done when**:
 
-- [ ] `src/lib/domain/consent.test.ts` cobre: aceite e recusa valem até 180 dias e somem 1 min depois; texto inválido dá "sem escolha"; `canTrack` só é verdadeiro com aceite válido
-- [ ] Gate check passes: `npm run typecheck && npx vitest run`
-- [ ] Test count: 3 tests pass
+- [x] `src/lib/domain/consent.test.ts` cobre: aceite e recusa valem até 180 dias e somem 1 min depois; texto inválido dá "sem escolha"; `canTrack` só é verdadeiro com aceite válido
+- [x] Gate check passes: `npm run typecheck && npx vitest run`
+- [x] Test count: 3 tests pass
 
 **Tests**: unit
 **Gate**: quick
@@ -419,7 +419,7 @@ Proof: `npx vitest run tests/config/backup-workflow.test.ts -t "BKP-01.3:"`
 
 The feature's live state, written as it happens - a compaction gives no warning.
 
-**Settled mid-build:** none
+**Settled mid-build:** execução nesta sessão, sem sub-agentes de lote (oferta com recomendação inline) - user: "aprovado, pode seguir"
 **Dispatched:** none
 **Walked:** not yet
 

@@ -217,7 +217,12 @@ async function main() {
     const env = { ...APP_ENV, NODE_ENV: "production" };
     if (!process.env.E2E_SKIP_BUILD) {
       log("next build");
-      execFileSync("npx", ["next", "build"], { cwd: ROOT, env: { ...process.env, ...env }, stdio: "inherit" });
+      // assíncrono: o gateway roda neste processo e precisa responder às
+      // consultas das páginas que o build pré-gera
+      await new Promise((resolve, reject) => {
+        const build = spawn("npx", ["next", "build"], { cwd: ROOT, env: { ...process.env, ...env }, stdio: "inherit" });
+        build.on("exit", (code) => (code === 0 ? resolve() : reject(new Error(`next build saiu com ${code}`))));
+      });
     }
     run("next", "npx", ["next", "start", "-p", String(PORTS.app)], env);
     await waitFor(APP_URL, "Next");

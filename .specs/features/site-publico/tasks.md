@@ -207,9 +207,9 @@ T17 → T18 → T19
 
 ---
 
-### T7: Topo do site
+### T7: Topo do site ✅
 
-**What**: Grupo de rotas `(site)` com o layout público; a Home provisória vai para `(site)/page.tsx`. `SiteHeader` com logo, "Serviços", "Produtos" e "Contato" (atual em negrito com `aria-current`), sacola "Carrinho" para `/carrinho`, "Agendar troca" com `scheduleLink`, fixo no alto; abaixo de 768 px o menu abre pelo botão "Abrir menu".
+**What**: Grupo de rotas `(site)` com o layout público; a Home provisória vai para `(site)/page.tsx`. `SiteHeader` com logo, "Serviços", "Produtos" e "Contato" (atual em negrito com `aria-current`), sacola "Carrinho" para `/carrinho`, "Agendar troca" com `scheduleLink`, fixo no alto; abaixo de 768 px o menu abre pelo botão "Abrir menu". `start.mjs` passa a rodar o `next build` de forma assíncrona: o gateway roda no mesmo processo e precisa responder às consultas da Home que o build pré-gera.
 **Where**: `src/components/site/SiteHeader.tsx`
 **Depends on**: T6
 **Reuses**: `scheduleLink`, `loadSettings`, logo em `public/brand`
@@ -217,9 +217,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `tests/e2e/site-header.spec.ts` prova: a 360 px "Agendar troca" está dentro da tela sem rolar em `/`, `/produtos` e numa página de produto (C1); depois de rolar 2000 px o topo continua no alto (C2); "Agendar troca" aponta para `https://wa.me/551129545764?text=` com a mensagem de agendamento das configurações (C3); os três links existem e o da página atual tem peso negrito e `aria-current="page"` (C4); a 390 px os links ficam escondidos até "Abrir menu" e "Agendar troca" segue à vista (C5); a sacola "Carrinho" fica entre o menu e "Agendar troca" e leva a `/carrinho` (C6)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 6 e2e tests pass
+- [x] `tests/e2e/site-header.spec.ts` prova: a 360 px "Agendar troca" está dentro da tela sem rolar em `/`, `/produtos` e numa página de produto (C1); depois de rolar 2000 px o topo continua no alto (C2); "Agendar troca" aponta para `https://wa.me/551129545764?text=` com a mensagem de agendamento das configurações (C3); os três links existem e o da página atual tem peso negrito e `aria-current="page"` (C4); a 390 px os links ficam escondidos até "Abrir menu" e "Agendar troca" segue à vista (C5); a sacola "Carrinho" fica entre o menu e "Agendar troca" e leva a `/carrinho` (C6)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 6 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

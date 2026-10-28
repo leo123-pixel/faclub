@@ -323,7 +323,7 @@ T13 → T14 → T15
 
 ---
 
-### T13: Política de privacidade com o limite de envios
+### T13: Política de privacidade com o limite de envios ✅
 
 **What**: A política ganha a frase sobre o limite de envios: o site guarda por 10 minutos uma versão cifrada do endereço de internet, só para barrar envios em série, e o pedido não guarda IP.
 **Where**: `src/app/(site)/politica-de-privacidade/page.tsx`
@@ -333,8 +333,8 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `tests/e2e/site-footer.spec.ts` (PRIV-01.1) confere a frase nova
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
+- [x] `tests/e2e/site-footer.spec.ts` (PRIV-01.1) confere a frase nova
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
 
 **Tests**: e2e
 **Gate**: build

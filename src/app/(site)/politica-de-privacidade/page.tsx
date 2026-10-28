@@ -38,6 +38,10 @@ export default async function PrivacyPage() {
             Usamos esses dados só para separar os produtos, atender você pelo WhatsApp e acompanhar os pedidos da
             loja. Não vendemos nem repassamos seus dados.
           </p>
+          <p className="mt-3">
+            Para barrar envios em série, o site guarda por 10 minutos uma versão cifrada do endereço de internet (IP)
+            de quem envia um pedido. Depois disso ela é apagada, e o pedido em si não guarda o IP.
+          </p>
         </section>
 
         <section>

@@ -38,6 +38,9 @@ test.describe("rodapé e política de privacidade", () => {
     await expect(main).toContainText("Usamos esses dados só para separar os produtos, atender você pelo WhatsApp");
     await expect(main).toContainText("Google Analytics 4 (GA4)");
     await expect(main).toContainText("Meta Pixel");
+    await expect(main).toContainText(
+      "o site guarda por 10 minutos uma versão cifrada do endereço de internet (IP) de quem envia um pedido. Depois disso ela é apagada, e o pedido em si não guarda o IP.",
+    );
     await expect(main.getByRole("link", { name: "privacidade@faclub.com.br" })).toHaveAttribute(
       "href",
       "mailto:privacidade@faclub.com.br",

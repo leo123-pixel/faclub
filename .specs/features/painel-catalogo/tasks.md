@@ -638,7 +638,7 @@ T26 → T27 → T28
 
 ---
 
-### T27: Categorias
+### T27: Categorias ✅
 
 **What**: `/admin/categorias` com a lista em ordem, contagem de produtos, criar, renomear, "Subir", "Descer" e excluir com confirmação; actions traduzem `category_in_use:N` e nome repetido.
 **Where**: `src/app/admin/(painel)/categorias/page.tsx`
@@ -648,9 +648,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/e2e/categories.spec.ts` prova: a lista mostra as 4 categorias na ordem de `position` com a contagem (C50); criar "Arla 32" grava o slug `arla-32` e a põe no fim (C51); excluir "Linha pesada" com produtos mostra "Esta categoria tem 4 produtos. Mude a categoria deles antes de excluir." (C52); criar "linha leve" mostra "Já existe uma com esse nome." (C53); "Subir" em "Filtros" troca a ordem na tela e depois de recarregar (C58)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 5 e2e tests pass
+- [x] `tests/e2e/categories.spec.ts` prova: a lista mostra as 4 categorias na ordem de `position` com a contagem (C50); criar "Arla 32" grava o slug `arla-32` e a põe no fim (C51); excluir "Linha pesada" com produtos mostra "Esta categoria tem 4 produtos. Mude a categoria deles antes de excluir." (C52); criar "linha leve" mostra "Já existe uma com esse nome." (C53); "Subir" em "Filtros" troca a ordem na tela e depois de recarregar (C58)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 5 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

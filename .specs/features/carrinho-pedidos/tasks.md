@@ -112,7 +112,7 @@ T13 → T14 → T15
 
 ---
 
-### T3: Validação e mensagem do pedido
+### T3: Validação e mensagem do pedido ✅
 
 **What**: `validateOrderInput(body)` (1 a 30 linhas, quantidade inteira de 1 a 99, nome até 80 e veículo até 40, com "Use até 80 caracteres no nome e 40 no veículo.") e `orderMessage({ number, items, total, name, vehicle, coupon })` com o "Modelo da mensagem" da spec.
 **Where**: `src/lib/domain/order.ts`
@@ -122,9 +122,9 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `src/lib/domain/order.test.ts` cobre: a mensagem com número, duas linhas "- <marca> <nome> · <embalagem> · <qtd> x R$ <preço> = R$ <subtotal>", total, nome, veículo e cupom, idêntica ao modelo, e o link `https://wa.me/55<número>?text=` com ela codificada (C13); sem nome, sem veículo e sem cupom as linhas somem, e sem número o trecho "(Pedido nº ...)" some (C14); nome de 80 e veículo de 40 passam, 81 e 41 recusam com a mensagem; 31 linhas, quantidade 0, 100 e 1,5 recusam
-- [ ] Gate check passes: `npm run typecheck && npx vitest run`
-- [ ] Test count: 4 tests pass
+- [x] `src/lib/domain/order.test.ts` cobre: a mensagem com número, duas linhas "- <marca> <nome> · <embalagem> · <qtd> x R$ <preço> = R$ <subtotal>", total, nome, veículo e cupom, idêntica ao modelo, e o link `https://wa.me/55<número>?text=` com ela codificada (C13); sem nome, sem veículo e sem cupom as linhas somem, e sem número o trecho "(Pedido nº ...)" some (C14); nome de 80 e veículo de 40 passam, 81 e 41 recusam com a mensagem; 31 linhas, quantidade 0, 100 e 1,5 recusam
+- [x] Gate check passes: `npm run typecheck && npx vitest run`
+- [x] Test count: 4 tests pass
 
 **Tests**: unit
 **Gate**: quick

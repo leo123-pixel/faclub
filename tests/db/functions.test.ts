@@ -1,5 +1,6 @@
 import { randomUUID } from "node:crypto";
-import { describe, expect, it } from "vitest";
+import { Client } from "pg";
+import { describe, expect, inject, it } from "vitest";
 import { ADMIN, tx, type Tx } from "./setup/db";
 
 async function ids(db: Tx) {
@@ -200,4 +201,27 @@ describe("limite de envios de pedido", () => {
       }
     });
   });
+
+  it("envios simultâneos da mesma chave: só 5 passam", async () => {
+    // 20 conexões disputam a mesma chave, em 5 rodadas: sem a trava, a corrida aparece
+    const clients = Array.from({ length: 20 }, () => new Client({ connectionString: inject("dbUrl") }));
+    await Promise.all(clients.map((c) => c.connect()));
+    await Promise.all(clients.map((c) => c.query("set role service_role")));
+    const keys: string[] = [];
+    try {
+      for (let round = 0; round < 5; round++) {
+        const key = `paralelo-${randomUUID()}`;
+        keys.push(key);
+        const results = await Promise.all(
+          clients.map(async (c) => (await c.query<{ ok: boolean }>("select public.take_order_slot($1) as ok", [key])).rows[0].ok),
+        );
+        expect(results.filter(Boolean)).toHaveLength(5);
+      }
+    } finally {
+      await clients[0].query("reset role");
+      await clients[0].query("delete from order_throttle where key = any($1)", [keys]);
+      await Promise.all(clients.map((c) => c.end()));
+    }
+  });
 });
+

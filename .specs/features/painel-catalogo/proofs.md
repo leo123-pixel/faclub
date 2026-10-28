@@ -1,8 +1,8 @@
 # painel-catalogo proofs
 
-**HEAD**: bfdbfad
+**HEAD**: 794efb9
 **Tree**: clean
-**Result**: 59 pass, 2 fail; mutations 0 killed, 0 not
+**Result**: 60 pass, 1 fail; mutations 3 killed, 0 not
 
 | Check | Proof | Ran | Passed | Result |
 | --- | --- | --- | --- | --- |
@@ -13,8 +13,8 @@
 | C5 | `npx playwright test tests/e2e/password.spec.ts -g "AUTH-01.5:"` | 1 | - | pass |
 | C6 | `npx playwright test tests/e2e/password.spec.ts -g "AUTH-01.6:"` | 1 | - | pass |
 | C7 | `npx playwright test tests/e2e/shell.spec.ts -g "AUTH-01.7:"` | 1 | - | pass |
-| C8 | `npx vitest run tests/db/rls.test.ts -t "AUTH-01.8:"` | 10 | 10 | pass |
-| C9 | `browser captures/admin-produtos.running.png` | - | - | **not judged** (screens.md) |
+| C8 | `npx vitest run tests/db/rls.test.ts -t "AUTH-01.8:"` | 15 | 15 | pass |
+| C9 | `browser captures/admin-produtos.running.png` | - | - | pass |
 | C10 | `npx playwright test tests/e2e/products.spec.ts -g "PLIST-01.2:"` | 1 | - | pass |
 | C11 | `npx vitest run src/lib/domain/admin-products.test.ts -t "PLIST-01.3:"` | 1 | 1 | pass |
 | C12 | `npx vitest run src/lib/domain/admin-products.test.ts -t "PLIST-01.4:"` | 1 | 1 | pass |
@@ -25,7 +25,7 @@
 | C17 | `npx playwright test tests/e2e/products.spec.ts -g "PLIST-01.9:"` | 1 | - | pass |
 | C18 | `npx playwright test tests/e2e/products.spec.ts -g "PLIST-01.10:"` | 1 | - | pass |
 | C19 | `npx playwright test tests/e2e/products.spec.ts -g "PLIST-01.11:"` | 1 | - | pass |
-| C20 | `npx vitest run src/lib/domain/admin-products.test.ts -t "PLIST-01.12:"` | 1 | 1 | pass |
+| C20 | `npx playwright test tests/e2e/products.spec.ts -g "PLIST-01.12:"` | 1 | - | pass |
 | C21 | `npx playwright test tests/e2e/products.spec.ts -g "PLIST-01.13:"` | 1 | - | pass |
 | C22 | `npx playwright test tests/e2e/shell.spec.ts -g "PLIST-01.14:"` | 1 | - | pass |
 | C23 | `npx vitest run src/lib/domain/admin-products.test.ts -t "PLIST-01.15:"` | 1 | 1 | pass |
@@ -33,8 +33,8 @@
 | C25 | `npx playwright test tests/e2e/toggles.spec.ts -g "PTOG-01.1:"` | 1 | - | pass |
 | C26 | `npx playwright test tests/e2e/toggles.spec.ts -g "PTOG-01.2:"` | 1 | - | pass |
 | C27 | `npx playwright test tests/e2e/toggles.spec.ts -g "PTOG-01.3:"` | 1 | - | pass |
-| C28 | `npx vitest run src/components/admin/RowToggle.test.tsx -t "PTOG-01.4:"` | 1 | 1 | pass |
-| C29 | `browser captures/admin-cadastro.running.png` | - | - | **not judged** (screens.md) |
+| C28 | `npx vitest run src/components/admin/RowToggle.test.tsx -t "PTOG-01.4:"` | 2 | 2 | pass |
+| C29 | `browser captures/admin-cadastro.running.png` | - | - | **diverges** (screens.md) |
 | C30 | `npx playwright test tests/e2e/product-form.spec.ts -g "PFORM-01.2:"` | 1 | - | pass |
 | C31 | `npx vitest run src/components/admin/product-form/ProductForm.test.tsx -t "PFORM-01.3:"` | 1 | 1 | pass |
 | C32 | `npx vitest run src/components/admin/product-form/ProductForm.test.tsx -t "PFORM-01.4:"` | 1 | 1 | pass |
@@ -43,7 +43,7 @@
 | C35 | `npx vitest run src/components/admin/product-form/PhotoUploader.test.tsx -t "PFORM-01.7:"` | 1 | 1 | pass |
 | C36 | `npx vitest run src/components/admin/product-form/PhotoUploader.test.tsx -t "PFORM-01.8:"` | 1 | 1 | pass |
 | C37 | `npx vitest run src/components/admin/product-form/PhotoUploader.test.tsx -t "PFORM-01.9:"` | 1 | 1 | pass |
-| C38 | `npx vitest run src/components/admin/product-form/PhotoUploader.test.tsx -t "PFORM-01.10:"` | 1 | 1 | pass |
+| C38 | `npx vitest run src/components/admin/product-form/PhotoUploader.test.tsx -t "PFORM-01.10:"` | 2 | 2 | pass |
 | C39 | `npx vitest run src/components/admin/product-form/PhotoUploader.test.tsx -t "PFORM-01.11:"` | 1 | 1 | pass |
 | C40 | `npx vitest run src/components/admin/product-form/VariantPicker.test.tsx -t "PFORM-01.12:"` | 1 | 1 | pass |
 | C41 | `npx vitest run src/components/admin/product-form/ProductForm.test.tsx -t "PFORM-01.13:"` | 1 | 1 | pass |
@@ -67,3 +67,11 @@
 | Build | `npm run build` | - | - | pass |
 | Build | `npm run typecheck` | - | - | pass |
 | Build | `npm run lint` | - | - | pass |
+
+## Mutations
+
+| Mutation | Location | Killed |
+| --- | --- | --- |
+| is_admin também aceita user_metadata.role (editável pelo próprio usuário) | `supabase/migrations/20261028000200_rls.sql:8` | yes |
+| preço promocional igual ao preço passa a ser aceito (>= -> >) | `src/lib/domain/product-input.ts:87` | yes |
+| falha volta o interruptor ao valor inicial da página, não à posição anterior | `src/components/admin/RowToggle.tsx:30` | yes |

@@ -109,10 +109,10 @@
 ## Handoff
 
 - **Feature**: painel-catalogo (`.specs/features/painel-catalogo`)
-- **Phase / Task**: Tasks, aguardando a aprovação de design.md e tasks.md
-- **Completed**: specs das 5 features aprovadas; design e tasks de painel-catalogo escritos
+- **Phase / Task**: Execute, validação: T1-T28 feitos; verifier e screens round 1 voltaram; achados do verifier fechados; check_proofs --mutations verde (60/61, 3 mutações mortas) no HEAD 794efb9
+- **Completed**: T1-T28, fix pass (ca73dc9, 7a17eb0, 15d126a, 288a35d, 492f344)
 - **In-progress** (file:line): none
-- **Next step**: com a aprovação, escrever `**Approved**` em tasks.md, rodar `validate_tasks.py painel-catalogo --execute` e começar por T1
-- **Blockers**: aprovação das tasks e escolha entre execução direta ou por sub-agentes
+- **Next step**: com a resposta da Q11, ajustar `## Differences from the source` (ou o shell), rodar o screens sub-agent round 2 só nas linhas `differs` de `screens.md`, depois `validate_verification.py painel-catalogo` e as lições
+- **Blockers**: pergunta Q11 (ícones e bloco do usuário no menu: as duas capturas se contradizem)
 - **Uncommitted files**: none
 - **Branch**: claude/festive-sagan-40ifio

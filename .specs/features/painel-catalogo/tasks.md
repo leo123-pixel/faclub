@@ -426,7 +426,7 @@ T26 → T27 → T28
 
 ---
 
-### T17: Shell do painel com menu e "Sair"
+### T17: Shell do painel com menu e "Sair" ✅
 
 **What**: Layout `(painel)` com `requireAdmin`, `AdminShell` da captura (8 itens na ordem de AD-007, usuário, "Sair"), menu recolhível no celular, `/admin` redirecionando para `/admin/produtos` e páginas "Em breve" para Banners e ofertas, Cupons e Configurações, e "Nenhum pedido ainda." em Pedidos.
 **Where**: `src/components/admin/AdminShell.tsx`
@@ -436,9 +436,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/e2e/shell.spec.ts` prova: "Sair" encerra a sessão e abre `/admin/login`, e voltar para `/admin/produtos` cai no login (C7); o menu mostra os 8 itens na ordem da spec (C22)
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 2 e2e tests pass
+- [x] `tests/e2e/shell.spec.ts` prova: "Sair" encerra a sessão e abre `/admin/login`, e voltar para `/admin/produtos` cai no login (C7); o menu mostra os 8 itens na ordem da spec (C22)
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 2 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build

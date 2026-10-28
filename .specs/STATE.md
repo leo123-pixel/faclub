@@ -106,6 +106,14 @@
 - **Date**: 2026-10-28
 - **Status**: active
 
+### AD-014 · active
+- **Decision**: O menu lateral do painel tem ícones nos itens e o bloco do usuário com "Sair" no rodapé em todas as telas, como na captura `admin-produtos.png`; a captura `admin-cadastro.png`, que não desenha os dois, não é seguida nesse ponto.
+- **Reason**: Pergunta Q11 ("as duas capturas se contradizem no menu: manter ícones e bloco do usuário em todas as telas, ou tirar de todas?"), opção escolhida: manter - user: "ok, mantém ícones e bloco do usuário em todas as telas". Um shell só para o painel inteiro.
+- **Trade-off**: A tela de cadastro difere da sua captura no menu lateral.
+- **Scope**: painel-catalogo, painel-conteudo, carrinho-pedidos
+- **Date**: 2026-10-28
+- **Status**: active
+
 ## Handoff
 
 - **Feature**: painel-catalogo (`.specs/features/painel-catalogo`)

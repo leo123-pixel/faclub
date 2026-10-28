@@ -174,7 +174,7 @@ T5 → T6 → T7 → T8 → T9
 
 ---
 
-### T6: Tela de configurações
+### T6: Tela de configurações ✅
 
 **What**: `/admin/configuracoes` com WhatsApp, telefone, e-mail, endereço, horários de seg a sex e de sábado, link do grupo, Instagram e mensagem de agendamento; action `saveSettings` valida com `validateSettings`, grava os dígitos, revalida e mostra "Configurações salvas.".
 **Where**: `src/app/admin/(painel)/configuracoes/page.tsx`
@@ -184,9 +184,9 @@ T5 → T6 → T7 → T8 → T9
 
 **Done when**:
 
-- [ ] `tests/e2e/settings.spec.ts` prova: o formulário abre com os valores do seed (C13); trocar o sábado para "8h às 12h" e o WhatsApp para "(11) 99999-0000" mostra "Configurações salvas.", recarregar mostra os novos valores e o banco tem `11999990000` (C14); um WhatsApp com 9 dígitos mostra a mensagem da spec e não grava
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] `tests/e2e/settings.spec.ts` prova: o formulário abre com os valores do seed (C13); trocar o sábado para "8h às 12h" e o WhatsApp para "(11) 99999-0000" mostra "Configurações salvas.", recarregar mostra os novos valores e o banco tem `11999990000` (C14); um WhatsApp com 9 dígitos mostra a mensagem da spec e não grava
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

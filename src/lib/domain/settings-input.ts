@@ -35,6 +35,14 @@ export type SettingsPayload = {
 
 export const onlyDigits = (text: string) => text.replace(/\D/g, "");
 
+/** "1129545764" vira "(11) 2954-5764"; "11999990000" vira "(11) 99999-0000". */
+export function formatPhone(digits: string): string {
+  const d = onlyDigits(digits);
+  if (d.length === 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
+  if (d.length === 11) return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
+  return digits;
+}
+
 /** Link do WhatsApp da loja, com a mensagem já escrita quando houver. */
 export function whatsappLink(digits: string, message?: string): string {
   const base = `https://wa.me/55${digits}`;

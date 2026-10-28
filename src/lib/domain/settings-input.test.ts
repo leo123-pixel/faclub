@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { DEFAULT_SCHEDULE_MESSAGE, onlyDigits, validateSettings, whatsappLink, type SettingsValues } from "./settings-input";
+import { DEFAULT_SCHEDULE_MESSAGE, formatPhone, onlyDigits, validateSettings, whatsappLink, type SettingsValues } from "./settings-input";
 
 const WHATS = "Informe o WhatsApp com DDD, por exemplo (11) 2954-5764.";
 const EMAIL = "Informe um e-mail válido.";
@@ -78,5 +78,11 @@ describe("configurações da loja", () => {
         schedule_message: DEFAULT_SCHEDULE_MESSAGE,
       },
     });
+  });
+
+  it("mostra o WhatsApp guardado com DDD, espaço e hífen", () => {
+    expect(formatPhone("1129545764")).toBe("(11) 2954-5764");
+    expect(formatPhone("11999990000")).toBe("(11) 99999-0000");
+    expect(formatPhone("123")).toBe("123");
   });
 });

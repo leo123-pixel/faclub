@@ -485,7 +485,7 @@ The feature's live state, written as it happens - a compaction gives no warning.
 
 **Settled mid-build:** execução nesta sessão, sem sub-agentes de lote (oferta com recomendação inline) - user: "aprovado, pode seguir"
 **Dispatched:** none
-**Walked:** not yet
+**Walked:** 2026-10-28, app de `E2E_SKIP_BUILD=1 node scripts/local-supabase/start.mjs --app` (depois de `npm run build:local`) em http://localhost:3100, com `node scripts/local-supabase/seed.mjs --site` e `POST /api/revalidar` com `Authorization: Bearer revalidar-local`; o endereço `wa.me` foi interceptado para a aba abrir sem sair para a internet. Sem capturas: o protótipo não desenha o carrinho nem os pedidos, então não há fotos. CART-01: no Top Turbo, Frasco 1L com quantidade 2 e "Adicionar ao carrinho" mostram "Adicionado ao carrinho" e "Ver carrinho"; o "+" do Filtro de ar no catálogo adiciona 1 Unidade; o contador mostra 3; fechado o navegador (estado salvo e reaberto), `/carrinho` mostra as duas linhas, o contador 3 e o total R$ 139,70. CART-04: com o nome "João da Oficina", "Enviar pedido pelo WhatsApp" abre `https://wa.me/551129545764` com "Olá! Quero fazer este pedido pelo site (Pedido nº 1):", as duas linhas, "Total estimado: R$ 139,70" e "Nome: João da Oficina", e a página mostra "Pedido enviado! Termine a conversa no WhatsApp." com "Abrir o WhatsApp de novo". ORD-01: no painel (`contato@onbind.com.br` / `faclub-admin-123`), "Pedidos" mostra o Pedido nº 1 como "Novo" com os itens, o total e o nome; mudar para "Atendido" e filtrar por "Atendido" lista só o Pedido nº 1. Também conferidos a 1440 e a 390 px: carrinho em duas colunas no computador e numa coluna no celular, sem rolagem lateral.
 
 ---
 

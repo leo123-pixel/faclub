@@ -132,11 +132,11 @@
 
 ## Handoff
 
-- **Feature**: carrinho-pedidos concluída; próxima: lancamento (`.specs/features/lancamento`)
-- **Phase / Task**: carrinho-pedidos Done - gate `validate_verification.py` com 0 erros no HEAD df9624c (31/31 checks e build, 3 mutações mortas, 7 achados fechados, CART-05 acrescentado, 8 lições candidatas)
+- **Feature**: lancamento (`.specs/features/lancamento`)
+- **Phase / Task**: Design e Tasks escritos (13 tarefas, 22 checks), `validate_tasks.py` com 0 erros; aguardando aprovação de design.md e tasks.md
 - **Completed**: painel-catalogo, painel-conteudo, site-publico e carrinho-pedidos
 - **In-progress** (file:line): none
-- **Next step**: lancamento - Design e tasks.md para aprovação (spec já aprovada); variáveis da Vercel incluem `SUPABASE_SERVICE_ROLE_KEY` (rotas de pedido) e `REVALIDATE_SECRET` (`/api/revalidar`); o build precisa do Supabase no ar (`npm run build:local` no local)
-- **Blockers**: none
+- **Next step**: com a aprovação, executar T1 (`src/lib/domain/consent.ts`)
+- **Blockers**: aprovação do usuário (segunda parada)
 - **Uncommitted files**: none
 - **Branch**: claude/festive-sagan-40ifio

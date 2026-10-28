@@ -216,7 +216,7 @@ T26 → T27 → T28
 
 ---
 
-### T7: Subir o Supabase local para o e2e e configurar o Playwright
+### T7: Subir o Supabase local para o e2e e configurar o Playwright ✅
 
 **What**: `scripts/local-supabase/start.mjs` baixa PostgREST e Supabase Auth para `.local/bin`, cria o cluster em `.local/pg`, aplica as migrações, sobe GoTrue, PostgREST, um SMTP de captura e o gateway Node (rotas `/auth/v1`, `/rest/v1` e um Storage simulado em disco); `playwright.config.ts` sobe esse stack e o `next start`.
 **Where**: `scripts/local-supabase/start.mjs`
@@ -226,10 +226,10 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/e2e/stack.spec.ts` prova: `supabase-js` lê as 4 categorias pelo gateway; cria usuário pelo admin API e faz login; envia e lê de volta um arquivo no Storage simulado
-- [ ] `.local/` está no `.gitignore`
-- [ ] Gate check passes: `npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] `tests/e2e/stack.spec.ts` prova: `supabase-js` lê as 4 categorias pelo gateway; cria usuário pelo admin API e faz login; envia e lê de volta um arquivo no Storage simulado
+- [x] `.local/` está no `.gitignore`
+- [x] Gate check passes: `npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

@@ -85,6 +85,8 @@ sequenceDiagram
 - `SiteHeader`: logo, "Serviços" (`/#servicos`), "Produtos", "Contato" (`/#contato`) com o link atual em negrito (`aria-current`), ícone de sacola "Carrinho" para `/carrinho`, "Agendar troca" com `scheduleLink`; fixo no topo (`sticky top-0`); abaixo de 768 px o menu vira um botão "Abrir menu".
 - `SiteFooter`: duas formas, como nas capturas. Na Home: logo, "© <ano> FAC Lubrificantes", "Instagram" (só com link), "Produtos", "Política de privacidade", "Área administrativa". Nas demais páginas: "© <ano> FAC Lubrificantes · Parque Novo Mundo, São Paulo", "Política de privacidade" e "Área administrativa". O layout escolhe a forma pela rota (`usePathname`).
 
+**Embalagem marcada na página do produto.** A "primeira embalagem" do PDP-01 AC 5 é a primeira do cadastro (`position`), a mesma que o card mostra; os chips aparecem do menor ao maior (Frasco 1L, Frasco 4L, Balde 20L, Tambor 200L, Unidade, depois as de nome livre). É o que a captura desenha: chips de Frasco 1L a Balde 20L com o Balde 20L marcado, e o card da Home com "Lubrax · Balde 20L".
+
 **"Carregar mais" na captura do catálogo.** A captura mostra "12 produtos" e o botão ao mesmo tempo; o CAT-01 AC 11 só mostra o botão quando há mais produtos que os da tela. Com os 12 produtos de exemplo o botão não aparece, e essa é a única diferença esperada na foto do catálogo.
 
 ### Componentes de site (`src/components/site`)

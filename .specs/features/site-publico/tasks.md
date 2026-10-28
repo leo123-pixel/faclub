@@ -145,9 +145,9 @@ T17 → T18 → T19
 
 ---
 
-### T4: Regras da página do produto
+### T4: Regras da página do produto ✅
 
-**What**: `specRows(product)` (Viscosidade, Tipo, Especificação API, Aplicação, Código e Disponibilidade, sem linha de campo vazio), `availability(stock)`, `packageCaption(label)` ("à vista · balde 20L") e `relatedProducts(product, items)` (até 4 de outras categorias, destaques primeiro).
+**What**: `specRows(product)` (Viscosidade, Tipo, Especificação API, Aplicação, Código e Disponibilidade, sem linha de campo vazio), `availability(stock)`, `packageCaption(label)` ("à vista · balde 20L"), `chipOrder(variants)` (chips do menor ao maior, como na captura) e `relatedProducts(product, items)` (até 4 de outras categorias, destaques primeiro).
 **Where**: `src/lib/domain/product-page.ts`
 **Depends on**: T3
 **Reuses**: `CatalogItem`
@@ -155,9 +155,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `src/lib/domain/product-page.test.ts` cobre: produto completo dá as 6 linhas na ordem e sem API nem SKU dá 4 (C50); estoque 0 dá "Sob consulta" e 1 dá "Pronta entrega" (C51); relacionados excluem a mesma categoria e o próprio produto, põem destaques antes e param em 4, e um catálogo só da mesma categoria dá lista vazia (C54); a legenda da embalagem
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 4 tests pass
+- [x] `src/lib/domain/product-page.test.ts` cobre: produto completo dá as 6 linhas na ordem e sem API nem SKU dá 4 (C50); estoque 0 dá "Sob consulta" e 1 dá "Pronta entrega" (C51); relacionados excluem a mesma categoria e o próprio produto, põem destaques antes e param em 4, e um catálogo só da mesma categoria dá lista vazia (C54); a legenda da embalagem; a ordem dos chips
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 5 tests pass
 
 **Tests**: unit
 **Gate**: quick

@@ -300,7 +300,7 @@ T26 → T27 → T28
 
 ---
 
-### T11: Validar o produto
+### T11: Validar o produto ✅
 
 **What**: `productInputSchema` (zod) com nome, marca, categoria, ao menos uma embalagem com preço, ao menos uma foto, preço promocional menor que o preço por embalagem, números não negativos e Tipo em Mineral, Semissintético ou Sintético, com as mensagens exatas da spec.
 **Where**: `src/lib/domain/product-input.ts`
@@ -310,9 +310,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `src/lib/domain/product-input.test.ts` cobre cada campo obrigatório ausente com "Campo obrigatório"; promo igual e maior que o preço com "O preço promocional precisa ser menor que o preço."; preço "abc" e estoque -1 com "Informe um número válido."; produto completo aceito
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 8 tests pass
+- [x] `src/lib/domain/product-input.test.ts` cobre cada campo obrigatório ausente com "Campo obrigatório"; promo igual e maior que o preço com "O preço promocional precisa ser menor que o preço."; preço "abc" e estoque -1 com "Informe um número válido."; produto completo aceito
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 8 tests pass
 
 **Tests**: unit
 **Gate**: quick

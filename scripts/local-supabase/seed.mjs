@@ -1,6 +1,7 @@
 #!/usr/bin/env node
-// Dados do Supabase local: o admin, um usuário sem papel e os 8 produtos da
-// captura da lista do painel. Rodar de novo zera o catálogo e repõe tudo.
+// Dados do Supabase local: o admin, um usuário sem papel, os 8 produtos da
+// captura da lista do painel, as configurações e o cupom iniciais, sem banners.
+// Rodar de novo zera o catálogo e repõe tudo.
 //
 //   node scripts/local-supabase/seed.mjs
 import { createClient } from "@supabase/supabase-js";
@@ -25,7 +26,19 @@ export const PRODUCTS = [
 ];
 
 const SEED_SQL = `
-  truncate public.products, public.orders restart identity cascade;
+  truncate public.products, public.orders, public.banners restart identity cascade;
+  delete from public.coupons where code <> 'FACLUB10';
+  insert into public.coupons (code, percent, description, is_active)
+  values ('FACLUB10', 10, '10% de desconto na troca feita na loja.', true)
+  on conflict (code) do update set percent = 10, description = excluded.description, is_active = true;
+  insert into public.settings (id, whatsapp, phone, email, address, hours_weekdays, hours_saturday,
+    group_link, instagram, schedule_message)
+  values (1, '1129545764', '(11) 2954-5764', 'contato@faclubrificantes.com.br',
+    'Rua Cabo Antônio Alves, 50, Parque Novo Mundo, São Paulo', '7h às 18h', '8h às 13h',
+    null, null, 'Olá! Quero agendar uma troca de óleo.')
+  on conflict (id) do update set whatsapp = excluded.whatsapp, phone = excluded.phone, email = excluded.email,
+    address = excluded.address, hours_weekdays = excluded.hours_weekdays, hours_saturday = excluded.hours_saturday,
+    group_link = null, instagram = null, schedule_message = excluded.schedule_message;
   delete from public.categories where slug not in ('linha-leve', 'linha-pesada', 'filtros', 'aditivos-e-graxas');
   delete from public.brands where slug not in ('mobil', 'shell', 'texaco', 'lubrax', 'urania', 'brutus');
   insert into public.categories (slug, name, position) values

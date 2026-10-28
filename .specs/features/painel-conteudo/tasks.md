@@ -9,8 +9,8 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: inline (escopo médio) - ver `## Design notes` abaixo
-**Status**: Draft
-**Approved**: pendente
+**Status**: Approved
+**Approved**: 2026-10-28 - user: "aprovado, pode seguir"
 **Mutations**: 3
 **Build**: `npm run build; npm run typecheck; npm run lint`
 
@@ -69,7 +69,7 @@ T5 → T6 → T7 → T8 → T9
 
 ## Task Breakdown
 
-### T1: Repor configurações, cupom e banners no seed
+### T1: Repor configurações, cupom e banners no seed ✅
 
 **What**: `seed.mjs` volta `settings` aos valores iniciais, o FACLUB10 a 10% ativo (apagando outros cupons) e esvazia `banners` a cada execução.
 **Where**: `scripts/local-supabase/seed.mjs`
@@ -79,8 +79,8 @@ T5 → T6 → T7 → T8 → T9
 
 **Done when**:
 
-- [ ] Rodar o seed depois de mudar settings, cupons e banners devolve os valores iniciais da spec
-- [ ] Gate check passes: build gate
+- [x] Rodar o seed depois de mudar settings, cupons e banners devolve os valores iniciais da spec
+- [x] Gate check passes: build gate
 
 **Tests**: none
 **Gate**: build

@@ -399,7 +399,7 @@ T17 → T18 → T19
 
 ---
 
-### T16: Embalagem, preço e quantidade
+### T16: Embalagem, preço e quantidade ✅
 
 **What**: `PurchaseBox` com os chips de embalagem (primeira marcada), o preço da embalagem (promocional com o normal riscado em oferta), "à vista · <embalagem>", quantidade de 1 a 99 com "−" e "+", e "Adicionar ao carrinho" com o aviso temporário.
 **Where**: `src/components/site/PurchaseBox.tsx`
@@ -409,9 +409,9 @@ T17 → T18 → T19
 
 **Done when**:
 
-- [ ] `src/components/site/PurchaseBox.test.tsx` cobre: escolher Frasco 1L troca o preço para o dele e a legenda para "à vista · frasco 1L" (C46); abre com a primeira embalagem marcada e quantidade 1 (C47); "+" sobe até 99 e para, "−" desce até 1 e para (C48); em oferta mostra o promocional e o normal riscado, e fora de oferta não; o botão ao lado da quantidade se chama "Adicionar ao carrinho" (C56)
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 5 tests pass
+- [x] `src/components/site/PurchaseBox.test.tsx` cobre: escolher Frasco 1L troca o preço para o dele e a legenda para "à vista · frasco 1L" (C46); abre com a primeira embalagem marcada e quantidade 1 (C47); "+" sobe até 99 e para, "−" desce até 1 e para (C48); em oferta mostra o promocional e o normal riscado, e fora de oferta não; o botão ao lado da quantidade se chama "Adicionar ao carrinho" (C56)
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 5 tests pass
 
 **Tests**: unit
 **Gate**: quick

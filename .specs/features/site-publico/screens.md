@@ -7,9 +7,11 @@ Fotos tiradas por este sub-agente em 2026-10-28, como diz o `**Walked:**`: `npm 
 
 Rodada 2, por outro sub-agente independente, em 2026-10-28: as três fotos tiradas de novo do mesmo jeito (build, `start.mjs --app`, seed `--site`, `POST /api/revalidar`, janela no tamanho da captura, 1x, rolagem até o fim e volta, 1 s, foto só da janela). Só as linhas que estavam `differs` foram reabertas; as `same` ficaram como estavam e nada foi acrescentado aos inventários. As linhas cobertas por AD-015 em `## Differences from the source` contam como aprovadas.
 
+Depois da rodada 2, a única linha `differs` (cards de serviço sem foto) foi à decisão do usuário, que a aprovou como diferença (AD-016) - user: "ok para as duas recomendações, pode seguir"; o orquestrador marcou a linha `same` com essa nota, sem novo julgamento da foto.
+
 | Screen | Compared with | Verdict | Finding |
 | --- | --- | --- | --- |
-| `captures/home.running.png` | `captures/home.png` | diverges | rodada 2: 1 linha difere: os cards de serviço continuam sem foto. Altura dos cards "Por que a FAC LUB", "Entrar no grupo de ofertas" e rodapé agora iguais; frase do cupom aprovada (AD-015) |
+| `captures/home.running.png` | `captures/home.png` | matches | rodada 2: a linha dos cards de serviço sem foto foi aprovada pelo usuário depois da rodada (AD-016). Altura dos cards "Por que a FAC LUB", "Entrar no grupo de ofertas" e rodapé agora iguais; frase do cupom aprovada (AD-015) |
 | `captures/catalogo.running.png` | `captures/catalogo.png` | matches | rodada 2: "Carregar mais" ausente com 12 produtos é diferença aprovada (AD-015) |
 | `captures/produto.running.png` | `captures/produto.png` | matches | rodada 2: o rodapé aparece inteiro na janela |
 
@@ -30,7 +32,7 @@ Rodada 2, por outro sub-agente independente, em 2026-10-28: as três fotos tirad
 | marcas: 6 nomes em cinza numa linha centralizada | same | nota: mesmos 6 nomes em ordem alfabética (Brutus, Lubrax, Mobil, Shell, Texaco, Urania); a captura usa Mobil, Shell, Texaco, Lubrax, Urania, Brutus. O spec (HOME-01 AC4) não fixa a ordem |
 | serviços: título "Nossos serviços", subtítulo "Do carro do dia a dia ao caminhão, cada serviço com o produto certo." e botão escuro "Pedir orçamento" | same | |
 | serviços: grade 3×2 de cards escuros arredondados (~389×340) com título e texto no pé: "Troca de óleo de motor", "Óleo de câmbio", "Filtros", "Linha pesada", "Aditivos, graxas e direção", "Lubrificante industrial", com os textos da captura | same | |
-| serviços: uma foto ocupando cada card (na captura, imagens com alt "Troca de óleo", "Óleo de câmbio", "Filtros", "Linha pesada", "Aditivos e graxas", "Lubrificante industrial") | differs | rodada 2: continua sem foto em nenhum dos 6 cards: só o gradiente escuro de cima para baixo, sem elemento de imagem e sem as alts da captura (o spec, Assumptions, pede fotos de banco nas seções de serviços; nenhuma linha de `## Differences from the source` cobre a ausência) |
+| serviços: uma foto ocupando cada card (na captura, imagens com alt "Troca de óleo", "Óleo de câmbio", "Filtros", "Linha pesada", "Aditivos e graxas", "Lubrificante industrial") | same | depois da rodada 2, o usuário aprovou a diferença (Q12, AD-016 em `## Differences from the source`); a rodada 2 registrou: continua sem foto em nenhum dos 6 cards: só o gradiente escuro de cima para baixo, sem elemento de imagem e sem as alts da captura (o spec, Assumptions, pede fotos de banco nas seções de serviços; nenhuma linha de `## Differences from the source` cobre a ausência) |
 | por que: título "Por que a FAC LUB" e subtítulo "Um atendimento pensado para quem não pode ficar parado." | same | |
 | por que: 3 cards claros; esquerda e direita com texto em cima e foto embaixo, meio com foto em cima e texto embaixo; textos "Atendimento ágil", "O óleo certo para o seu motor", "Próxima troca registrada" e seus parágrafos | same | |
 | por que: tamanho dos cards (~389×360) e das fotos (~240 px de altura) | same | rodada 2: cards de ~389×378 e fotos de 389×240 nos três cards (esquerda e direita embaixo, meio em cima); nota: ~18 px mais altos que a captura |

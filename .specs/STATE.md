@@ -122,6 +122,14 @@
 - **Date**: 2026-10-28
 - **Status**: active
 
+### AD-016 · active
+- **Decision**: Os 6 cards de "Nossos serviços" ficam no fundo escuro, sem foto, até a FAC LUB ou a Onbind mandar as fotos; as marcas da Home aparecem em ordem alfabética.
+- **Reason**: Pergunta Q12 ("os cards de serviço ficam no fundo escuro até virem as fotos, ou ganham fotos agora?"), opção escolhida: manter o fundo escuro - as fotos do protótipo para esses cards não vieram no export e nenhum banco de fotos abre no ambiente de desenvolvimento. Pergunta Q13 ("marcas em ordem alfabética ou um campo Ordem no painel?"), opção escolhida: ordem alfabética - a tabela de marcas não tem campo de ordem. user: "ok para as duas recomendações, pode seguir".
+- **Trade-off**: A Home difere da captura nos cards de serviço (sem foto) e na ordem das marcas (a captura mostra Mobil, Shell, Texaco, Lubrax, Urania, Brutus); as fotos entram depois sem mudar o layout.
+- **Scope**: site-publico
+- **Date**: 2026-10-28
+- **Status**: active
+
 ## Handoff
 
 - **Feature**: site-publico (`.specs/features/site-publico`)

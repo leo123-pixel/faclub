@@ -241,6 +241,8 @@ PRD coberto aqui: RF01 a RF10, US01, US02, US04, metatags da seção 8.
 | Catálogo com "12 produtos" e "Carregar mais" ao mesmo tempo | "Carregar mais" só com mais de 12 produtos (CAT-01 AC 11) | y - AD-015 |
 | "Combine com" do Top Turbo com o Rimula R4, da mesma categoria | "Combine com" só com produtos de outras categorias (PDP-01 AC 12) | y - AD-015 |
 | Bloco do cupom sem dizer onde o desconto vale | Linha "O desconto vale só para serviços feitos na loja." (CUPOM-01 AC 3) | y - AD-015 |
+| Cards de "Nossos serviços" com foto | Cards no fundo escuro, sem foto, até virem as fotos da loja | y - AD-016 |
+| Marcas na ordem Mobil, Shell, Texaco, Lubrax, Urania, Brutus | Marcas em ordem alfabética | y - AD-016 |
 
 ## Sources
 

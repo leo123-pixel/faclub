@@ -9,7 +9,7 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: `.specs/features/carrinho-pedidos/design.md`
-**Status**: In Progress
+**Status**: Done
 **Approved**: 2026-10-28 - user: "aprovado, pode seguir"
 **Mutations**: 3
 **Build**: `npm run build:local; npm run typecheck; npm run lint`

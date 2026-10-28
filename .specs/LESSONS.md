@@ -134,6 +134,54 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: captures/home.png, cards de serviço (C7) (spec)
 - last seen: 2026-10-28T20:57:03Z
 
+### L-021 - Teste um limite por chave (IP, usuário) com duas chaves diferentes, para provar que a chave não é constante
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `e2e` · harmful: 0
+- features: carrinho-pedidos
+- evidence: src/app/api/pedidos/route.ts:12 (C18) (e2e)
+- last seen: 2026-10-28T23:17:21Z
+
+### L-022 - Limite contado no banco trava a chave antes de contar e tem teste com chamadas simultâneas
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `db` · harmful: 0
+- features: carrinho-pedidos
+- evidence: supabase/migrations/20261029000100_order_throttle.sql:20 (C18) (db)
+- last seen: 2026-10-28T23:17:21Z
+
+### L-023 - Um plano B é testado também com a etapa anterior fora do ar
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `site` · harmful: 0
+- features: carrinho-pedidos
+- evidence: src/components/site/CartView.tsx:131 (C23, C31) (site)
+- last seen: 2026-10-28T23:17:21Z
+
+### L-024 - Prova de tempo limite confere os dois lados: não desiste antes do prazo nem espera além dele
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `e2e` · harmful: 0
+- features: carrinho-pedidos
+- evidence: tests/e2e/cart-send.spec.ts:193 (C23) (e2e)
+- last seen: 2026-10-28T23:17:21Z
+
+### L-025 - Prove na rota, com dados adulterados, que o servidor ignora valores vindos do navegador
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `e2e` · harmful: 0
+- features: carrinho-pedidos
+- evidence: tests/e2e/cart-api.spec.ts (C16) (e2e)
+- last seen: 2026-10-28T23:17:21Z
+
+### L-026 - Limite de tamanho de texto conta caracteres como o banco (code points depois de NFC), não unidades UTF-16
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `domain` · harmful: 0
+- features: carrinho-pedidos
+- evidence: src/lib/domain/order.ts:76 (domain)
+- last seen: 2026-10-28T23:17:21Z
+
+### L-027 - Valide limites por item depois de juntar linhas repetidas do mesmo item
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `domain` · harmful: 0
+- features: carrinho-pedidos
+- evidence: src/lib/domain/order.ts:78 (domain)
+- last seen: 2026-10-28T23:17:21Z
+
+### L-028 - Depois de um clique que navega, espere a URL ou a contagem antes de ler a lista com evaluateAll
+- signal: `gate_fail` · recurrence: 1 feature(s) · scope: `e2e` · harmful: 0
+- features: carrinho-pedidos
+- evidence: tests/e2e/orders.spec.ts:100 (C28) (e2e)
+- last seen: 2026-10-28T23:17:21Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

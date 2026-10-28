@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 21,
+  "next_id": 29,
   "lessons": [
     {
       "id": "L-001",
@@ -364,6 +364,150 @@
       ],
       "created": "2026-10-28T20:57:03Z",
       "last_seen": "2026-10-28T20:57:03Z"
+    },
+    {
+      "id": "L-021",
+      "key": "spec_precision_gap::teste um limite por chave ip usuario com duas chaves diferentes para provar que a chave nao e constante",
+      "text": "Teste um limite por chave (IP, usuário) com duas chaves diferentes, para provar que a chave não é constante",
+      "signal": "spec_precision_gap",
+      "scope": "e2e",
+      "status": "candidate",
+      "features": [
+        "carrinho-pedidos"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/app/api/pedidos/route.ts:12 (C18) (e2e)"
+      ],
+      "created": "2026-10-28T23:17:21Z",
+      "last_seen": "2026-10-28T23:17:21Z"
+    },
+    {
+      "id": "L-022",
+      "key": "ac_gap::limite contado no banco trava a chave antes de contar e tem teste com chamadas simultaneas",
+      "text": "Limite contado no banco trava a chave antes de contar e tem teste com chamadas simultâneas",
+      "signal": "ac_gap",
+      "scope": "db",
+      "status": "candidate",
+      "features": [
+        "carrinho-pedidos"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "supabase/migrations/20261029000100_order_throttle.sql:20 (C18) (db)"
+      ],
+      "created": "2026-10-28T23:17:21Z",
+      "last_seen": "2026-10-28T23:17:21Z"
+    },
+    {
+      "id": "L-023",
+      "key": "ac_gap::um plano b e testado tambem com a etapa anterior fora do ar",
+      "text": "Um plano B é testado também com a etapa anterior fora do ar",
+      "signal": "ac_gap",
+      "scope": "site",
+      "status": "candidate",
+      "features": [
+        "carrinho-pedidos"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/components/site/CartView.tsx:131 (C23, C31) (site)"
+      ],
+      "created": "2026-10-28T23:17:21Z",
+      "last_seen": "2026-10-28T23:17:21Z"
+    },
+    {
+      "id": "L-024",
+      "key": "spec_precision_gap::prova de tempo limite confere os dois lados nao desiste antes do prazo nem espera alem dele",
+      "text": "Prova de tempo limite confere os dois lados: não desiste antes do prazo nem espera além dele",
+      "signal": "spec_precision_gap",
+      "scope": "e2e",
+      "status": "candidate",
+      "features": [
+        "carrinho-pedidos"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "tests/e2e/cart-send.spec.ts:193 (C23) (e2e)"
+      ],
+      "created": "2026-10-28T23:17:21Z",
+      "last_seen": "2026-10-28T23:17:21Z"
+    },
+    {
+      "id": "L-025",
+      "key": "spec_precision_gap::prove na rota com dados adulterados que o servidor ignora valores vindos do navegador",
+      "text": "Prove na rota, com dados adulterados, que o servidor ignora valores vindos do navegador",
+      "signal": "spec_precision_gap",
+      "scope": "e2e",
+      "status": "candidate",
+      "features": [
+        "carrinho-pedidos"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "tests/e2e/cart-api.spec.ts (C16) (e2e)"
+      ],
+      "created": "2026-10-28T23:17:21Z",
+      "last_seen": "2026-10-28T23:17:21Z"
+    },
+    {
+      "id": "L-026",
+      "key": "ac_gap::limite de tamanho de texto conta caracteres como o banco code points depois de nfc nao unidades utf 16",
+      "text": "Limite de tamanho de texto conta caracteres como o banco (code points depois de NFC), não unidades UTF-16",
+      "signal": "ac_gap",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "carrinho-pedidos"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/order.ts:76 (domain)"
+      ],
+      "created": "2026-10-28T23:17:21Z",
+      "last_seen": "2026-10-28T23:17:21Z"
+    },
+    {
+      "id": "L-027",
+      "key": "ac_gap::valide limites por item depois de juntar linhas repetidas do mesmo item",
+      "text": "Valide limites por item depois de juntar linhas repetidas do mesmo item",
+      "signal": "ac_gap",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "carrinho-pedidos"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/order.ts:78 (domain)"
+      ],
+      "created": "2026-10-28T23:17:21Z",
+      "last_seen": "2026-10-28T23:17:21Z"
+    },
+    {
+      "id": "L-028",
+      "key": "gate_fail::depois de um clique que navega espere a url ou a contagem antes de ler a lista com evaluateall",
+      "text": "Depois de um clique que navega, espere a URL ou a contagem antes de ler a lista com evaluateAll",
+      "signal": "gate_fail",
+      "scope": "e2e",
+      "status": "candidate",
+      "features": [
+        "carrinho-pedidos"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "tests/e2e/orders.spec.ts:100 (C28) (e2e)"
+      ],
+      "created": "2026-10-28T23:17:21Z",
+      "last_seen": "2026-10-28T23:17:21Z"
     }
   ]
 }

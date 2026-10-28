@@ -221,6 +221,8 @@ PRD coberto aqui: RF16, RF17, RF18, RF19, RF20, RF21, RF22, RF27 (parcial), RF28
 | Menu lateral sem "Pedidos" | Item "Pedidos" logo abaixo de "Produtos" | y - AD-007 |
 | Cartão "Cliques no WhatsApp · 30 dias" | Cartão "Pedidos · 30 dias", contado da tabela orders | y - AD-008 |
 | Uma única linha de Preço e Preço promocional para o produto | Preço e Preço promocional por embalagem marcada | y - AD-003 |
+| Chips de embalagem Frasco 1L, Frasco 4L, Balde 20L e Tambor 200L | Os mesmos, mais "Unidade" e "Outra" (nome livre) | y - AD-013 |
+| Menu lateral sem ícones e sem o bloco do usuário em `admin-cadastro.png` (a `admin-produtos.png` desenha os dois) | Ícones e bloco do usuário com "Sair" em todas as telas do painel | n - pergunta Q11 |
 
 ## Sources
 

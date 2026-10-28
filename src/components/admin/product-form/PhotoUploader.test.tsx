@@ -93,7 +93,7 @@ describe("PhotoUploader", () => {
     expect(lastCall(onChange)).toHaveLength(2);
   });
 
-  it("se a 1ª foto falha e a 2ª é enviada, a 2ª vira capa", async () => {
+  it("PFORM-01.10: se a 1ª foto falha e a 2ª é enviada, a 2ª vira capa", async () => {
     let calls = 0;
     const firstFails: UploadFn = async () => ({ ok: calls++ !== 0 });
     const { input, onChange } = setup([], firstFails);

@@ -98,6 +98,14 @@
 - **Date**: 2026-10-28
 - **Status**: active
 
+### AD-013 · active
+- **Decision**: Além dos chips Frasco 1L, Frasco 4L, Balde 20L e Tambor 200L da captura de cadastro, o formulário oferece "Unidade" e "Outra" (embalagem com nome livre).
+- **Reason**: Premissa "Embalagens oferecidas no cadastro" da spec de painel-catalogo ("Frasco 1L, Frasco 4L, Balde 20L, Tambor 200L e 'Unidade'; a loja pode digitar outra"), confirmada com as demais - user: "ok para todas as recomendações, pode seguir". Filtros e graxas não cabem nas quatro embalagens.
+- **Trade-off**: Dois chips a mais que a captura.
+- **Scope**: painel-catalogo
+- **Date**: 2026-10-28
+- **Status**: active
+
 ## Handoff
 
 - **Feature**: painel-catalogo (`.specs/features/painel-catalogo`)

@@ -553,7 +553,7 @@ T26 → T27 → T28
 
 ---
 
-### T23: Prévia do card
+### T23: Prévia do card ✅
 
 **What**: `PreviewCard` escuro da captura: selo "Oferta", marca, nome, embalagem e preço (promocional com o normal riscado quando em oferta).
 **Where**: `src/components/admin/product-form/PreviewCard.tsx`
@@ -563,9 +563,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `src/components/admin/product-form/PreviewCard.test.tsx` prova: em oferta mostra "Oferta", "R$ 349,90" e "R$ 389,90" riscado; fora de oferta mostra só "R$ 389,90" sem selo
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 2 tests pass
+- [x] `src/components/admin/product-form/PreviewCard.test.tsx` prova: em oferta mostra "Oferta", "R$ 349,90" e "R$ 389,90" riscado; fora de oferta mostra só "R$ 389,90" sem selo
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 2 tests pass
 
 **Tests**: unit
 **Gate**: quick

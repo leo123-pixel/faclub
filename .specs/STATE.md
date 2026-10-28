@@ -90,6 +90,14 @@
 - **Date**: 2026-10-28
 - **Status**: active
 
+### AD-012 · active
+- **Decision**: `cacheComponents` fica desligado no `next.config.ts`; as páginas públicas usam ISR com `revalidatePath` e o painel é dinâmico.
+- **Reason**: O create-next-app 16.4 liga `cacheComponents` por padrão, que obriga toda leitura de sessão a ficar atrás de `<Suspense>` e troca o modelo de revalidação; o PRD e o design pedem ISR com revalidação sob demanda, que o Next 16 mantém ("caching-without-cache-components").
+- **Trade-off**: Abre mão do shell estático parcial e do prefetch parcial do modelo novo.
+- **Scope**: todas as features
+- **Date**: 2026-10-28
+- **Status**: active
+
 ## Handoff
 
 - **Feature**: painel-catalogo (`.specs/features/painel-catalogo`)

@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* Tokens do protótipo aprovado (docs/referencias/prototipo.html). */
+:root {
+  --color-ink: #0B1020;
+  --color-navy: #0A1530;
+  --color-navy-2: #0F1D42;
+  --color-gold: #E2B33C;
+  --color-gold-soft: #FBF1D6;
+  --color-gold-ink: #7A5A0C;
+  --color-ok: #1F7A4D;
+  --color-muted: #5B6683;
+  --color-line: #D5D9E3;
+  --color-line-soft: #E2E5EC;
+  --color-bg: #F2F4F8;
+  --color-low: #FCEBE3;
+  --color-low-ink: #9A3A14;
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-navy: var(--color-navy);
+  --color-navy-2: var(--color-navy-2);
+  --color-gold: var(--color-gold);
+  --color-gold-soft: var(--color-gold-soft);
+  --color-gold-ink: var(--color-gold-ink);
+  --color-ok: var(--color-ok);
+  --color-muted: var(--color-muted);
+  --color-line: var(--color-line);
+  --color-line-soft: var(--color-line-soft);
+  --color-bg: var(--color-bg);
+  --color-low: var(--color-low);
+  --color-low-ink: var(--color-low-ink);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-inter-tight);
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+}

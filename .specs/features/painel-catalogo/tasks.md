@@ -9,8 +9,8 @@ Implement these tasks with the `tlc-spec-driven` skill: **activate it by name an
 ---
 
 **Design**: `.specs/features/painel-catalogo/design.md`
-**Status**: Draft
-**Approved**: pendente
+**Status**: Approved
+**Approved**: 2026-10-28 - user: "aprovado, pode seguir nesta sessão"
 **Mutations**: 3
 **Build**: `npm run build; npm run typecheck; npm run lint`
 
@@ -90,7 +90,7 @@ T26 → T27 → T28
 
 ## Task Breakdown
 
-### T1: Criar o projeto Next.js com Tailwind, TypeScript, ESLint e Vitest
+### T1: Criar o projeto Next.js com Tailwind, TypeScript, ESLint e Vitest ✅
 
 **What**: Projeto Next 16 (App Router, `src/`), Tailwind 4 com os tokens do protótipo em `globals.css`, fontes Inter e Inter Tight, scripts `typecheck`, `lint`, `test`, e Vitest com os projetos unit (node e jsdom) e db.
 **Where**: `package.json`
@@ -100,9 +100,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `npm run lint`, `npm run typecheck` e `npm run build` passam
-- [ ] `npx vitest run --passWithNoTests` termina com sucesso
-- [ ] `globals.css` define `--color-ink #0B1020`, `--color-navy #0A1530`, `--color-gold #E2B33C`, `--color-ok #1F7A4D`, `--color-muted #5B6683`, `--color-line #D5D9E3`, `--color-bg #F2F4F8`
+- [x] `npm run lint`, `npm run typecheck` e `npm run build` passam
+- [x] `npx vitest run --passWithNoTests` termina com sucesso
+- [x] `globals.css` define `--color-ink #0B1020`, `--color-navy #0A1530`, `--color-gold #E2B33C`, `--color-ok #1F7A4D`, `--color-muted #5B6683`, `--color-line #D5D9E3`, `--color-bg #F2F4F8`
 
 **Tests**: none
 **Gate**: build

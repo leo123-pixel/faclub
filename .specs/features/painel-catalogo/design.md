@@ -1,7 +1,7 @@
 # Painel: login e catálogo Design
 
 **Spec**: `.specs/features/painel-catalogo/spec.md`
-**Status**: Draft (aprovado junto com tasks.md)
+**Status**: Approved
 
 ---
 

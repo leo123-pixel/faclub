@@ -133,6 +133,9 @@ O site atual é um WordPress de 2016, sem catálogo, e não ajuda a vender. O mo
 12. WHEN nenhum produto atende aos filtros THEN o sistema SHALL mostrar "Nenhum produto encontrado. Tente outra busca ou fale com a gente no WhatsApp." e o botão "Chamar no WhatsApp"
 13. WHERE um produto está em oferta o card SHALL mostrar o selo "Oferta" e o preço promocional ao lado do preço normal riscado
 14. The card SHALL mostrar marca, embalagem, nome e preço em reais no formato "R$ 1.234,56"
+15. WHEN o administrador salva um produto com "Visível no site" ligado THEN o produto SHALL aparecer no catálogo público em até 1 minuto
+16. WHEN o administrador muda visibilidade, oferta ou preço de um produto THEN o catálogo, a página do produto e a Home SHALL mostrar a mudança em até 1 minuto
+17. WHEN o administrador muda a ordem das categorias no painel THEN o filtro do catálogo SHALL seguir a nova ordem
 
 **Independent Test**: Com os 12 produtos de exemplo, "Linha pesada" + busca "15w40" + "Menor preço" mostra os baldes de 15W-40 do mais barato ao mais caro.
 
@@ -212,7 +215,7 @@ O site atual é um WordPress de 2016, sem catálogo, e não ajuda a vender. O mo
 | HEAD-01 | P1: Agendar a troca em um toque (AC 1-6) | Design | Pending |
 | HOME-01 | P1: Ver a Home (AC 1-11) | Design | Pending |
 | CUPOM-01 | P2: Copiar o cupom e entrar no grupo (AC 1-4) | Design | Pending |
-| CAT-01 | P1: Encontrar o produto no catálogo (AC 1-14) | Design | Pending |
+| CAT-01 | P1: Encontrar o produto no catálogo (AC 1-17) | Design | Pending |
 | PDP-01 | P1: Ver a página do produto (AC 1-14) | Design | Pending |
 | PRIV-01 | P1: Política de privacidade (AC 1-2) | Design | Pending |
 | SEO-01 | P1: Metatags por página (AC 1-3) | Design | Pending |

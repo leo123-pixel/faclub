@@ -90,10 +90,10 @@ Hoje a loja não tem como publicar ou atualizar produtos sem depender da Onbind.
 10. WHEN ainda não existe produto cadastrado THEN a lista SHALL mostrar "Nenhum produto cadastrado ainda." e o botão "Novo produto"
 11. WHEN o administrador usa "Ver no site" THEN o sistema SHALL abrir o catálogo público em nova aba
 12. The topo SHALL mostrar os cartões "Produtos ativos" (visíveis), "Em oferta" (visíveis com `is_promo`), "Estoque baixo" (estoque de 5 ou menos) e "Pedidos · 30 dias" (linhas de `orders` criadas nos últimos 30 dias), calculados do banco
-14. The coluna Oferta SHALL mostrar um interruptor de oferta em cada linha
-15. The menu lateral SHALL mostrar, nesta ordem, Visão geral, Produtos, Pedidos, Categorias, Marcas, Banners e ofertas, Cupons e Configurações
-16. WHEN a coluna Preço mostra um produto com várias embalagens THEN ela SHALL mostrar o preço da primeira embalagem e a linha de embalagem SHALL dizer "N embalagens"
-13. WHEN a largura da janela é menor que 768 px THEN a lista SHALL virar cartões empilhados com os mesmos dados e interruptores, sem rolagem horizontal da página
+13. The coluna Oferta SHALL mostrar um interruptor de oferta em cada linha
+14. The menu lateral SHALL mostrar, nesta ordem, Visão geral, Produtos, Pedidos, Categorias, Marcas, Banners e ofertas, Cupons e Configurações
+15. WHEN a coluna Preço mostra um produto com várias embalagens THEN ela SHALL mostrar o preço da primeira embalagem e a linha de embalagem SHALL dizer "N embalagens"
+16. WHEN a largura da janela é menor que 768 px THEN a lista SHALL virar cartões empilhados com os mesmos dados e interruptores, sem rolagem horizontal da página
 
 **Independent Test**: Com 8 produtos de exemplo, cada aba, a busca "15w40" e o filtro "Linha pesada" devolvem as linhas esperadas.
 
@@ -111,7 +111,6 @@ Hoje a loja não tem como publicar ou atualizar produtos sem depender da Onbind.
 2. WHEN o administrador aciona o interruptor de oferta de uma linha THEN o sistema SHALL gravar o novo `is_promo` sem recarregar a página
 3. IF o administrador liga a oferta de um produto sem preço promocional em nenhuma embalagem THEN o sistema SHALL manter a oferta desligada e mostrar "Informe o preço promocional antes de ativar a oferta."
 4. IF a gravação falhar THEN o sistema SHALL voltar o interruptor à posição anterior e mostrar "Não foi possível salvar. Tente de novo."
-5. WHEN uma gravação de visibilidade, oferta ou produto termina THEN o sistema SHALL revalidar as páginas públicas afetadas para a mudança aparecer no site em até 1 minuto
 
 **Independent Test**: Desligar "Visível" de um produto e abrir o catálogo público: o produto sumiu da lista e da busca.
 
@@ -139,12 +138,11 @@ Hoje a loja não tem como publicar ou atualizar produtos sem depender da Onbind.
 12. WHEN o administrador marca uma embalagem THEN o sistema SHALL mostrar os campos Preço (R$) e Preço promocional (R$) daquela embalagem; desmarcar SHALL removê-la do produto
 13. WHEN o administrador altera nome, marca, embalagem, preço ou "Em oferta" THEN a "Prévia no site" SHALL mostrar o card com os novos valores sem salvar
 14. WHEN o administrador salva um produto válido THEN o sistema SHALL gravar o produto, voltar para `/admin/produtos` e mostrar "Produto salvo."
-15. WHEN o administrador salva com "Visível no site" ligado THEN o produto SHALL aparecer no catálogo público em até 1 minuto
-16. WHEN o administrador liga "Destaque na home" THEN o sistema SHALL gravar `is_featured = true`
-17. WHEN o administrador usa "Cancelar" com alterações não salvas THEN o sistema SHALL perguntar "Descartar as alterações?" e só sair se ele confirmar
-18. WHEN o administrador salva um produto com nome igual ao slug de outro THEN o sistema SHALL gerar o slug com sufixo `-2`, `-3` e assim por diante
-19. The campo Tipo da ficha técnica SHALL oferecer Mineral, Semissintético e Sintético
-20. WHEN a largura da janela é menor que 768 px THEN o formulário SHALL empilhar as seções em uma coluna com a Publicação logo depois das Informações básicas
+15. WHEN o administrador liga "Destaque na home" THEN o sistema SHALL gravar `is_featured = true`
+16. WHEN o administrador usa "Cancelar" com alterações não salvas THEN o sistema SHALL perguntar "Descartar as alterações?" e só sair se ele confirmar
+17. WHEN o administrador salva um produto cujo nome gera o mesmo slug de outro THEN o sistema SHALL gerar o slug com sufixo `-2`, `-3` e assim por diante
+18. The campo Tipo da ficha técnica SHALL oferecer Mineral, Semissintético e Sintético
+19. WHEN a largura da janela é menor que 768 px THEN o formulário SHALL empilhar as seções em uma coluna com a Publicação logo depois das Informações básicas
 
 **Independent Test**: Cadastrar "Top Turbo 15W-40" com duas fotos tiradas no celular, balde 20L e preço; o produto aparece no catálogo público em até 1 minuto, com a capa escolhida.
 
@@ -175,13 +173,13 @@ Hoje a loja não tem como publicar ou atualizar produtos sem depender da Onbind.
 
 1. WHEN o administrador abre "Categorias" THEN o sistema SHALL listar as categorias na ordem de `position`, com nome e número de produtos
 2. WHEN o administrador cria uma categoria com nome THEN o sistema SHALL gravá-la com slug gerado do nome e no fim da ordem
-3. WHEN o administrador muda a ordem de uma categoria THEN o filtro do catálogo público SHALL seguir a nova ordem
-4. IF o administrador tenta excluir uma categoria com produtos THEN o sistema SHALL não excluir e mostrar "Esta categoria tem N produtos. Mude a categoria deles antes de excluir."
-5. IF o nome da categoria ou da marca já existir THEN o sistema SHALL não salvar e mostrar "Já existe uma com esse nome."
-6. WHEN o administrador abre "Marcas" THEN o sistema SHALL listar as marcas em ordem alfabética, com nome, logo (quando houver) e número de produtos
-7. WHEN o administrador cria uma marca com nome e, opcionalmente, um logo THEN o sistema SHALL gravá-la com slug gerado do nome
-8. IF o administrador tenta excluir uma marca com produtos THEN o sistema SHALL não excluir e mostrar "Esta marca tem N produtos. Mude a marca deles antes de excluir."
-9. WHEN o administrador usa "+ Nova marca" no formulário de produto THEN o sistema SHALL criar a marca sem sair do formulário e já selecioná-la
+3. IF o administrador tenta excluir uma categoria com produtos THEN o sistema SHALL não excluir e mostrar "Esta categoria tem N produtos. Mude a categoria deles antes de excluir."
+4. IF o nome da categoria ou da marca já existir THEN o sistema SHALL não salvar e mostrar "Já existe uma com esse nome."
+5. WHEN o administrador abre "Marcas" THEN o sistema SHALL listar as marcas em ordem alfabética, com nome, logo (quando houver) e número de produtos
+6. WHEN o administrador cria uma marca com nome e, opcionalmente, um logo THEN o sistema SHALL gravá-la com slug gerado do nome
+7. IF o administrador tenta excluir uma marca com produtos THEN o sistema SHALL não excluir e mostrar "Esta marca tem N produtos. Mude a marca deles antes de excluir."
+8. WHEN o administrador usa "+ Nova marca" no formulário de produto THEN o sistema SHALL criar a marca sem sair do formulário e já selecioná-la
+9. WHEN o administrador usa "Subir" ou "Descer" numa categoria THEN a lista SHALL mostrar a nova ordem e o sistema SHALL gravar o novo `position`
 
 **Independent Test**: Criar a marca "Ipiranga" pelo formulário de produto e salvar o produto com ela; tentar excluir a marca é recusado.
 
@@ -202,12 +200,14 @@ Hoje a loja não tem como publicar ou atualizar produtos sem depender da Onbind.
 | --- | --- | --- | --- |
 | AUTH-01 | P1: Entrar no painel (AC 1-8) | Design | Pending |
 | PLIST-01 | P1: Ver e filtrar a lista (AC 1-16) | Design | Pending |
-| PTOG-01 | P1: Visibilidade e oferta na lista (AC 1-5) | Design | Pending |
-| PFORM-01 | P1: Cadastrar e editar produto (AC 1-20) | Design | Pending |
+| PTOG-01 | P1: Visibilidade e oferta na lista (AC 1-4) | Design | Pending |
+| PFORM-01 | P1: Cadastrar e editar produto (AC 1-19) | Design | Pending |
 | PDUP-01 | P2: Duplicar produto (AC 1-2) | Design | Pending |
 | TAX-01 | P1: Categorias e marcas (AC 1-9) | Design | Pending |
 
 **Coverage:** 6 total, 0 mapped to tasks, 6 unmapped ⚠️ (tasks vêm depois da aprovação)
+
+Os critérios "aparece no site em até 1 minuto" e "o filtro segue a ordem das categorias" ficam em site-publico CAT-01 (AC 15 a 17): só existe como prová-los quando o site público existir. O painel já chama a revalidação a cada gravação.
 
 PRD coberto aqui: RF16, RF17, RF18, RF19, RF20, RF21, RF22, RF27 (parcial), RF28, RF29, US05, US06.
 

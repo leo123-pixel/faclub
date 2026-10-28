@@ -66,13 +66,37 @@
 - **Date**: 2026-10-28
 - **Status**: active
 
+### AD-009 · active
+- **Decision**: O preço mora só em `product_variants`; `products` não tem `price` nem `promo_price`, e todo produto tem ao menos uma embalagem.
+- **Reason**: Com AD-003 cada embalagem tem preço; manter também o preço no produto criaria dois valores que podem divergir.
+- **Trade-off**: Diverge do modelo de dados do PRD (seção 7); ordenar por preço exige olhar a primeira embalagem.
+- **Scope**: banco, painel-catalogo, site-publico, carrinho-pedidos
+- **Date**: 2026-10-28
+- **Status**: active
+
+### AD-010 · active
+- **Decision**: Os testes rodam contra um Postgres 16 local com as migrações reais; o e2e usa um Supabase local montado com binários do PostgREST e do Supabase Auth (GoTrue) atrás de um gateway Node que também simula o Storage (`scripts/local-supabase/`).
+- **Reason**: As imagens Docker do Supabase não baixam neste ambiente (ECR bloqueado, Docker Hub com 429); os binários e o Postgres local funcionam aqui e no CI.
+- **Trade-off**: O Storage do e2e é simulado; as políticas do bucket são testadas direto no Postgres e conferidas à mão no Supabase real antes do lançamento.
+- **Scope**: todas as features
+- **Date**: 2026-10-28
+- **Status**: active
+
+### AD-011 · active
+- **Decision**: Regras que mudam o que a pessoa vê (filtro, busca, ordenação, paginação, contagens, preço exibido) rodam em funções puras em `src/lib/domain`; regras de integridade (preço promocional, capa única, oferta exige preço promocional, slug único, exclusão bloqueada) rodam no Postgres; o RLS é a única barreira de acesso.
+- **Reason**: Critical Rule 6 da skill: regra no navegador sai sem teste; o banco protege mesmo quando a interface falha.
+- **Trade-off**: Algumas mensagens dependem de traduzir códigos de erro do Postgres nas Server Actions.
+- **Scope**: todas as features
+- **Date**: 2026-10-28
+- **Status**: active
+
 ## Handoff
 
-- **Feature**: MVP inteiro (`.specs/features/*`)
-- **Phase / Task**: Specify, aguardando respostas às perguntas Q1 a Q10 e a aprovação das specs
-- **Completed**: none
+- **Feature**: painel-catalogo (`.specs/features/painel-catalogo`)
+- **Phase / Task**: Tasks, aguardando a aprovação de design.md e tasks.md
+- **Completed**: specs das 5 features aprovadas; design e tasks de painel-catalogo escritos
 - **In-progress** (file:line): none
-- **Next step**: registrar as respostas nas specs (critério, Assumptions ou AD-NNN), rodar `validate_spec.py` em cada feature e pedir a aprovação de painel-catalogo
-- **Blockers**: perguntas Q1 a Q10 em aberto
+- **Next step**: com a aprovação, escrever `**Approved**` em tasks.md, rodar `validate_tasks.py painel-catalogo --execute` e começar por T1
+- **Blockers**: aprovação das tasks e escolha entre execução direta ou por sub-agentes
 - **Uncommitted files**: none
 - **Branch**: claude/festive-sagan-40ifio

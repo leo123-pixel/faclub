@@ -195,7 +195,7 @@ T26 → T27 → T28
 
 ---
 
-### T6: Criar `make_slug`, `save_product` e os gatilhos de integridade
+### T6: Criar `make_slug`, `save_product` e os gatilhos de integridade ✅
 
 **What**: Migração com `make_slug(text)`, `save_product(jsonb)` (security invoker, transação única, slug com sufixo), gatilho `products_promo_guard` e gatilhos que recusam excluir categoria ou marca em uso, com a contagem na mensagem.
 **Where**: `supabase/migrations/20261028000400_functions.sql`
@@ -205,9 +205,9 @@ T26 → T27 → T28
 
 **Done when**:
 
-- [ ] `tests/db/functions.test.ts` cobre: slug "Óleo Câmbio 75W-90" vira `oleo-cambio-75w-90`; segundo produto com o mesmo nome recebe `-2` e o terceiro `-3` (settles C45); `save_product` grava produto, 2 embalagens e 2 fotos e, na edição, troca as embalagens; `save_product` como `anon` falha; oferta sem preço promocional falha com `promo_requires_price`; excluir categoria com 3 produtos falha com `category_in_use:3`; excluir marca em uso falha com `brand_in_use:N`; excluir categoria vazia funciona
-- [ ] Gate check passes: `npx vitest run`
-- [ ] Test count: 9 tests pass
+- [x] `tests/db/functions.test.ts` cobre: slug "Óleo Câmbio 75W-90" vira `oleo-cambio-75w-90`; segundo produto com o mesmo nome recebe `-2` e o terceiro `-3` (settles C45); `save_product` grava produto, 2 embalagens e 2 fotos e, na edição, troca as embalagens; `save_product` como `anon` falha; oferta sem preço promocional falha com `promo_requires_price`; excluir categoria com 3 produtos falha com `category_in_use:3`; excluir marca em uso falha com `brand_in_use:N`; excluir categoria vazia funciona
+- [x] Gate check passes: `npx vitest run`
+- [x] Test count: 9 tests pass
 
 **Tests**: integration
 **Gate**: build

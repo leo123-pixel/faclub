@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import type { Coupon } from "@/lib/domain/home";
 import { formatBRL } from "@/lib/domain/money";
-import { applyQuote, type CartQuote } from "@/lib/domain/order";
+import { applyQuote, ORDER_MESSAGES, orderMessage, orderWhatsappLink, validateOrderInput, type CartQuote } from "@/lib/domain/order";
 import { useCart } from "./CartProvider";
 import { IconMinus, IconPlus } from "./icons";
 
@@ -15,13 +15,23 @@ const EMPTY_QUOTE: CartQuote = { items: [], unavailable: [], total: 0 };
 const noop = () => () => {};
 
 /** `/carrinho` (CART-01 AC 5, 6, 9 e 11; CART-04 AC 1 e 13). */
-export function CartView({ coupon }: { whatsapp: string; coupon: Coupon | null }) {
-  const { cart, setQty, remove } = useCart();
+type OrderResponse = { number: number; items: CartQuote["items"]; total: number; unavailable: unknown[]; coupon: string | null };
+type Sent = { url: string; unavailable: number };
+
+export function CartView({ whatsapp, coupon }: { whatsapp: string; coupon: Coupon | null }) {
+  const { cart, setQty, remove, clear } = useCart();
   // o HTML pré-gerado não conhece o carrinho; espera o navegador para não piscar "vazio"
   const hydrated = useSyncExternalStore(noop, () => true, () => false);
   const [quote, setQuote] = useState<CartQuote>(EMPTY_QUOTE);
   const [quoteFailed, setQuoteFailed] = useState(false);
   const [withCoupon, setWithCoupon] = useState(false);
+  const [name, setName] = useState("");
+  const [vehicle, setVehicle] = useState("");
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
+  const [sent, setSent] = useState<Sent | null>(null);
+  // dois cliques seguidos gravam um pedido só (spec, Edge Cases)
+  const busy = useRef(false);
 
   // nova cotação quando entra ou sai uma linha; mudar quantidade usa a última (applyQuote)
   const linesKey = cart.lines.map((l) => `${l.productId}|${l.label}`).join(",");
@@ -51,6 +61,22 @@ export function CartView({ coupon }: { whatsapp: string; coupon: Coupon | null }
 
   if (!hydrated) return <div className="min-h-[320px]" aria-busy="true" />;
 
+  if (sent) {
+    return (
+      <div className="py-20 text-center" role="status">
+        <p className="font-display text-[28px] font-semibold tracking-tight text-ink">{ORDER_MESSAGES.sent}</p>
+        <a
+          href={sent.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-6 inline-flex h-12 items-center rounded-full bg-ink px-7 text-[15px] font-semibold text-white hover:bg-navy-2"
+        >
+          Abrir o WhatsApp de novo
+        </a>
+      </div>
+    );
+  }
+
   if (cart.lines.length === 0) {
     return (
       <div className="py-20 text-center">
@@ -63,6 +89,50 @@ export function CartView({ coupon }: { whatsapp: string; coupon: Coupon | null }
         </Link>
       </div>
     );
+  }
+
+  async function send() {
+    if (busy.current) return;
+    setError("");
+    const body = {
+      lines: cart.lines.map((l) => ({ productId: l.productId, label: l.label, qty: l.qty })),
+      name,
+      vehicle,
+      coupon: withCoupon,
+      sourceUrl: window.location.href,
+    };
+    const checked = validateOrderInput(body);
+    if (!checked.ok) {
+      setError(checked.message);
+      return;
+    }
+    // a aba abre no clique; o endereço chega depois da gravação (bloqueador de pop-up)
+    busy.current = true;
+    const tab = window.open("about:blank", "_blank");
+    setSending(true);
+    try {
+      const res = await fetch("/api/pedidos", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const json = await res.json();
+      if (!res.ok) {
+        tab?.close();
+        setError(json.error ?? ORDER_MESSAGES.invalid);
+        return;
+      }
+      const order = json as OrderResponse;
+      const message = orderMessage({ number: order.number, items: order.items, total: order.total, name, vehicle, coupon: order.coupon });
+      const url = orderWhatsappLink(whatsapp, message);
+      if (tab) tab.location.href = url;
+      else window.location.href = url;
+      clear();
+      setSent({ url, unavailable: order.unavailable.length });
+    } finally {
+      busy.current = false;
+      setSending(false);
+    }
   }
 
   const priced = new Map(view.items.map((i) => [`${i.productId}|${i.label}`, i]));
@@ -157,6 +227,39 @@ export function CartView({ coupon }: { whatsapp: string; coupon: Coupon | null }
             Quero fazer a troca na loja com o cupom {coupon.code}
           </label>
         )}
+        <div className="mt-5 space-y-3">
+          <label className="block">
+            <span className="text-[14px] font-semibold text-ink">Nome (opcional)</span>
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              autoComplete="name"
+              className="mt-1 h-12 w-full rounded-xl border border-line bg-white px-4 text-[15px] text-ink outline-none focus:border-ink"
+            />
+          </label>
+          <label className="block">
+            <span className="text-[14px] font-semibold text-ink">Veículo (opcional)</span>
+            <input
+              value={vehicle}
+              onChange={(e) => setVehicle(e.target.value)}
+              placeholder="Placa ou modelo"
+              className="mt-1 h-12 w-full rounded-xl border border-line bg-white px-4 text-[15px] text-ink outline-none placeholder:text-muted focus:border-ink"
+            />
+          </label>
+        </div>
+        {error && (
+          <p role="alert" className="mt-4 text-[14px] font-medium text-low-ink">
+            {error}
+          </p>
+        )}
+        <button
+          type="button"
+          onClick={send}
+          disabled={sending || view.items.length + view.pending.length === 0}
+          className="mt-5 h-[54px] w-full rounded-full bg-ink px-6 text-[16px] font-semibold text-white hover:bg-navy-2 disabled:opacity-60"
+        >
+          {sending ? "Enviando…" : "Enviar pedido pelo WhatsApp"}
+        </button>
       </aside>
     </div>
   );

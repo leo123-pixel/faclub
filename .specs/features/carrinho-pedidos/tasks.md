@@ -281,7 +281,7 @@ T13 → T14 → T15
 
 ---
 
-### T11: Enviar o pedido pelo WhatsApp
+### T11: Enviar o pedido pelo WhatsApp ✅
 
 **What**: Nome, veículo e "Enviar pedido pelo WhatsApp" no `CartView`: o clique abre uma aba, chama `/api/pedidos`, monta a mensagem com o número e manda a aba para o WhatsApp; esvazia o carrinho e mostra "Pedido enviado! Termine a conversa no WhatsApp." com "Abrir o WhatsApp de novo"; botão desativado durante o envio.
 **Where**: `src/components/site/CartView.tsx`
@@ -291,9 +291,9 @@ T13 → T14 → T15
 
 **Done when**:
 
-- [ ] `tests/e2e/cart-send.spec.ts` prova: com 2 itens e nome, o envio grava em `orders` itens com nome, embalagem, quantidade e preço, total, nome, veículo, status "Novo" e a página de origem, e a aba do WhatsApp abre com o número do pedido (C15); o carrinho fica vazio e aparece "Pedido enviado! Termine a conversa no WhatsApp." com "Abrir o WhatsApp de novo" (C21); a linha gravada não tem telefone, e-mail nem IP (C22); com a caixa do cupom marcada a mensagem tem "Cupom: FACLUB10 (troca na loja)" e o pedido grava `coupon_code` (C25); nome de 81 caracteres mostra "Use até 80 caracteres no nome e 40 no veículo." e nada é gravado (C19); dois cliques seguidos gravam um pedido só (Edge Case)
-- [ ] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
-- [ ] Test count: 6 e2e tests pass
+- [x] `tests/e2e/cart-send.spec.ts` prova: com 2 itens e nome, o envio grava em `orders` itens com nome, embalagem, quantidade e preço, total, nome, veículo, status "Novo" e a página de origem, e a aba do WhatsApp abre com o número do pedido (C15); o carrinho fica vazio e aparece "Pedido enviado! Termine a conversa no WhatsApp." com "Abrir o WhatsApp de novo" (C21); a linha gravada não tem telefone, e-mail nem IP (C22); com a caixa do cupom marcada a mensagem tem "Cupom: FACLUB10 (troca na loja)" e o pedido grava `coupon_code` (C25); nome de 81 caracteres mostra "Use até 80 caracteres no nome e 40 no veículo." e nada é gravado (C19); dois cliques seguidos gravam um pedido só (Edge Case)
+- [x] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
+- [x] Test count: 6 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

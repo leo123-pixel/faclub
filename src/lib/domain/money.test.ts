@@ -8,10 +8,13 @@ describe("valores em reais", () => {
     expect(parseBRL("39.9")).toBe(39.9);
     expect(parseBRL("R$ 39,90")).toBe(39.9);
     expect(parseBRL("389")).toBe(389);
+    expect(parseBRL("1.234")).toBe(1234);
+    expect(parseBRL("12.345.678")).toBe(12345678);
+    expect(parseBRL("1.234,5")).toBe(1234.5);
   });
 
   it("devolve null para texto, vazio, negativo e mais de 2 casas", () => {
-    for (const v of ["abc", "", "   ", "-10", "-1,00", "12,345", "1,2,3"]) expect(parseBRL(v)).toBeNull();
+    for (const v of ["abc", "", "   ", "-10", "-1,00", "12,345", "1,2,3", "1.2345"]) expect(parseBRL(v)).toBeNull();
   });
 
   it("formata com R$, milhar e duas casas", () => {

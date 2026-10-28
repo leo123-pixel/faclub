@@ -41,6 +41,10 @@ export type ProductPayload = {
   images: { path: string; is_cover: boolean }[];
 };
 
+/** Limites das colunas: numeric(10,2) e integer. */
+export const MAX_PRICE = 99_999_999.99;
+export const MAX_STOCK = 2_147_483_647;
+
 export const MESSAGES = {
   required: "Campo obrigatório",
   promoBelowPrice: "O preço promocional precisa ser menor que o preço.",
@@ -73,12 +77,12 @@ const variant = z
     const price = parseBRL(v.price);
     if (v.price.trim() === "") {
       ctx.addIssue({ code: "custom", path: ["price"], message: MESSAGES.required });
-    } else if (price === null || price <= 0) {
+    } else if (price === null || price <= 0 || price > MAX_PRICE) {
       ctx.addIssue({ code: "custom", path: ["price"], message: MESSAGES.invalidNumber });
     }
     if (v.promoPrice.trim() === "") return;
     const promo = parseBRL(v.promoPrice);
-    if (promo === null || promo <= 0) {
+    if (promo === null || promo <= 0 || promo > MAX_PRICE) {
       ctx.addIssue({ code: "custom", path: ["promoPrice"], message: MESSAGES.invalidNumber });
     } else if (price !== null && promo >= price) {
       ctx.addIssue({ code: "custom", path: ["promoPrice"], message: MESSAGES.promoBelowPrice });
@@ -89,7 +93,9 @@ const schema = z.object({
   name: filled,
   brandId: filled,
   categoryId: filled,
-  stock: z.string().refine((s) => s.trim() === "" || /^\d+$/.test(s.trim()), MESSAGES.invalidNumber),
+  stock: z
+    .string()
+    .refine((s) => s.trim() === "" || (/^\d+$/.test(s.trim()) && Number(s) <= MAX_STOCK), MESSAGES.invalidNumber),
   variants: z.array(variant).min(1, MESSAGES.required),
   images: z.array(z.object({ path: z.string(), isCover: z.boolean() })).min(1, MESSAGES.required),
   specs: z.object({ type: z.enum(["", ...PRODUCT_TYPES]) }).passthrough(),

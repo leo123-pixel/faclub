@@ -60,6 +60,16 @@ describe("validação do produto", () => {
     const msg = "Informe um número válido.";
     expect(validateProduct({ ...complete(), stock: "-1" })).toEqual({ ok: false, errors: { stock: msg } });
     expect(validateProduct({ ...complete(), stock: "2,5" })).toEqual({ ok: false, errors: { stock: msg } });
+    expect(validateProduct({ ...complete(), stock: "3000000000" })).toEqual({ ok: false, errors: { stock: msg } });
+    expect(validateProduct({ ...complete(), stock: "2147483647" }).ok).toBe(true);
+  });
+
+  it("recusa preço acima do que o banco guarda (99.999.999,99)", () => {
+    const msg = "Informe um número válido.";
+    const r = validateProduct({ ...complete(), variants: [{ label: "Tambor 200L", price: "1000000000", promoPrice: "" }] });
+    expect(r).toEqual({ ok: false, errors: { "variants.0.price": msg } });
+    const ok = validateProduct({ ...complete(), variants: [{ label: "Tambor 200L", price: "99.999.999,99", promoPrice: "" }] });
+    expect(ok.ok).toBe(true);
   });
 
   it("aceita o produto completo e monta o payload de save_product", () => {

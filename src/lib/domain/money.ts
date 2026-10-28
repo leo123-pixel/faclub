@@ -1,10 +1,12 @@
 /**
  * Lê um valor em reais como a loja digita: "39,90", "1.234,56", "39.9" ou
- * "R$ 39,90". Devolve null para texto, vazio, negativo ou mais de 2 casas.
+ * "R$ 39,90". "1.234" é milhar. Devolve null para texto, vazio, negativo ou mais de 2 casas.
  */
 export function parseBRL(input: string): number | null {
   let s = input.replace(/R\$/i, "").replace(/\s/g, "");
   if (s.includes(",")) s = s.replace(/\./g, "").replace(",", ".");
+  // sem vírgula, ponto seguido de 3 dígitos é milhar: "1.234" é mil duzentos e trinta e quatro
+  else if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, "");
   if (!/^\d+(\.\d{1,2})?$/.test(s)) return null;
   return Number(s);
 }

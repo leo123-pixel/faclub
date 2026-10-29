@@ -63,11 +63,11 @@ describe("workflow de backup", () => {
       writeFileSync(path.join(work, "backup", name), body);
     }
     const step = (env: Record<string, string>) =>
-      spawnSync("bash", ["-c", encrypt!.run!], { cwd: work, encoding: "utf8", env: { PATH: process.env.PATH!, ...env } });
+      spawnSync("bash", ["-c", encrypt!.run!], { cwd: work, encoding: "utf8", env: { ...process.env, ...env } });
 
     const noSecret = mkdtempSync(path.join(tmpdir(), "faclub-cifra-"));
     mkdirSync(path.join(noSecret, "backup"));
-    const failed = spawnSync("bash", ["-c", encrypt!.run!], { cwd: noSecret, encoding: "utf8", env: { PATH: process.env.PATH!, BACKUP_PASSPHRASE: "" } });
+    const failed = spawnSync("bash", ["-c", encrypt!.run!], { cwd: noSecret, encoding: "utf8", env: { ...process.env, BACKUP_PASSPHRASE: "" } });
     expect(failed.status).not.toBe(0);
     expect(readdirSync(noSecret)).not.toContain("cifrado");
 
@@ -87,7 +87,7 @@ describe("workflow de backup", () => {
       const run = spawnSync("bash", ["-o", "pipefail", "-c", command.replace("-C restaurado", `-C ${dir}`)], {
         cwd: work,
         encoding: "utf8",
-        env: { PATH: process.env.PATH!, BACKUP_PASSPHRASE: passphrase },
+        env: { ...process.env, BACKUP_PASSPHRASE: passphrase },
       });
       return { status: run.status, dir };
     };

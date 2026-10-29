@@ -5,10 +5,12 @@ import { HomeFeatured } from "@/components/site/home/HomeFeatured";
 import { HomeHero } from "@/components/site/home/HomeHero";
 import { HomeServices } from "@/components/site/home/HomeServices";
 import { HomeWhy } from "@/components/site/home/HomeWhy";
+import { JsonLd } from "@/components/site/JsonLd";
 import { loadHomeData, loadSettings } from "@/lib/data/public";
 import { featuredProducts, splitAddress } from "@/lib/domain/home";
 import { budgetLink, contactLink, scheduleLink } from "@/lib/domain/site-settings";
-import { pageMetadata } from "@/lib/seo";
+import { localBusinessJsonLd } from "@/lib/domain/structured-data";
+import { pageMetadata, siteUrl } from "@/lib/seo";
 
 export const revalidate = 60;
 
@@ -24,6 +26,7 @@ export default async function Home() {
   const address = splitAddress(settings.address);
   return (
     <main className="flex flex-col">
+      <JsonLd data={localBusinessJsonLd(settings, siteUrl())} />
       <HomeHero
         hero={hero}
         coupon={coupon}

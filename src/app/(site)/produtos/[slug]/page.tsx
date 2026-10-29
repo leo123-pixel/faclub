@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/site/JsonLd";
 import { ProductCard } from "@/components/site/ProductCard";
 import { ProductGallery } from "@/components/site/ProductGallery";
 import { PurchaseBox } from "@/components/site/PurchaseBox";
@@ -8,7 +9,8 @@ import { loadCoupon, loadProductBySlug, loadVisibleProducts } from "@/lib/data/p
 import { productTitle } from "@/lib/domain/admin-products";
 import { couponStoreNote } from "@/lib/domain/home";
 import { relatedProducts, specRows } from "@/lib/domain/product-page";
-import { pageMetadata } from "@/lib/seo";
+import { productJsonLd } from "@/lib/domain/structured-data";
+import { pageMetadata, siteUrl } from "@/lib/seo";
 import { publicImageUrl } from "@/lib/storage";
 
 export const revalidate = 60;
@@ -47,6 +49,7 @@ export default async function ProductPage({ params }: PageProps<"/produtos/[slug
   return (
     <main className="mx-auto w-full max-w-[1312px] px-4 pb-[100px] max-md:pb-16">
       <TrackViewItem product={product} />
+      <JsonLd data={productJsonLd(product, product.images.map(publicImageUrl), siteUrl())} />
       <nav aria-label="Trilha" className="pt-[26px] text-[14px]">
         <ol className="flex flex-wrap gap-1.5 text-muted">
           <li>

@@ -1,6 +1,6 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { APP_URL } from "../../scripts/local-supabase/config.mjs";
-import { seedSite } from "./support/site";
+import { refreshSite, seedSite } from "./support/site";
 import { serviceClient } from "./support/supabase";
 
 test.beforeEach(async () => {
@@ -53,5 +53,70 @@ test.describe("sitemap e robots", () => {
     expect(lines).toContain("Disallow: /admin");
     expect(lines).toContain("Disallow: /carrinho");
     expect(lines).toContain(`Sitemap: ${APP_URL}/sitemap.xml`);
+  });
+});
+
+async function jsonLd(page: Page, path: string) {
+  await page.goto(path);
+  const scripts = await page.locator('script[type="application/ld+json"]').allTextContents();
+  expect(scripts, path).toHaveLength(1);
+  return JSON.parse(scripts[0]);
+}
+
+test.describe("dados estruturados", () => {
+  test("SITEMAP-01.4: a Home tem AutoRepair com os dados das configurações e acompanha o telefone", async ({ page }) => {
+    const ld = await jsonLd(page, "/");
+    expect(ld).toMatchObject({
+      "@context": "https://schema.org",
+      "@type": "AutoRepair",
+      name: "FAC LUB",
+      url: APP_URL,
+      telephone: "+551129545764",
+      email: "contato@faclubrificantes.com.br",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Rua Cabo Antônio Alves, 50",
+        addressLocality: "São Paulo",
+        addressCountry: "BR",
+      },
+      openingHoursSpecification: [
+        {
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          opens: "07:00",
+          closes: "18:00",
+        },
+        { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "08:00", closes: "13:00" },
+      ],
+    });
+
+    const { error } = await serviceClient().from("settings").update({ phone: "(11) 3333-4444" }).eq("id", 1);
+    if (error) throw error;
+    await refreshSite();
+    expect((await jsonLd(page, "/")).telephone).toBe("+551133334444");
+  });
+
+  test("SITEMAP-01.5: o Top Turbo tem Product com marca, imagem, SKU e oferta em reais", async ({ page }) => {
+    const ld = await jsonLd(page, "/produtos/top-turbo-15w-40");
+    expect(ld).toMatchObject({
+      "@context": "https://schema.org",
+      "@type": "Product",
+      name: "Lubrax Top Turbo 15W-40",
+      brand: { "@type": "Brand", name: "Lubrax" },
+      sku: "LUB-TT-20",
+      offers: {
+        "@type": "Offer",
+        url: `${APP_URL}/produtos/top-turbo-15w-40`,
+        price: "349.90",
+        priceCurrency: "BRL",
+        availability: "https://schema.org/InStock",
+      },
+    });
+    expect(ld.image).toHaveLength(4);
+    for (const url of ld.image) {
+      const res = await page.request.get(url);
+      expect(res.status(), url).toBe(200);
+      expect(res.headers()["content-type"]).toBe("image/webp");
+    }
   });
 });

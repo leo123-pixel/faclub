@@ -261,7 +261,7 @@ T11 → T12 → T13
 
 ---
 
-### T10: JSON-LD na Home e no produto
+### T10: JSON-LD na Home e no produto ✅
 
 **What**: `<script type="application/ld+json">` com `localBusinessJsonLd` na Home e `productJsonLd` na página do produto.
 **Where**: `src/components/site/JsonLd.tsx`
@@ -271,9 +271,9 @@ T11 → T12 → T13
 
 **Done when**:
 
-- [ ] `tests/e2e/seo-tech.spec.ts` prova: a Home tem `AutoRepair` com nome, endereço, telefone e horários das configurações, e mudar o telefone no banco muda o JSON-LD (C15); o Top Turbo tem `Product` com nome, marca, imagem, SKU e `Offer` com 349.90 BRL e `InStock` (C16)
-- [ ] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
-- [ ] Test count: 2 e2e tests pass
+- [x] `tests/e2e/seo-tech.spec.ts` prova: a Home tem `AutoRepair` com nome, endereço, telefone e horários das configurações, e mudar o telefone no banco muda o JSON-LD (C15); o Top Turbo tem `Product` com nome, marca, imagem, SKU e `Offer` com 349.90 BRL e `InStock` (C16)
+- [x] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
+- [x] Test count: 2 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

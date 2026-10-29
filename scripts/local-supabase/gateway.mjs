@@ -1,7 +1,7 @@
 // Gateway do Supabase local: /auth/v1 → GoTrue, /rest/v1 → PostgREST e um
 // Storage simulado em disco com a mesma regra do bucket (só admin escreve).
 import { randomUUID } from "node:crypto";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import http from "node:http";
 import path from "node:path";
 import { PORTS, STORAGE_DIR, verifyJwt } from "./config.mjs";
@@ -60,6 +60,31 @@ async function storage(req, res) {
   }
 
   if (!isAdmin(req)) return send(res, 400, denied);
+
+  // Listagem de uma "pasta" do bucket, como a do Storage: pastas com id null.
+  if (req.method === "POST" && parts[0] === "object" && parts[1] === "list") {
+    const body = JSON.parse((await readBody(req)).toString() || "{}");
+    const dir = file(parts[2], body.prefix ?? "");
+    const entries = existsSync(dir) ? readdirSync(dir, { withFileTypes: true }) : [];
+    const items = entries
+      .filter((e) => !e.name.endsWith(".meta.json"))
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .map((e) => {
+        if (e.isDirectory()) return { name: e.name, id: null, metadata: null };
+        const meta = JSON.parse(readFileSync(path.join(dir, `${e.name}.meta.json`), "utf8"));
+        return { name: e.name, id: randomUUID(), metadata: { size: meta.size, mimetype: meta.contentType } };
+      });
+    const offset = body.offset ?? 0;
+    return send(res, 200, items.slice(offset, offset + (body.limit ?? 100)));
+  }
+
+  if (req.method === "GET" && parts[0] === "object") {
+    const target = file(parts[1], parts.slice(2).join("/"));
+    if (!existsSync(target)) return send(res, 404, { message: "Object not found" });
+    const meta = JSON.parse(readFileSync(`${target}.meta.json`, "utf8"));
+    res.writeHead(200, { "content-type": meta.contentType, ...CORS });
+    return res.end(readFileSync(target));
+  }
 
   if (req.method === "POST" && parts[0] === "object" && parts[1] === "copy") {
     const body = JSON.parse((await readBody(req)).toString() || "{}");

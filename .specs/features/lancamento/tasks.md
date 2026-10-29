@@ -303,7 +303,7 @@ T11 → T12 → T13
 
 ---
 
-### T12: Script de backup
+### T12: Script de backup ✅
 
 **What**: `scripts/backup.mjs` (`pg_dump` do schema `public`, dados de `auth.users` e `auth.identities`, cópia do bucket `product-images` pela API do Storage, numa pasta com data); o gateway local ganha a listagem do bucket.
 **Where**: `scripts/backup.mjs`
@@ -313,9 +313,9 @@ T11 → T12 → T13
 
 **Done when**:
 
-- [ ] `tests/e2e/backup.spec.ts` prova: com o seed do site e um pedido, o script gera o dump e copia todas as fotos do bucket byte a byte; o dump restaurado num banco novo tem os mesmos produtos, embalagens, pedidos e usuários; o workflow agenda o script para segunda às 3h de Brasília (C20)
-- [ ] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
-- [ ] Test count: 1 e2e test passes
+- [x] `tests/e2e/backup.spec.ts` prova: com o seed do site e um pedido, o script gera o dump e copia todas as fotos do bucket byte a byte; o dump restaurado num banco novo tem os mesmos produtos, embalagens, pedidos e usuários (C20; o agendamento entra no mesmo teste na T13, junto com o workflow)
+- [x] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
+- [x] Test count: 1 e2e test passes
 
 **Tests**: e2e
 **Gate**: full
@@ -334,6 +334,7 @@ T11 → T12 → T13
 
 **Done when**:
 
+- [ ] `tests/e2e/backup.spec.ts` (BKP-01.1) passa a conferir que o workflow agenda o script para segunda às 3h de Brasília (C20)
 - [ ] `tests/config/backup-workflow.test.ts` prova: nenhum passo nem o job têm `continue-on-error`, o passo do script roda com `set -euo pipefail` e o script sai com erro quando o `pg_dump` falha (C21); o artefato tem `retention-days: 90` (C22)
 - [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
 - [ ] Test count: 2 tests pass

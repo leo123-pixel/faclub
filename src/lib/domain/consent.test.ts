@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { canTrack, CONSENT_DAYS, NO_CHOICE, readConsent, writeConsent } from "./consent";
+import { canTrack, CONSENT_DAYS, isTrackerCookie, NO_CHOICE, readConsent, writeConsent } from "./consent";
 
 const NOW = new Date("2026-10-28T12:00:00Z");
 const DAY = 24 * 60 * 60 * 1000;
@@ -28,5 +28,16 @@ describe("escolha de cookies", () => {
     expect(canTrack({ choice: "aceito" })).toBe(true);
     expect(canTrack({ choice: "recusado" })).toBe(false);
     expect(canTrack(NO_CHOICE)).toBe(false);
+  });
+
+  it("escolha com data no futuro não vale (até 1 dia de folga para o relógio)", () => {
+    expect(readConsent(writeConsent("aceito", at(DAY / 2)), NOW)).toEqual({ choice: "aceito" });
+    expect(readConsent(writeConsent("aceito", at(DAY + 60 * 1000)), NOW)).toEqual(NO_CHOICE);
+    expect(readConsent(JSON.stringify({ version: 1, choice: "aceito", at: "9999-01-01" }), NOW)).toEqual(NO_CHOICE);
+  });
+
+  it("reconhece os cookies do GA4 e do Pixel e deixa os outros", () => {
+    for (const name of ["_ga", "_ga_ABC123", "_gid", "_gat_UA-1", "_gcl_au", "_fbp", "_fbc"]) expect(isTrackerCookie(name), name).toBe(true);
+    for (const name of ["faclub", "_gate", "sb-access-token", "_fbpx", "ga"]) expect(isTrackerCookie(name), name).toBe(false);
   });
 });

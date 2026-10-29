@@ -27,6 +27,13 @@ describe("dados estruturados", () => {
     expect(parseHours("7h às 18h")).toEqual({ opens: "07:00", closes: "18:00" });
     expect(parseHours("8h30 às 12h")).toEqual({ opens: "08:30", closes: "12:00" });
     expect(parseHours("8h - 13h")).toEqual({ opens: "08:00", closes: "13:00" });
+    expect(parseHours("7:00 às 18:00")).toEqual({ opens: "07:00", closes: "18:00" });
+    expect(parseHours("das 7h às 18h")).toEqual({ opens: "07:00", closes: "18:00" });
+    expect(parseHours("7 às 18h")).toEqual({ opens: "07:00", closes: "18:00" });
+    expect(parseHours("8h até 12h30")).toEqual({ opens: "08:00", closes: "12:30" });
+    expect(parseHours("25h às 99h")).toBeNull();
+    expect(parseHours("8h70 às 12h")).toBeNull();
+    expect(parseHours("18h às 7h")).toBeNull();
     expect(parseHours("fechado")).toBeNull();
     expect(parseHours("")).toBeNull();
   });
@@ -83,5 +90,17 @@ describe("dados estruturados", () => {
     expect(json).not.toHaveProperty("sku");
     expect(json).not.toHaveProperty("image");
     expect(json).not.toHaveProperty("description");
+  });
+
+  it("telefone com +55 e endereço com CEP ou UF saem certos", () => {
+    const ld = (over: Partial<typeof INITIAL_SETTINGS>) => localBusinessJsonLd({ ...INITIAL_SETTINGS, ...over }, SITE);
+    expect(ld({ phone: "+55 (11) 2954-5764" }).telephone).toBe("+551129545764");
+    expect(ld({ phone: "55 11 99999-8888" }).telephone).toBe("+5511999998888");
+    expect(ld({ phone: "(11) 99999-8888" }).telephone).toBe("+5511999998888");
+    const city = (address: string) => (ld({ address }).address as { addressLocality?: string }).addressLocality;
+    expect(city("Rua Cabo Antônio Alves, 50, Parque Novo Mundo, São Paulo, 02180-000")).toBe("São Paulo");
+    expect(city("Rua Cabo Antônio Alves, 50, Parque Novo Mundo, São Paulo - SP")).toBe("São Paulo");
+    expect(city("Rua Cabo Antônio Alves, 50, Parque Novo Mundo, São Paulo, SP, CEP 02180-000")).toBe("São Paulo");
+    expect(city("Rua Cabo Antônio Alves, 50")).toBeUndefined();
   });
 });

@@ -63,6 +63,20 @@ O site atual não mede conversão, e trocar o WordPress pelo site novo pode derr
 
 ---
 
+### P1: Recusar depois de aceitar
+
+**User Story**: Como visitante, quero que recusar os cookies pare a medição na hora, mesmo depois de ter aceitado.
+
+**Why P1**: Achado do Verifier em 2026-10-29: depois de "Aceitar", usar "Preferências de cookies" e "Recusar" só gravava a escolha; GA4 e Pixel seguiam medindo a navegação até recarregar, e os cookies deles ficavam (LGPD).
+
+**Acceptance Criteria**:
+
+1. WHEN o visitante que aceitou os cookies usa "Recusar" THEN o sistema SHALL parar o GA4 e o Pixel na mesma visita, sem nenhum pedido a eles nas páginas seguintes, e apagar os cookies deles (`_ga`, `_ga_*`, `_gid`, `_gat*`, `_gcl_*`, `_fbp`, `_fbc`)
+
+**Independent Test**: Aceitar, abrir "Preferências de cookies", recusar e navegar: a aba de rede não mostra pedidos ao Google nem à Meta e os cookies `_ga` e `_fbp` somem.
+
+---
+
 ### P1: Sitemap, robots e dados estruturados ⭐ MVP
 
 **User Story**: Como loja, quero que o Google encontre e entenda as páginas novas.
@@ -125,11 +139,14 @@ O site atual não mede conversão, e trocar o WordPress pelo site novo pode derr
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
 | CONS-01 | P1: Aviso de cookies e medição (AC 1-11) | Design | Pending |
+| CONS-02 | P1: Recusar depois de aceitar (AC 1) | Execute | Pending |
 | SITEMAP-01 | P1: Sitemap, robots e dados estruturados (AC 1-5) | Tasks | Pending |
 | REDIR-01 | P1: Redirecionar as URLs antigas (AC 1-3) | Tasks | Pending |
 | BKP-01 | P2: Backup semanal (AC 1-3) | Tasks | Pending |
 
 **Coverage:** 4 total, 0 mapped to tasks, 4 unmapped ⚠️ (tasks vêm depois da aprovação)
+
+CONS-02 entrou depois do Verifier (2026-10-29) e é provado por C23.
 
 PRD coberto aqui: RF10 (aviso de cookies), seção 8 (SEO, LGPD, Medição, Backup).
 

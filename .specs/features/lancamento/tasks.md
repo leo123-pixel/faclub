@@ -414,6 +414,9 @@ Proof: `npx vitest run tests/config/backup-workflow.test.ts -t "BKP-01.2:"`
 **C22** - O backup fica guardado por 90 dias (BKP-01, AC 3)
 Proof: `npx vitest run tests/config/backup-workflow.test.ts -t "BKP-01.3:"`
 
+**C23** - Recusar depois de aceitar para o GA4 e o Pixel na mesma visita e apaga os cookies deles (CONS-02, AC 1)
+Proof: `npx playwright test tests/e2e/consent.spec.ts -g "CONS-02.1:"`
+
 ---
 
 ## Handoff

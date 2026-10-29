@@ -1,4 +1,5 @@
 import { expect, test, type BrowserContext, type Page } from "@playwright/test";
+import { APP_URL } from "../../scripts/local-supabase/config.mjs";
 import { seedSite } from "./support/site";
 
 // os testes do aviso começam sem escolha de cookies
@@ -6,6 +7,7 @@ test.use({ storageState: { cookies: [], origins: [] } });
 
 const banner = (page: Page) => page.getByRole("region", { name: "Aviso de cookies" });
 const DAY = 24 * 60 * 60 * 1000;
+const MINUTE = 60 * 1000;
 
 /** Intercepta Google e Meta: nada sai para a internet, e cada pedido fica anotado. */
 async function watchTrackers(context: BrowserContext) {
@@ -52,11 +54,11 @@ test.describe("aviso de cookies", () => {
     await page.reload();
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(banner(page)).toHaveCount(0);
-    await context.clock.setSystemTime(new Date(start.getTime() + 179 * DAY));
+    await context.clock.setSystemTime(new Date(start.getTime() + 180 * DAY - MINUTE));
     await page.reload();
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(banner(page)).toHaveCount(0);
-    await context.clock.setSystemTime(new Date(start.getTime() + 181 * DAY));
+    await context.clock.setSystemTime(new Date(start.getTime() + 180 * DAY + MINUTE));
     await page.reload();
     await expect(banner(page)).toBeVisible();
   });
@@ -100,20 +102,44 @@ test.describe("aviso de cookies", () => {
       ["init", "1234567890"],
       ["track", "PageView"],
     ]);
-    // 179 dias depois: sem aviso, scripts carregam direto
-    await context.clock.setSystemTime(new Date(start.getTime() + 179 * DAY));
+    // 1 minuto antes dos 180 dias: sem aviso, scripts carregam direto
+    await context.clock.setSystemTime(new Date(start.getTime() + 180 * DAY - MINUTE));
     hits.length = 0;
     await page.goto("/produtos");
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
     await expect(banner(page)).toHaveCount(0);
     await expect.poll(() => hits.length).toBeGreaterThanOrEqual(2);
-    // 181 dias depois: o aviso volta e nada carrega antes da escolha
-    await context.clock.setSystemTime(new Date(start.getTime() + 181 * DAY));
+    // 1 minuto depois dos 180 dias: o aviso volta e nada carrega antes da escolha
+    await context.clock.setSystemTime(new Date(start.getTime() + 180 * DAY + MINUTE));
     hits.length = 0;
     await page.goto("/produtos");
     await expect(banner(page)).toBeVisible();
     await page.waitForTimeout(500);
     expect(hits).toEqual([]);
   });
-});
 
+  test("CONS-02.1: Recusar depois de aceitar para o GA4 e o Pixel na mesma visita e apaga os cookies deles", async ({ context, page }) => {
+    const hits = await watchTrackers(context);
+    const cookie = (name: string) => ({ name, value: "1", url: APP_URL });
+    await context.addCookies([cookie("_ga"), cookie("_ga_FACLUB"), cookie("_gid"), cookie("_fbp"), cookie("outro")]);
+    await page.goto("/");
+    await banner(page).getByRole("button", { name: "Aceitar" }).click();
+    await expect.poll(() => hits.length).toBeGreaterThanOrEqual(2);
+
+    await page.getByRole("contentinfo").getByRole("button", { name: "Preferências de cookies" }).click();
+    await Promise.all([page.waitForEvent("load"), banner(page).getByRole("button", { name: "Recusar" }).click()]);
+    hits.length = 0;
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(banner(page)).toHaveCount(0);
+    expect(await page.evaluate(() => [typeof window.gtag, typeof window.fbq])).toEqual(["undefined", "undefined"]);
+    expect((await context.cookies()).map((c) => c.name).sort()).toEqual(["outro"]);
+
+    // navegação pelo site (sem recarregar) não manda nada
+    await page.getByRole("banner").getByRole("link", { name: "Produtos" }).click();
+    await expect(page).toHaveURL(/\/produtos$/);
+    await page.getByRole("link", { name: /Top Turbo/ }).first().click();
+    await expect(page).toHaveURL(/top-turbo-15w-40/);
+    await page.waitForTimeout(500);
+    expect(hits).toEqual([]);
+  });
+});

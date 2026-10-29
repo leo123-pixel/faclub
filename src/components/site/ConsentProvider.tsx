@@ -1,7 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { CONSENT_STORAGE_KEY, NO_CHOICE, readConsent, writeConsent, type Consent, type ConsentChoice } from "@/lib/domain/consent";
+import { CONSENT_STORAGE_KEY, isTrackerCookie, NO_CHOICE, readConsent, writeConsent, type Consent, type ConsentChoice } from "@/lib/domain/consent";
 
 // A escolha mora no localStorage por 180 dias (CONS-01 AC 3 e 4). Com o
 // armazenamento bloqueado, vale só na visita e o aviso volta na próxima.
@@ -30,13 +30,41 @@ function set(next: State) {
   listeners.forEach((l) => l());
 }
 
+/** Apaga os cookies do GA4 e do Pixel no host e nos domínios acima dele. */
+function clearTrackerCookies() {
+  const names = document.cookie.split(";").map((c) => c.split("=")[0].trim()).filter(isTrackerCookie);
+  const labels = window.location.hostname.split(".");
+  const domains = ["", ...labels.slice(0, -1).map((_, i) => `; domain=.${labels.slice(i).join(".")}`)];
+  for (const name of names) {
+    for (const domain of domains) document.cookie = `${name}=; Max-Age=0; path=/${domain}`;
+  }
+}
+
+/**
+ * Recusar depois de aceitar (CONS-02): avisa o GA4 e o Pixel, apaga os cookies
+ * deles e recarrega a página, que volta sem os scripts.
+ */
+function revoke() {
+  window.gtag?.("consent", "update", {
+    analytics_storage: "denied",
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+  });
+  window.fbq?.("consent", "revoke");
+  clearTrackerCookies();
+  window.location.reload();
+}
+
 function choose(choice: ConsentChoice) {
+  const wasAccepted = snapshot().consent.choice === "aceito";
   try {
     window.localStorage.setItem(CONSENT_STORAGE_KEY, writeConsent(choice, new Date()));
   } catch {
     // sem armazenamento: a escolha vale só nesta visita
   }
   set({ consent: { choice }, reopened: false });
+  if (wasAccepted && choice === "recusado") revoke();
 }
 
 function subscribe(listener: () => void) {

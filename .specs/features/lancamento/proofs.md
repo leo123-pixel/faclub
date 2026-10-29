@@ -1,8 +1,8 @@
 # lancamento proofs
 
-**HEAD**: 842484a
+**HEAD**: a6745a3
 **Tree**: clean
-**Result**: 25 pass, 0 fail; mutations 0 killed, 0 not
+**Result**: 27 pass, 0 fail; mutations 3 killed, 0 not
 
 | Check | Proof | Ran | Passed | Result |
 | --- | --- | --- | --- | --- |
@@ -28,6 +28,16 @@
 | C20 | `npx playwright test tests/e2e/backup.spec.ts -g "BKP-01.1:"` | 1 | - | pass |
 | C21 | `npx vitest run tests/config/backup-workflow.test.ts -t "BKP-01.2:"` | 1 | 1 | pass |
 | C22 | `npx vitest run tests/config/backup-workflow.test.ts -t "BKP-01.3:"` | 1 | 1 | pass |
+| C23 | `npx playwright test tests/e2e/consent.spec.ts -g "CONS-02.1:"` | 1 | - | pass |
+| C24 | `npx vitest run tests/config/backup-workflow.test.ts -t "BKP-02.1:"` | 1 | 1 | pass |
 | Build | `npm run build:local` | - | - | pass |
 | Build | `npm run typecheck` | - | - | pass |
 | Build | `npm run lint` | - | - | pass |
+
+## Mutations
+
+| Mutation | Location | Killed |
+| --- | --- | --- |
+| C4: escolha de cookies vale 179 dias em vez de 180 | `src/lib/domain/consent.ts:5` | yes |
+| C16: JSON-LD Product sempre InStock, mesmo sem estoque | `src/lib/domain/structured-data.ts:84` | yes |
+| C17: Next tira a barra final com 308 antes do 301 das URLs antigas | `next.config.ts:10` | yes |

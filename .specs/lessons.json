@@ -3,7 +3,7 @@
   "promote_threshold": 2,
   "window_days": 45,
   "quarantine_threshold": 2,
-  "next_id": 29,
+  "next_id": 38,
   "lessons": [
     {
       "id": "L-001",
@@ -508,6 +508,168 @@
       ],
       "created": "2026-10-28T23:17:21Z",
       "last_seen": "2026-10-28T23:17:21Z"
+    },
+    {
+      "id": "L-029",
+      "key": "ac_gap::antes de guardar dados pessoais como artefato do ci confira a visibilidade do repositorio e cifre o artefato",
+      "text": "Antes de guardar dados pessoais como artefato do CI, confira a visibilidade do repositório e cifre o artefato",
+      "signal": "ac_gap",
+      "scope": "ops",
+      "status": "candidate",
+      "features": [
+        "lancamento"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        ".github/workflows/backup.yml:53 (achado 1) (ops)"
+      ],
+      "created": "2026-10-29T01:05:48Z",
+      "last_seen": "2026-10-29T01:05:48Z"
+    },
+    {
+      "id": "L-030",
+      "key": "ac_gap::agendamento do github actions em repositorio publico para depois de 60 dias sem atividade documente a reativacao ou mantenha o repositorio privado",
+      "text": "Agendamento do GitHub Actions em repositório público para depois de 60 dias sem atividade; documente a reativação ou mantenha o repositório privado",
+      "signal": "ac_gap",
+      "scope": "ops",
+      "status": "candidate",
+      "features": [
+        "lancamento"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        ".github/workflows/backup.yml:7-9 (achado 2) (ops)"
+      ],
+      "created": "2026-10-29T01:05:48Z",
+      "last_seen": "2026-10-29T01:05:48Z"
+    },
+    {
+      "id": "L-031",
+      "key": "ac_gap::recusar o consentimento depois de aceitar desliga os scripts ja carregados e apaga os cookies deles com e2e de aceitar e depois recusar",
+      "text": "Recusar o consentimento depois de aceitar desliga os scripts já carregados e apaga os cookies deles, com e2e de aceitar e depois recusar",
+      "signal": "ac_gap",
+      "scope": "site",
+      "status": "candidate",
+      "features": [
+        "lancamento"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/components/site/ConsentProvider.tsx:33-40 (achado 3) (site)"
+      ],
+      "created": "2026-10-29T01:05:48Z",
+      "last_seen": "2026-10-29T01:05:48Z"
+    },
+    {
+      "id": "L-032",
+      "key": "ac_gap::data gravada no futuro nao estica um prazo de validade alem de uma folga pequena trate como invalida",
+      "text": "Data gravada no futuro não estica um prazo de validade; além de uma folga pequena, trate como inválida",
+      "signal": "ac_gap",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "lancamento"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/consent.ts:15 (achado 4) (domain)"
+      ],
+      "created": "2026-10-29T01:05:48Z",
+      "last_seen": "2026-10-29T01:05:48Z"
+    },
+    {
+      "id": "L-033",
+      "key": "ac_gap::interprete texto livre do painel nos formatos que as pessoas digitam e recuse valores fora do intervalo",
+      "text": "Interprete texto livre do painel nos formatos que as pessoas digitam e recuse valores fora do intervalo",
+      "signal": "ac_gap",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "lancamento"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/structured-data.ts:12 (achado 5) (domain)"
+      ],
+      "created": "2026-10-29T01:05:48Z",
+      "last_seen": "2026-10-29T01:05:48Z"
+    },
+    {
+      "id": "L-034",
+      "key": "ac_gap::ao normalizar telefone ou endereco para dados estruturados teste com codigo do pais cep e uf no texto",
+      "text": "Ao normalizar telefone ou endereço para dados estruturados, teste com código do país, CEP e UF no texto",
+      "signal": "ac_gap",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "lancamento"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "src/lib/domain/structured-data.ts:21,32 (achado 6) (domain)"
+      ],
+      "created": "2026-10-29T01:05:48Z",
+      "last_seen": "2026-10-29T01:05:48Z"
+    },
+    {
+      "id": "L-035",
+      "key": "spec_precision_gap::prove each boundary comparison with the equal value not only a value past it",
+      "text": "Prove each boundary comparison with the equal value, not only a value past it",
+      "signal": "spec_precision_gap",
+      "scope": "domain",
+      "status": "candidate",
+      "features": [
+        "lancamento"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "tests/e2e/consent.spec.ts:55-61 (C4) (domain)"
+      ],
+      "created": "2026-10-29T01:05:48Z",
+      "last_seen": "2026-10-29T01:05:48Z"
+    },
+    {
+      "id": "L-036",
+      "key": "spec_precision_gap::prove cada ramo de um valor condicional na prova da check como instock e outofstock",
+      "text": "Prove cada ramo de um valor condicional na prova da check, como InStock e OutOfStock",
+      "signal": "spec_precision_gap",
+      "scope": "e2e",
+      "status": "candidate",
+      "features": [
+        "lancamento"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "tests/e2e/seo-tech.spec.ts:99-114 (C16) (e2e)"
+      ],
+      "created": "2026-10-29T01:05:48Z",
+      "last_seen": "2026-10-29T01:05:48Z"
+    },
+    {
+      "id": "L-037",
+      "key": "gate_fail::encerre o app local pelo pid e confirme a porta livre antes das provas o playwright reutiliza um servidor orfao sem banco",
+      "text": "Encerre o app local pelo PID e confirme a porta livre antes das provas; o Playwright reutiliza um servidor órfão sem banco",
+      "signal": "gate_fail",
+      "scope": "e2e",
+      "status": "candidate",
+      "features": [
+        "lancamento"
+      ],
+      "recurrence": 1,
+      "harmful": 0,
+      "evidence": [
+        "proofs.md at 842484a, 1ª rodada (17 fail, count unknown) (e2e)"
+      ],
+      "created": "2026-10-29T01:05:48Z",
+      "last_seen": "2026-10-29T01:05:48Z"
     }
   ]
 }

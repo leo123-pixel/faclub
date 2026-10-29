@@ -130,13 +130,21 @@
 - **Date**: 2026-10-28
 - **Status**: active
 
+### AD-017 · active
+- **Decision**: O backup semanal sobe para o GitHub só como um arquivo cifrado (AES-256 com o segredo `BACKUP_PASSPHRASE`), e o Next roda com `skipTrailingSlashRedirect`, com a mesma regra de barra final (308) depois dos 301 das URLs antigas.
+- **Reason**: Achados de lancamento em 2026-10-29: o repositório é público, então qualquer conta do GitHub baixaria um artefato com logins do painel e dados dos pedidos (Verifier); e o 308 automático do Next tirava a barra de `/contato/` antes do 301 (T11).
+- **Trade-off**: Sem a senha, o backup não abre (a Onbind guarda uma cópia fora do GitHub). Enquanto o repositório for público, o GitHub desliga o agendamento depois de 60 dias sem atividade; tornar o repositório privado é decisão do cliente e está no README.
+- **Scope**: lancamento
+- **Date**: 2026-10-29
+- **Status**: active
+
 ## Handoff
 
-- **Feature**: lancamento (`.specs/features/lancamento`)
-- **Phase / Task**: Design e Tasks escritos (13 tarefas, 22 checks), `validate_tasks.py` com 0 erros; aguardando aprovação de design.md e tasks.md
-- **Completed**: painel-catalogo, painel-conteudo, site-publico e carrinho-pedidos
+- **Feature**: lancamento (`.specs/features/lancamento`), concluída: gate verde, 27 checks e 3 mutações mortas
+- **Phase / Task**: MVP completo; as cinco features (AD-002) estão Done
+- **Completed**: painel-catalogo, painel-conteudo, site-publico, carrinho-pedidos e lancamento
 - **In-progress** (file:line): none
-- **Next step**: com a aprovação, executar T1 (`src/lib/domain/consent.ts`)
-- **Blockers**: aprovação do usuário (segunda parada)
+- **Next step**: lançamento pela Onbind, seguindo a seção "Lançamento" do README (variáveis na Vercel, segredos do backup, Search Console antes do DNS); decidir se o repositório fica privado
+- **Blockers**: none
 - **Uncommitted files**: none
 - **Branch**: claude/festive-sagan-40ifio

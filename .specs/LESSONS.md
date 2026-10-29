@@ -182,6 +182,60 @@ Seen once or not yet corroborated. Tracked, not trusted.
 - evidence: tests/e2e/orders.spec.ts:100 (C28) (e2e)
 - last seen: 2026-10-28T23:17:21Z
 
+### L-029 - Antes de guardar dados pessoais como artefato do CI, confira a visibilidade do repositório e cifre o artefato
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `ops` · harmful: 0
+- features: lancamento
+- evidence: .github/workflows/backup.yml:53 (achado 1) (ops)
+- last seen: 2026-10-29T01:05:48Z
+
+### L-030 - Agendamento do GitHub Actions em repositório público para depois de 60 dias sem atividade; documente a reativação ou mantenha o repositório privado
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `ops` · harmful: 0
+- features: lancamento
+- evidence: .github/workflows/backup.yml:7-9 (achado 2) (ops)
+- last seen: 2026-10-29T01:05:48Z
+
+### L-031 - Recusar o consentimento depois de aceitar desliga os scripts já carregados e apaga os cookies deles, com e2e de aceitar e depois recusar
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `site` · harmful: 0
+- features: lancamento
+- evidence: src/components/site/ConsentProvider.tsx:33-40 (achado 3) (site)
+- last seen: 2026-10-29T01:05:48Z
+
+### L-032 - Data gravada no futuro não estica um prazo de validade; além de uma folga pequena, trate como inválida
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `domain` · harmful: 0
+- features: lancamento
+- evidence: src/lib/domain/consent.ts:15 (achado 4) (domain)
+- last seen: 2026-10-29T01:05:48Z
+
+### L-033 - Interprete texto livre do painel nos formatos que as pessoas digitam e recuse valores fora do intervalo
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `domain` · harmful: 0
+- features: lancamento
+- evidence: src/lib/domain/structured-data.ts:12 (achado 5) (domain)
+- last seen: 2026-10-29T01:05:48Z
+
+### L-034 - Ao normalizar telefone ou endereço para dados estruturados, teste com código do país, CEP e UF no texto
+- signal: `ac_gap` · recurrence: 1 feature(s) · scope: `domain` · harmful: 0
+- features: lancamento
+- evidence: src/lib/domain/structured-data.ts:21,32 (achado 6) (domain)
+- last seen: 2026-10-29T01:05:48Z
+
+### L-035 - Prove each boundary comparison with the equal value, not only a value past it
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `domain` · harmful: 0
+- features: lancamento
+- evidence: tests/e2e/consent.spec.ts:55-61 (C4) (domain)
+- last seen: 2026-10-29T01:05:48Z
+
+### L-036 - Prove cada ramo de um valor condicional na prova da check, como InStock e OutOfStock
+- signal: `spec_precision_gap` · recurrence: 1 feature(s) · scope: `e2e` · harmful: 0
+- features: lancamento
+- evidence: tests/e2e/seo-tech.spec.ts:99-114 (C16) (e2e)
+- last seen: 2026-10-29T01:05:48Z
+
+### L-037 - Encerre o app local pelo PID e confirme a porta livre antes das provas; o Playwright reutiliza um servidor órfão sem banco
+- signal: `gate_fail` · recurrence: 1 feature(s) · scope: `e2e` · harmful: 0
+- features: lancamento
+- evidence: proofs.md at 842484a, 1ª rodada (17 fail, count unknown) (e2e)
+- last seen: 2026-10-29T01:05:48Z
+
 ## Quarantined (failed when applied - ignore)
 
 A confirmed lesson that recurred alongside failure. Kept for the maintainer to review.

@@ -53,6 +53,9 @@ export const consentActions = {
   reopen: () => set({ ...snapshot(), reopened: true }),
 };
 
+/** A escolha atual, para quem está fora do React (track). */
+export const getConsent = () => snapshot().consent;
+
 /** Só para testes: esquece a escolha em memória, como uma visita nova. */
 export const resetConsentForTests = () => {
   current = null;

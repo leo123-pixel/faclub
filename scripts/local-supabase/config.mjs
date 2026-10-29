@@ -46,6 +46,9 @@ export const APP_ENV = {
   SUPABASE_SERVICE_ROLE_KEY: SERVICE_ROLE_KEY,
   NEXT_PUBLIC_SITE_URL: APP_URL,
   REVALIDATE_SECRET,
+  // IDs de teste: o e2e intercepta os scripts do Google e da Meta
+  NEXT_PUBLIC_GA4_ID: "G-FACLUBTEST",
+  NEXT_PUBLIC_META_PIXEL_ID: "1234567890",
 };
 
 export const MAIL_DIR = path.join(LOCAL, "mail");

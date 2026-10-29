@@ -176,7 +176,7 @@ T11 → T12 → T13
 
 ---
 
-### T6: GA4 e Pixel só com aceite
+### T6: GA4 e Pixel só com aceite ✅
 
 **What**: `Analytics` no layout `(site)`: com aceite e ID, cria as filas `gtag` e `fbq` e carrega `gtag.js` e `fbevents.js`; `track(event)` envia para os dois e não faz nada sem aceite; IDs de teste em `NEXT_PUBLIC_GA4_ID` e `NEXT_PUBLIC_META_PIXEL_ID` no stack local.
 **Where**: `src/components/site/Analytics.tsx`
@@ -186,10 +186,10 @@ T11 → T12 → T13
 
 **Done when**:
 
-- [ ] `tests/e2e/consent.spec.ts` prova: sem escolha e depois de "Recusar", nenhum pedido vai a `googletagmanager.com` nem a `connect.facebook.net` ao navegar por Home, catálogo e produto (C2); "Aceitar" carrega os dois scripts com os IDs, esconde o aviso, e a escolha vale até 180 dias (C3)
-- [ ] `src/components/site/Analytics.test.tsx` cobre: com o ID do GA4 vazio só o Pixel carrega, e vice-versa, sem erro (Edge Case)
-- [ ] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
-- [ ] Test count: 2 e2e e 2 de componente passam
+- [x] `tests/e2e/consent.spec.ts` prova: sem escolha e depois de "Recusar", nenhum pedido vai a `googletagmanager.com` nem a `connect.facebook.net` ao navegar por Home, catálogo e produto (C2); "Aceitar" carrega os dois scripts com os IDs, esconde o aviso, e a escolha vale até 180 dias (C3)
+- [x] `src/components/site/Analytics.test.tsx` cobre: com o ID do GA4 vazio só o Pixel carrega, e vice-versa, sem erro (Edge Case)
+- [x] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
+- [x] Test count: 2 e2e e 3 de componente passam
 
 **Tests**: e2e
 **Gate**: full

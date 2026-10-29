@@ -14,6 +14,7 @@ import {
 } from "@/lib/domain/catalog";
 import { IconSearch } from "./icons";
 import { ProductCard } from "./ProductCard";
+import { TrackedLink } from "./TrackedLink";
 
 type Category = { slug: string; name: string };
 type Filters = { category: string; query: string; sort: CatalogSort };
@@ -127,14 +128,15 @@ export function CatalogBrowser({ categories, items, contactHref, initial = DEFAU
       {list.length === 0 ? (
         <div className="py-20 text-center">
           <p className="mx-auto max-w-[420px] text-[17px] leading-relaxed text-ink">{EMPTY_CATALOG}</p>
-          <a
+          <TrackedLink
+            location="catalogo_vazio"
             href={contactHref}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 inline-flex h-12 items-center rounded-full bg-ink px-7 text-[15px] font-semibold text-white hover:bg-navy-2"
           >
             Chamar no WhatsApp
-          </a>
+          </TrackedLink>
         </div>
       ) : (
         <>

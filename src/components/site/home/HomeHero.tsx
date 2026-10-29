@@ -3,6 +3,7 @@ import type { Coupon, Hero } from "@/lib/domain/home";
 import { couponBadge } from "@/lib/domain/home";
 import type { SiteSettings } from "@/lib/domain/site-settings";
 import { publicImageUrl } from "@/lib/storage";
+import { TrackedLink } from "../TrackedLink";
 
 const isExternal = (href: string) => /^https?:\/\//.test(href);
 
@@ -61,14 +62,15 @@ export function HomeHero({
             <p className="mt-7 max-w-[560px] text-[17px] leading-[1.65] text-white/85 sm:text-[18px]">{hero.text}</p>
           )}
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <a
+            <TrackedLink
+              location="banner"
               href={scheduleHref}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-[54px] items-center rounded-full bg-ink px-7 text-[16px] font-semibold text-white ring-1 ring-white/5 hover:bg-navy-2"
             >
               Agendar pelo WhatsApp
-            </a>
+            </TrackedLink>
             <a
               href={hero.link}
               {...(isExternal(hero.link) ? { target: "_blank", rel: "noopener noreferrer" } : {})}

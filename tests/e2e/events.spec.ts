@@ -78,6 +78,43 @@ test.describe("eventos de produto, carrinho e pedido", () => {
   });
 });
 
+test.describe("eventos de WhatsApp, cupom e grupo", () => {
+  test("CONS-01.8: cada botão de WhatsApp fora do pedido envia click_whatsapp com o seu local", async ({ page }) => {
+    const main = () => page.getByRole("main");
+    await page.goto("/");
+    await page.getByRole("banner").getByRole("link", { name: "Agendar troca" }).click();
+    await expectSent(page, "click_whatsapp", { location: "topo" });
+    await main().getByRole("link", { name: "Agendar pelo WhatsApp" }).click();
+    await expectSent(page, "click_whatsapp", { location: "banner" });
+    await main().getByRole("link", { name: "Pedir orçamento" }).click();
+    await expectSent(page, "click_whatsapp", { location: "servicos" });
+    await page.getByRole("region", { name: "Passa aqui na FAC LUB" }).getByRole("link", { name: "Chamar no WhatsApp" }).click();
+    await expectSent(page, "click_whatsapp", { location: "contato" });
+    await page.goto("/produtos");
+    await page.getByRole("searchbox", { name: "Buscar produtos" }).fill("xyz");
+    await main().getByRole("link", { name: "Chamar no WhatsApp" }).click();
+    await expectSent(page, "click_whatsapp", { location: "catalogo_vazio" });
+    // cada clique gerou exatamente um evento no GA4 e um no Pixel
+    const sent = await sentEvents(page);
+    expect(sent.ga4.filter(([n]) => n === "click_whatsapp").map(([, p]) => p.location)).toEqual(["catalogo_vazio"]);
+    expect(sent.pixel.filter(([n]) => n === "click_whatsapp").map(([, p]) => p.location)).toEqual(["catalogo_vazio"]);
+  });
+
+  test("CONS-01.9: copiar o cupom envia copy_coupon", async ({ context, page }) => {
+    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    await page.goto("/");
+    await page.getByRole("button", { name: "Copiar" }).click();
+    await expect(page.getByRole("button", { name: "Copiado" })).toBeVisible();
+    await expectSent(page, "copy_coupon", { coupon: "FACLUB10" });
+  });
+
+  test("CONS-01.10: Entrar no grupo de ofertas envia join_group", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("link", { name: "Entrar no grupo de ofertas" }).click();
+    await expectSent(page, "join_group", {});
+  });
+});
+
 test.describe("sem aceite", () => {
   test.use({
     storageState: {

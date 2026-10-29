@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { copyCouponEvent, joinGroupEvent } from "@/lib/domain/analytics-events";
 import { couponHeadline, type Coupon } from "@/lib/domain/home";
+import { track } from "./track";
 
 export const COUPON_TEXT = "Mostre o cupom no atendimento e entre no grupo para receber as ofertas da semana.";
 export const COUPON_SCOPE = "O desconto vale só para serviços feitos na loja.";
@@ -22,6 +24,7 @@ export function CouponBlock({ coupon, groupLink }: { coupon: Coupon; groupLink: 
     try {
       await navigator.clipboard.writeText(coupon.code);
       setState("copied");
+      track(copyCouponEvent(coupon.code));
     } catch {
       // sem permissão (ou sem a API): o código fica selecionado para copiar à mão
       input.current?.focus();
@@ -61,6 +64,7 @@ export function CouponBlock({ coupon, groupLink }: { coupon: Coupon; groupLink: 
       {groupLink && (
         <a
           href={groupLink}
+          onClick={() => track(joinGroupEvent())}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-2 flex h-[50px] items-center justify-center rounded-full border border-line text-[15px] font-semibold text-ink hover:bg-bg"

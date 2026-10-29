@@ -1,3 +1,4 @@
+import { TrackedLink } from "../TrackedLink";
 import { darkButton, SectionHead } from "./SectionHead";
 
 // Os seis serviços ficam no código (painel-conteudo, Out of Scope); sem foto
@@ -19,9 +20,9 @@ export function HomeServices({ budgetHref }: { budgetHref: string }) {
         title="Nossos serviços"
         text="Do carro do dia a dia ao caminhão, cada serviço com o produto certo."
         action={
-          <a href={budgetHref} target="_blank" rel="noopener noreferrer" className={darkButton}>
+          <TrackedLink location="servicos" href={budgetHref} target="_blank" rel="noopener noreferrer" className={darkButton}>
             Pedir orçamento
-          </a>
+          </TrackedLink>
         }
       />
       <ul className="mx-auto mt-12 grid max-w-[1200px] gap-4 sm:grid-cols-2 lg:grid-cols-3">

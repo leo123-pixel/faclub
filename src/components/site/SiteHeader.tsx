@@ -4,8 +4,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { clickWhatsappEvent } from "@/lib/domain/analytics-events";
 import { useCart } from "./CartProvider";
 import { IconBag, IconClose, IconMenu } from "./icons";
+import { track } from "./track";
 
 const LINKS = [
   { href: "/#servicos", label: "Serviços", current: () => false },
@@ -112,6 +114,7 @@ export function SiteHeader({ scheduleHref }: { scheduleHref: string }) {
             </Link>
             <a
               href={scheduleHref}
+              onClick={() => track(clickWhatsappEvent("topo"))}
               target="_blank"
               rel="noopener noreferrer"
               className={`ml-1 inline-flex h-11 items-center whitespace-nowrap rounded-full px-4 text-[15px] font-semibold sm:px-[22px] ${

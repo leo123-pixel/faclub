@@ -1,6 +1,7 @@
 import { onlyDigits } from "@/lib/domain/settings-input";
 import type { SiteSettings } from "@/lib/domain/site-settings";
 import { MapEmbed } from "../MapEmbed";
+import { TrackedLink } from "../TrackedLink";
 import { darkButton } from "./SectionHead";
 
 /** "Passa aqui na FAC LUB" (HOME-01 AC 8 e 9): dados das configurações e o mapa. */
@@ -63,9 +64,15 @@ export function HomeContact({
               </dd>
             </div>
           </dl>
-          <a href={contactHref} target="_blank" rel="noopener noreferrer" className={`${darkButton} mt-8 h-[52px] px-7 text-[16px]`}>
+          <TrackedLink
+            location="contato"
+            href={contactHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`${darkButton} mt-8 h-[52px] px-7 text-[16px]`}
+          >
             Chamar no WhatsApp
-          </a>
+          </TrackedLink>
         </div>
         <MapEmbed address={settings.address} />
       </div>

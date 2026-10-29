@@ -219,7 +219,7 @@ T11 → T12 → T13
 
 ---
 
-### T8: Eventos de WhatsApp, cupom e grupo
+### T8: Eventos de WhatsApp, cupom e grupo ✅
 
 **What**: `TrackedLink` nos botões que abrem o WhatsApp fora do envio do pedido (topo, banner, serviços, contato, catálogo vazio) com `click_whatsapp`; `copy_coupon` no "Copiar"; `join_group` em "Entrar no grupo de ofertas".
 **Where**: `src/components/site/TrackedLink.tsx`
@@ -229,9 +229,9 @@ T11 → T12 → T13
 
 **Done when**:
 
-- [ ] `tests/e2e/events.spec.ts` prova, com cookies aceitos: cada um dos 5 botões de WhatsApp envia `click_whatsapp` com o seu local (C8); "Copiar" envia `copy_coupon` (C9); "Entrar no grupo de ofertas" envia `join_group` (C10)
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] `tests/e2e/events.spec.ts` prova, com cookies aceitos: cada um dos 5 botões de WhatsApp envia `click_whatsapp` com o seu local (C8); "Copiar" envia `copy_coupon` (C9); "Entrar no grupo de ofertas" envia `join_group` (C10)
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build

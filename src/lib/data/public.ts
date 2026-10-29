@@ -96,3 +96,15 @@ export const loadProductBySlug = cache(async (slug: string): Promise<ProductDeta
     images: cover ? [cover, ...rest] : [],
   };
 });
+
+/** Slug e data de alteração de cada produto visível, para o sitemap. */
+export async function loadSitemapProducts(): Promise<{ slug: string; updatedAt: string }[]> {
+  const { data, error } = await createPublicSupabase()
+    .from("products")
+    .select("slug, updated_at")
+    .eq("is_visible", true)
+    .order("created_at")
+    .order("name");
+  if (error) throw error;
+  return (data as { slug: string; updated_at: string }[]).map((p) => ({ slug: p.slug, updatedAt: new Date(p.updated_at).toISOString() }));
+}

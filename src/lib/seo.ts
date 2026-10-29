@@ -20,3 +20,8 @@ export function pageMetadata({ title, description, image, path }: { title: strin
     },
   };
 }
+
+/** Endereço público do site, sem a barra final, para sitemap, robots e JSON-LD. */
+export function siteUrl() {
+  return (process.env.NEXT_PUBLIC_SITE_URL ?? "https://faclubrificantes.com.br").replace(/\/$/, "");
+}

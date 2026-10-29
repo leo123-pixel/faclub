@@ -240,7 +240,7 @@ T11 → T12 → T13
 
 ---
 
-### T9: Sitemap e robots
+### T9: Sitemap e robots ✅
 
 **What**: `src/app/sitemap.ts` (Home, catálogo, política e produtos visíveis com `updated_at`) e `src/app/robots.ts` (permite tudo, bloqueia `/admin` e `/carrinho`, aponta o sitemap).
 **Where**: `src/app/sitemap.ts`
@@ -250,9 +250,9 @@ T11 → T12 → T13
 
 **Done when**:
 
-- [ ] `tests/e2e/seo-tech.spec.ts` prova: `/sitemap.xml` lista a Home, `/produtos`, a política e os 12 produtos visíveis, cada um com `lastmod` igual ao `updated_at` do banco (C12); o produto oculto e qualquer `/admin` ficam de fora (C13); `/robots.txt` tem `Allow: /`, `Disallow: /admin` e `Disallow: /carrinho` e a linha `Sitemap:` (C14)
-- [ ] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
-- [ ] Test count: 3 e2e tests pass
+- [x] `tests/e2e/seo-tech.spec.ts` prova: `/sitemap.xml` lista a Home, `/produtos`, a política e os 12 produtos visíveis, cada um com `lastmod` igual ao `updated_at` do banco (C12); o produto oculto e qualquer `/admin` ficam de fora (C13); `/robots.txt` tem `Allow: /`, `Disallow: /admin` e `Disallow: /carrinho` e a linha `Sitemap:` (C14)
+- [x] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

@@ -1,0 +1,23 @@
+[
+  {
+    "file": "src/lib/domain/banner-input.ts",
+    "old": "if (!v.title.trim()) errors.title = MESSAGES.required;",
+    "new": "if (!v.title.trim() && !v.imagePath) errors.title = MESSAGES.required;",
+    "proof": "npx vitest run src/lib/domain/banner-input.test.ts -t \"BAN-01.3:\"",
+    "label": "título vazio só é recusado quando a foto também falta"
+  },
+  {
+    "file": "src/lib/domain/settings-input.ts",
+    "old": "`${base}?text=${encodeURIComponent(message)}`",
+    "new": "`${base}?text=${encodeURI(message)}`",
+    "proof": "npx vitest run src/lib/domain/settings-input.test.ts -t \"CONF-01.6:\"",
+    "label": "mensagem do link do WhatsApp com encodeURI (deixa ?, & e # crus)"
+  },
+  {
+    "file": "src/lib/domain/coupon-input.ts",
+    "old": "percent <= 100",
+    "new": "percent < 100",
+    "proof": "npx vitest run src/lib/domain/coupon-input.test.ts -t \"CUP-01.3:\"",
+    "label": "percentual 100 passa a ser recusado (<= 100 -> < 100)"
+  }
+]

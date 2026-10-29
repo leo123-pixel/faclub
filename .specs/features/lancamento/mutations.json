@@ -1,0 +1,23 @@
+[
+  {
+    "file": "src/lib/domain/consent.ts",
+    "old": "export const CONSENT_DAYS = 180;",
+    "new": "export const CONSENT_DAYS = 179;",
+    "proof": "npx playwright test tests/e2e/consent.spec.ts -g \"CONS-01.4:\"",
+    "label": "C4: escolha de cookies vale 179 dias em vez de 180"
+  },
+  {
+    "file": "src/lib/domain/structured-data.ts",
+    "old": "availability: p.stock > 0 ? \"https://schema.org/InStock\" : \"https://schema.org/OutOfStock\",",
+    "new": "availability: \"https://schema.org/InStock\",",
+    "proof": "npx playwright test tests/e2e/seo-tech.spec.ts -g \"SITEMAP-01.5:\"",
+    "label": "C16: JSON-LD Product sempre InStock, mesmo sem estoque"
+  },
+  {
+    "file": "next.config.ts",
+    "old": "skipTrailingSlashRedirect: true,",
+    "new": "skipTrailingSlashRedirect: false,",
+    "proof": "npx playwright test tests/e2e/redirects.spec.ts -g \"REDIR-01.1:\"",
+    "label": "C17: Next tira a barra final com 308 antes do 301 das URLs antigas"
+  }
+]

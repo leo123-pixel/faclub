@@ -1,0 +1,66 @@
+# Backup semanal do FAC LUB (BKP-01): banco e fotos do Supabase guardados como
+# artefato cifrado por 90 dias. Uma falha deixa o job vermelho e o GitHub avisa por
+# e-mail quem cuida do agendamento (padrão das notificações do Actions).
+name: Backup semanal
+
+on:
+  schedule:
+    - cron: "0 6 * * 1" # segunda 3h em Brasília (UTC-3)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  backup:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Dependências
+        run: npm ci --ignore-scripts
+
+      # o Supabase roda Postgres 15 ou 17; o pg_dump do Ubuntu (16) recusa servidor mais novo
+      - name: Cliente pg_dump 17
+        run: |
+          set -euo pipefail
+          sudo install -d /usr/share/postgresql-common/pgdg
+          sudo curl -fsSL -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc
+          echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client-17
+
+      - name: Backup do banco e das fotos
+        env:
+          SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          PG_DUMP: /usr/lib/postgresql/17/bin/pg_dump
+        run: |
+          set -euo pipefail
+          node scripts/backup.mjs "backup/faclub-$(date -u +%F)"
+
+      # o repositório é público: o artefato sai cifrado, e só quem tem a senha lê (BKP-02)
+      - name: Cifrar o backup
+        env:
+          BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          : "${BACKUP_PASSPHRASE:?cadastre o segredo BACKUP_PASSPHRASE}"
+          mkdir -p cifrado
+          tar -czf - -C backup . | openssl enc -aes-256-cbc -pbkdf2 -iter 600000 -salt -pass env:BACKUP_PASSPHRASE -out "cifrado/faclub-backup-$(date -u +%F).tar.gz.enc"
+          rm -rf backup
+
+      - name: Guardar o backup
+        uses: actions/upload-artifact@v4
+        with:
+          name: faclub-backup-${{ github.run_number }}
+          path: cifrado/
+          retention-days: 90
+          if-no-files-found: error

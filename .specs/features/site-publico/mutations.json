@@ -1,0 +1,23 @@
+[
+  {
+    "file": "src/lib/domain/catalog.ts",
+    "old": "const price = (i: CatalogItem) => cardPrice(i).price;",
+    "new": "const price = (i: CatalogItem) => Math.min(...i.variants.map((v) => variantPrice(i.isPromo, v).price));",
+    "proof": "npx vitest run src/lib/domain/catalog.test.ts -t \"CAT-01.9:\"",
+    "label": "C34: ordenação por preço usa a embalagem mais barata em vez da primeira (a do card)"
+  },
+  {
+    "file": "src/lib/domain/product-page.ts",
+    "old": ".filter((i) => i.id !== product.id && i.categorySlug !== product.categorySlug)",
+    "new": ".filter((i) => i.id !== product.id)",
+    "proof": "npx vitest run src/lib/domain/product-page.test.ts -t \"PDP-01.12:\"",
+    "label": "C54: Combine com aceita produtos da mesma categoria"
+  },
+  {
+    "file": "src/components/site/PurchaseBox.tsx",
+    "old": "export const MAX_QTY = 99;",
+    "new": "export const MAX_QTY = 100;",
+    "proof": "npx vitest run src/components/site/PurchaseBox.test.tsx -t \"PDP-01.6:\"",
+    "label": "C48: limite da quantidade 99 -> 100"
+  }
+]

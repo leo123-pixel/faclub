@@ -1,0 +1,23 @@
+[
+  {
+    "file": "src/lib/domain/order.ts",
+    "old": "const p = variantPrice(row.isPromo, variant);",
+    "new": "const p = variantPrice(true, variant);",
+    "proof": "npx vitest run src/lib/domain/order.test.ts -t \"CART-04.5:\"",
+    "label": "C16: servidor cobra o promocional sem oferta ativa (row.isPromo -> true)"
+  },
+  {
+    "file": "src/lib/domain/cart.ts",
+    "old": "now.getTime() - updated > CART_TTL_DAYS",
+    "new": "now.getTime() - updated >= CART_TTL_DAYS",
+    "proof": "npx vitest run src/lib/domain/cart.test.ts -t \"CART-01.8:\"",
+    "label": "C8: validade de 7 dias com limite deslocado (> -> >=)"
+  },
+  {
+    "file": "src/app/api/pedidos/route.ts",
+    "old": "if (slot.data !== true) return",
+    "new": "if (slot.data !== true && slot.data !== false) return",
+    "proof": "npx playwright test tests/e2e/cart-send.spec.ts -g \"CART-04.7:\"",
+    "label": "C18: rota ignora a recusa de take_order_slot e grava o 6º pedido"
+  }
+]

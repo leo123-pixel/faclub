@@ -25,17 +25,29 @@ GA4 e Pixel só carregam depois que o visitante clica em "Aceitar" no aviso de c
 
 ### Backup semanal
 
-O workflow `.github/workflows/backup.yml` roda toda segunda às 3h (Brasília) e pode ser disparado à mão em **Actions → Backup semanal → Run workflow**. Ele precisa de três segredos do repositório (**Settings → Secrets and variables → Actions**):
+O workflow `.github/workflows/backup.yml` roda toda segunda às 3h (Brasília) e pode ser disparado à mão em **Actions → Backup semanal → Run workflow**. Ele precisa de quatro segredos do repositório (**Settings → Secrets and variables → Actions**):
 
 | Segredo | Valor |
 | --- | --- |
 | `SUPABASE_DB_URL` | string de conexão do **Session pooler** (Supabase → Connect), com a senha do banco; a conexão direta não funciona nos runners do GitHub, que não têm IPv6 |
 | `SUPABASE_URL` | URL do projeto |
 | `SUPABASE_SERVICE_ROLE_KEY` | chave `service_role` |
+| `BACKUP_PASSPHRASE` | senha longa e aleatória que cifra o backup. Guarde uma cópia fora do GitHub (gerenciador de senhas da Onbind): sem ela o backup não abre. Sem o segredo, o job falha e nada é guardado |
 
-Cada execução guarda um artefato `faclub-backup-<n>` por 90 dias, com `public.sql` (estrutura e dados do site), `auth.sql` (logins do painel) e `storage/product-images/` (fotos e logos). O artefato tem nomes e veículos dos pedidos: só quem tem acesso ao repositório consegue baixá-lo. Se o backup falhar, o job fica vermelho e o GitHub manda e-mail para quem tem as notificações de Actions ligadas (**Settings → Notifications → Actions** de cada pessoa).
+Cada execução guarda um artefato `faclub-backup-<n>` por 90 dias com um único arquivo `faclub-backup-<data>.tar.gz.enc`, cifrado com AES-256. Dentro dele estão `public.sql` (estrutura e dados do site), `auth.sql` (logins do painel) e `storage/product-images/` (fotos e logos). O backup é cifrado porque tem e-mails e senhas (em hash) do painel e nomes e veículos dos pedidos, e **o repositório é público: qualquer conta do GitHub consegue baixar os artefatos**.
 
-Para restaurar num projeto novo do Supabase:
+Se o backup falhar, o job fica vermelho e o GitHub manda e-mail para quem tem as notificações de Actions ligadas (**Settings → Notifications → Actions** de cada pessoa).
+
+**Atenção, repositório público:** o GitHub desliga sozinho os agendamentos de um repositório público que passa 60 dias sem atividade (commits, por exemplo), e aí o backup para sem nenhum job vermelho. Duas saídas: tornar o repositório privado (**Settings → General → Danger Zone → Change visibility**), o que também tira os artefatos do alcance de qualquer um; ou conferir todo mês em **Actions → Backup semanal** que a última execução tem menos de 7 dias e, se aparecer o aviso de agendamento desativado, usar **Enable workflow**.
+
+Para abrir um backup baixado (o `.zip` do artefato contém o `.enc`):
+
+```bash
+mkdir restaurado
+BACKUP_PASSPHRASE='a senha' openssl enc -d -aes-256-cbc -pbkdf2 -iter 600000 -pass env:BACKUP_PASSPHRASE -in faclub-backup-AAAA-MM-DD.tar.gz.enc | tar -xzf - -C restaurado
+```
+
+Para restaurar num projeto novo do Supabase, de dentro de `restaurado/`:
 
 ```bash
 psql "$NOVO_DB_URL" -v ON_ERROR_STOP=1 -f public.sql
@@ -43,6 +55,6 @@ psql "$NOVO_DB_URL" -v ON_ERROR_STOP=1 -f auth.sql
 psql "$NOVO_DB_URL" -v ON_ERROR_STOP=1 -f supabase/migrations/20261028000300_storage.sql
 ```
 
-Depois, envie a pasta `storage/product-images/` para o bucket `product-images`, mantendo os caminhos.
+O terceiro arquivo é deste repositório: ajuste o caminho até ele. Depois, envie a pasta `storage/product-images/` para o bucket `product-images`, mantendo os caminhos.
 
 Para rodar o backup localmente: `SUPABASE_DB_URL=... SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... node scripts/backup.mjs [pasta]`.

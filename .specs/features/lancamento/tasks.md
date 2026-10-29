@@ -417,6 +417,9 @@ Proof: `npx vitest run tests/config/backup-workflow.test.ts -t "BKP-01.3:"`
 **C23** - Recusar depois de aceitar para o GA4 e o Pixel na mesma visita e apaga os cookies deles (CONS-02, AC 1)
 Proof: `npx playwright test tests/e2e/consent.spec.ts -g "CONS-02.1:"`
 
+**C24** - O backup guardado é um único arquivo cifrado que o comando do README abre; sem o segredo o job falha sem guardar nada (BKP-02, AC 1)
+Proof: `npx vitest run tests/config/backup-workflow.test.ts -t "BKP-02.1:"`
+
 ---
 
 ## Handoff

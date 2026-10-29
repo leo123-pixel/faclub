@@ -127,6 +127,20 @@ O site atual não mede conversão, e trocar o WordPress pelo site novo pode derr
 
 ---
 
+### P2: Backup cifrado
+
+**User Story**: Como Onbind, quero que só quem tem a senha consiga ler o backup.
+
+**Why P2**: Achado do Verifier em 2026-10-29: o repositório é público, e o artefato do Actions com logins do painel e nomes dos pedidos podia ser baixado por qualquer conta do GitHub.
+
+**Acceptance Criteria**:
+
+1. The backup guardado no GitHub SHALL ser um único arquivo cifrado com a senha do segredo `BACKUP_PASSPHRASE`, que o comando do README abre; IF o segredo faltar THEN o job SHALL falhar sem guardar nada
+
+**Independent Test**: Baixar o artefato, ver que não abre sem a senha e abrir com o comando do README.
+
+---
+
 ## Edge Cases
 
 - IF `NEXT_PUBLIC_GA4_ID` ou `NEXT_PUBLIC_META_PIXEL_ID` estiverem vazios THEN o sistema SHALL seguir sem erro e sem carregar o script correspondente
@@ -143,10 +157,11 @@ O site atual não mede conversão, e trocar o WordPress pelo site novo pode derr
 | SITEMAP-01 | P1: Sitemap, robots e dados estruturados (AC 1-5) | Tasks | Pending |
 | REDIR-01 | P1: Redirecionar as URLs antigas (AC 1-3) | Tasks | Pending |
 | BKP-01 | P2: Backup semanal (AC 1-3) | Tasks | Pending |
+| BKP-02 | P2: Backup cifrado (AC 1) | Execute | Pending |
 
 **Coverage:** 4 total, 0 mapped to tasks, 4 unmapped ⚠️ (tasks vêm depois da aprovação)
 
-CONS-02 entrou depois do Verifier (2026-10-29) e é provado por C23.
+CONS-02 e BKP-02 entraram depois do Verifier (2026-10-29) e são provados por C23 e C24.
 
 PRD coberto aqui: RF10 (aviso de cookies), seção 8 (SEO, LGPD, Medição, Backup).
 

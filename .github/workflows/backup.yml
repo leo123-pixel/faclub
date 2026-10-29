@@ -1,5 +1,5 @@
 # Backup semanal do FAC LUB (BKP-01): banco e fotos do Supabase guardados como
-# artefato por 90 dias. Uma falha deixa o job vermelho e o GitHub avisa por
+# artefato cifrado por 90 dias. Uma falha deixa o job vermelho e o GitHub avisa por
 # e-mail quem cuida do agendamento (padrão das notificações do Actions).
 name: Backup semanal
 
@@ -46,10 +46,21 @@ jobs:
           set -euo pipefail
           node scripts/backup.mjs "backup/faclub-$(date -u +%F)"
 
+      # o repositório é público: o artefato sai cifrado, e só quem tem a senha lê (BKP-02)
+      - name: Cifrar o backup
+        env:
+          BACKUP_PASSPHRASE: ${{ secrets.BACKUP_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          : "${BACKUP_PASSPHRASE:?cadastre o segredo BACKUP_PASSPHRASE}"
+          mkdir -p cifrado
+          tar -czf - -C backup . | openssl enc -aes-256-cbc -pbkdf2 -iter 600000 -salt -pass env:BACKUP_PASSPHRASE -out "cifrado/faclub-backup-$(date -u +%F).tar.gz.enc"
+          rm -rf backup
+
       - name: Guardar o backup
         uses: actions/upload-artifact@v4
         with:
           name: faclub-backup-${{ github.run_number }}
-          path: backup/
+          path: cifrado/
           retention-days: 90
           if-no-files-found: error

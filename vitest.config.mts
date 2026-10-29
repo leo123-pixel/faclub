@@ -28,6 +28,14 @@ export default defineConfig({
           fileParallelism: false,
         },
       },
+      {
+        extends: true,
+        test: {
+          name: "config",
+          include: ["tests/config/**/*.test.ts"],
+          environment: "node",
+        },
+      },
     ],
   },
 });

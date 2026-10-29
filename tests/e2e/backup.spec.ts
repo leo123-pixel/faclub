@@ -3,6 +3,7 @@ import { existsSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs
 import path from "node:path";
 import { expect, test } from "@playwright/test";
 import pg from "pg";
+import { parse } from "yaml";
 import { API_URL, DB_URL, ROOT, SERVICE_ROLE_KEY, STORAGE_DIR } from "../../scripts/local-supabase/config.mjs";
 import { cartLine } from "./support/cart";
 import { seedSite } from "./support/site";
@@ -43,7 +44,7 @@ test.beforeEach(async () => {
 });
 
 test.describe("backup", () => {
-  test("BKP-01.1: o script exporta o banco e copia o bucket, e o dump restaurado num banco novo tem os mesmos dados", async ({ request }) => {
+  test("BKP-01.1: o script exporta o banco e copia o bucket, o dump restaurado num banco novo tem os mesmos dados e roda toda segunda às 3h", async ({ request }) => {
     const order = await request.post("/api/pedidos", {
       data: {
         lines: [{ productId: (await cartLine("top-turbo-15w-40", "Balde 20L", 1)).productId, label: "Balde 20L", qty: 1 }],
@@ -85,5 +86,12 @@ test.describe("backup", () => {
     expect(before["public.orders"]).toBe(1);
     expect(before["auth.users"]).toBeGreaterThan(0);
     expect(await counts(RESTORE_URL)).toEqual(before);
+
+    // o GitHub Actions roda o mesmo script toda segunda às 3h de Brasília (06:00 UTC)
+    const workflow = parse(readFileSync(path.join(ROOT, ".github", "workflows", "backup.yml"), "utf8"));
+    expect(workflow.on.schedule).toEqual([{ cron: "0 6 * * 1" }]);
+    expect(workflow.on).toHaveProperty("workflow_dispatch");
+    const steps: { run?: string }[] = workflow.jobs.backup.steps;
+    expect(steps.some((s) => s.run?.includes("node scripts/backup.mjs"))).toBe(true);
   });
 });

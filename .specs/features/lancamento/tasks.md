@@ -324,7 +324,7 @@ T11 → T12 → T13
 
 ---
 
-### T13: Backup semanal no GitHub Actions
+### T13: Backup semanal no GitHub Actions ✅
 
 **What**: `.github/workflows/backup.yml` (segunda 06:00 UTC, `workflow_dispatch`, `pg_dump` 17, artefato por 90 dias, falha deixa o job vermelho) e a seção "Lançamento" do README (variáveis da Vercel, segredos do backup, conferir o Search Console antes do DNS, notificações de falha do Actions).
 **Where**: `.github/workflows/backup.yml`
@@ -334,10 +334,10 @@ T11 → T12 → T13
 
 **Done when**:
 
-- [ ] `tests/e2e/backup.spec.ts` (BKP-01.1) passa a conferir que o workflow agenda o script para segunda às 3h de Brasília (C20)
-- [ ] `tests/config/backup-workflow.test.ts` prova: nenhum passo nem o job têm `continue-on-error`, o passo do script roda com `set -euo pipefail` e o script sai com erro quando o `pg_dump` falha (C21); o artefato tem `retention-days: 90` (C22)
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
-- [ ] Test count: 2 tests pass
+- [x] `tests/e2e/backup.spec.ts` (BKP-01.1) passa a conferir que o workflow agenda o script para segunda às 3h de Brasília (C20)
+- [x] `tests/config/backup-workflow.test.ts` prova: nenhum passo nem o job têm `continue-on-error`, o passo do script roda com `set -euo pipefail` e o script sai com erro quando o `pg_dump` falha (C21); o artefato tem `retention-days: 90` (C22)
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
+- [x] Test count: 2 tests pass
 
 **Tests**: unit
 **Gate**: build

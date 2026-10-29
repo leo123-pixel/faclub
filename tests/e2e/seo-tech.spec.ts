@@ -96,7 +96,7 @@ test.describe("dados estruturados", () => {
     expect((await jsonLd(page, "/")).telephone).toBe("+551133334444");
   });
 
-  test("SITEMAP-01.5: o Top Turbo tem Product com marca, imagem, SKU e oferta em reais", async ({ page }) => {
+  test("SITEMAP-01.5: o Top Turbo tem Product com marca, imagem, SKU e oferta em reais; sem estoque, OutOfStock", async ({ page }) => {
     const ld = await jsonLd(page, "/produtos/top-turbo-15w-40");
     expect(ld).toMatchObject({
       "@context": "https://schema.org",
@@ -113,6 +113,13 @@ test.describe("dados estruturados", () => {
       },
     });
     expect(ld.image).toHaveLength(4);
+
+    // sem estoque, a oferta diz OutOfStock
+    const { error } = await serviceClient().from("products").update({ stock: 0 }).eq("slug", "rimula-r4-15w-40");
+    if (error) throw error;
+    await refreshSite();
+    const out = await jsonLd(page, "/produtos/rimula-r4-15w-40");
+    expect(out.offers).toMatchObject({ price: "459.90", priceCurrency: "BRL", availability: "https://schema.org/OutOfStock" });
     for (const url of ld.image) {
       const res = await page.request.get(url);
       expect(res.status(), url).toBe(200);

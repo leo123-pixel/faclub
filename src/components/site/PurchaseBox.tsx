@@ -6,7 +6,9 @@ import { variantPrice } from "@/lib/domain/catalog";
 import { formatBRL } from "@/lib/domain/money";
 import { chipOrder, packageCaption } from "@/lib/domain/product-page";
 import { AddedNotice } from "./AddedNotice";
+import { addToCartEvent } from "@/lib/domain/analytics-events";
 import { useCart } from "./CartProvider";
+import { track } from "./track";
 import { IconMinus, IconPlus } from "./icons";
 
 export const MIN_QTY = 1;
@@ -94,7 +96,9 @@ export function PurchaseBox({ product, variants, isPromo }: { product: PurchaseP
         <button
           type="button"
           onClick={() => {
-            add({ productId: product.id, slug: product.slug, title: product.title, label: selected.label, qty });
+            const line = { productId: product.id, slug: product.slug, title: product.title, label: selected.label, qty };
+            add(line);
+            track(addToCartEvent(line, price.price));
             setNotice(true);
           }}
           className="h-[54px] flex-1 rounded-full bg-ink px-6 text-[16px] font-semibold text-white hover:bg-navy-2"

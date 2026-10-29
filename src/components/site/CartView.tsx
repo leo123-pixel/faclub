@@ -13,7 +13,9 @@ import {
   validateOrderInput,
   type CartQuote,
 } from "@/lib/domain/order";
+import { sendOrderEvent } from "@/lib/domain/analytics-events";
 import { useCart } from "./CartProvider";
+import { track } from "./track";
 import { IconMinus, IconPlus } from "./icons";
 
 export const PRICE_NOTICE = "Preço e disponibilidade são confirmados no atendimento pelo WhatsApp.";
@@ -146,6 +148,7 @@ export function CartView({ whatsapp, coupon }: { whatsapp: string; coupon: Coupo
         vehicle,
         coupon: withCoupon && coupon ? coupon.code : null,
       });
+      track(sendOrderEvent(items, view.total));
       open(orderWhatsappLink(whatsapp, message), view.unavailable.length);
     };
     const abort = new AbortController();
@@ -176,6 +179,7 @@ export function CartView({ whatsapp, coupon }: { whatsapp: string; coupon: Coupo
       }
       const order = json as OrderResponse;
       const message = orderMessage({ number: order.number, items: order.items, total: order.total, name, vehicle, coupon: order.coupon });
+      track(sendOrderEvent(order.items, order.total));
       open(orderWhatsappLink(whatsapp, message), order.unavailable.length);
     } finally {
       clearTimeout(timer);

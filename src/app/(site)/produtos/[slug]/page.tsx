@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ProductCard } from "@/components/site/ProductCard";
 import { ProductGallery } from "@/components/site/ProductGallery";
 import { PurchaseBox } from "@/components/site/PurchaseBox";
+import { TrackViewItem } from "@/components/site/TrackViewItem";
 import { loadCoupon, loadProductBySlug, loadVisibleProducts } from "@/lib/data/public";
 import { productTitle } from "@/lib/domain/admin-products";
 import { couponStoreNote } from "@/lib/domain/home";
@@ -45,6 +46,7 @@ export default async function ProductPage({ params }: PageProps<"/produtos/[slug
 
   return (
     <main className="mx-auto w-full max-w-[1312px] px-4 pb-[100px] max-md:pb-16">
+      <TrackViewItem product={product} />
       <nav aria-label="Trilha" className="pt-[26px] text-[14px]">
         <ol className="flex flex-wrap gap-1.5 text-muted">
           <li>

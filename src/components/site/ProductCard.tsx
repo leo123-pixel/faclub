@@ -6,7 +6,9 @@ import { productTitle } from "@/lib/domain/admin-products";
 import { formatBRL } from "@/lib/domain/money";
 import { cardPrice, type CatalogItem } from "@/lib/domain/catalog";
 import { AddedNotice } from "./AddedNotice";
+import { addToCartEvent } from "@/lib/domain/analytics-events";
 import { useCart } from "./CartProvider";
+import { track } from "./track";
 import { IconPlus } from "./icons";
 import { ProductPhoto } from "./ProductPhoto";
 
@@ -79,7 +81,9 @@ export function ProductCard({ item, layout = "catalog" }: { item: CatalogItem; l
               aria-label={`Adicionar ${item.brandName} ${item.name} ao carrinho`}
               onClick={() => {
                 // o card não tem seletor: 1 unidade da primeira embalagem (CART-01 AC 2)
-                add({ productId: item.id, slug: item.slug, title: productTitle(item.brandName, item.name), label: price.label, qty: 1 });
+                const line = { productId: item.id, slug: item.slug, title: productTitle(item.brandName, item.name), label: price.label, qty: 1 };
+                add(line);
+                track(addToCartEvent(line, price.price));
                 setNotice(true);
               }}
               className="relative z-10 flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-white hover:bg-navy-2"

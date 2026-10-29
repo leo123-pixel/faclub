@@ -198,7 +198,7 @@ T11 → T12 → T13
 
 ---
 
-### T7: Eventos de produto, carrinho e pedido
+### T7: Eventos de produto, carrinho e pedido ✅
 
 **What**: `view_item` na página do produto, `add_to_cart` no "Adicionar ao carrinho" e no "+" do card, `send_order_whatsapp` no envio do pedido.
 **Where**: `src/components/site/TrackViewItem.tsx`
@@ -208,9 +208,9 @@ T11 → T12 → T13
 
 **Done when**:
 
-- [ ] `tests/e2e/events.spec.ts` prova, com cookies aceitos: o Top Turbo envia `view_item` com id, nome, marca e preço ao GA4 e ao Pixel (C5); adicionar Frasco 1L × 2 envia `add_to_cart` com id, embalagem, quantidade e preço (C6); enviar o pedido envia `send_order_whatsapp` com o número de itens e o total (C7); com cookies recusados nenhum dos três chega às filas
-- [ ] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
-- [ ] Test count: 4 e2e tests pass
+- [x] `tests/e2e/events.spec.ts` prova, com cookies aceitos: o Top Turbo envia `view_item` com id, nome, marca e preço ao GA4 e ao Pixel (C5); adicionar Frasco 1L × 2 envia `add_to_cart` com id, embalagem, quantidade e preço (C6); enviar o pedido envia `send_order_whatsapp` com o número de itens e o total (C7); com cookies recusados nenhum dos três chega às filas
+- [x] Gate check passes: `npm run typecheck && npx vitest run && npx playwright test`
+- [x] Test count: 4 e2e tests pass
 
 **Tests**: e2e
 **Gate**: full

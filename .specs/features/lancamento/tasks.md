@@ -282,7 +282,7 @@ T11 → T12 → T13
 
 ---
 
-### T11: Redirecionamentos 301
+### T11: Redirecionamentos 301 ✅
 
 **What**: `next.config.ts` lê `redirects/legacy-urls.json` com `buildRedirects`; `/contato` passa a 301.
 **Where**: `next.config.ts`
@@ -292,9 +292,9 @@ T11 → T12 → T13
 
 **Done when**:
 
-- [ ] `tests/e2e/redirects.spec.ts` prova: cada URL do arquivo, com e sem a barra final, responde 301 com o destino mapeado (C17); `/wp-content/uploads/2019/logo.png`, `/wp-admin/` e `/feed/` respondem 301 para a Home (C18)
-- [ ] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
-- [ ] Test count: 2 e2e tests pass
+- [x] `tests/e2e/redirects.spec.ts` prova: cada URL do arquivo, com e sem a barra final, responde 301 com o destino mapeado (C17); `/wp-content/uploads/2019/logo.png`, `/wp-admin/` e `/feed/` respondem 301 para a Home (C18); as outras páginas com barra final seguem em 308 para a forma sem barra
+- [x] Gate check passes: `npm run lint && npm run typecheck && npm run build:local && npx vitest run && npx playwright test`
+- [x] Test count: 3 e2e tests pass
 
 **Tests**: e2e
 **Gate**: build

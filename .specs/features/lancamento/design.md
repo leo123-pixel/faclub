@@ -122,7 +122,7 @@ type StoredConsent = { version: 1; choice: "aceito" | "recusado"; at: string };
 | --- | --- | --- | --- |
 | Lista de URLs antigas incompleta | `redirects/legacy-urls.json` | Link antigo fora do sitemap cai em 404 | A lista vem do `wp-sitemap.xml`; antes de trocar o DNS a Onbind confere o relatório de páginas do Search Console e acrescenta o que faltar (mesmo arquivo, mesmo teste) |
 | Next responde 308 em `permanent: true` | `next.config.ts` | Spec pede 301 | `statusCode: 301` em cada entrada (documentado no `redirects` do Next) |
-| Barra final das URLs do WordPress (`/contato/`) | `next.config.ts` | O Next tira a barra com 308 antes do redirecionamento | Entrada para as duas formas; o e2e confere que `/contato/` dá 301 direto |
+| Barra final das URLs do WordPress (`/contato/`) | `next.config.ts` | O Next tira a barra com 308 antes do redirecionamento | Entrada para as duas formas e `skipTrailingSlashRedirect: true`, com a regra de barra final do próprio Next (308) no fim da lista (achado na T11: sem isso o 308 vinha antes do 301); o e2e confere que `/contato/` dá 301 direto e que `/produtos/` segue em 308 para `/produtos` |
 | Versão do `pg_dump` | workflow | Dump falha com servidor mais novo | Cliente 17 do repositório do PostgreSQL; o Supabase novo roda 15 ou 17 |
 | Push de `.github/workflows` | git | O token pode não ter permissão de workflow | Se o push for recusado, o arquivo fica pronto e a Onbind o envia |
 | Backup não roda aqui | Actions | Não dá para provar o agendamento neste ambiente | Teste de configuração do YAML + o script rodado contra o Supabase local com restauração |

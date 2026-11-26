@@ -130,6 +130,14 @@
 - **Date**: 2026-10-28
 - **Status**: active
 
+### AD-018 · active
+- **Decision**: Os 6 cards de "Nossos serviços" ganham fotos de banco do Unsplash (licença livre para uso comercial, sem atribuição obrigatória), em `public/images/servicos/*.webp` (800 x 680), com um degradê escuro no pé para o texto. Substitui a parte de AD-016 sobre os cards sem foto; a ordem alfabética das marcas continua.
+- **Reason**: Pedido do usuário em 2026-11-26 ("essa parte está sem fotos, consegue buscar essas imagens em bancos de imagem e colocar no site"); a spec de site-publico já previa "Fotos de banco com licença livre nas seções de serviços" até a sessão de fotos.
+- **Trade-off**: Fotos genéricas até a sessão de fotos da loja; trocar é substituir o arquivo com o mesmo nome (créditos em `public/images/servicos/CREDITOS.md`).
+- **Scope**: site-publico
+- **Date**: 2026-11-26
+- **Status**: active
+
 ### AD-017 · active
 - **Decision**: O backup semanal sobe para o GitHub só como um arquivo cifrado (AES-256 com o segredo `BACKUP_PASSPHRASE`), e o Next roda com `skipTrailingSlashRedirect`, com a mesma regra de barra final (308) depois dos 301 das URLs antigas.
 - **Reason**: Achados de lancamento em 2026-10-29: o repositório é público, então qualquer conta do GitHub baixaria um artefato com logins do painel e dados dos pedidos (Verifier); e o 308 automático do Next tirava a barra de `/contato/` antes do 301 (T11).

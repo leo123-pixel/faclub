@@ -36,6 +36,19 @@ test.describe("Home", () => {
     ]);
   });
 
+  test("os 6 cards de Nossos serviços têm título, texto e foto carregada", async ({ page }) => {
+    await page.goto("/");
+    const cards = page.locator("#servicos li");
+    await expect(cards).toHaveCount(6);
+    for (const card of await cards.all()) {
+      await card.scrollIntoViewIfNeeded();
+      await expect(card.getByRole("heading", { level: 3 })).not.toBeEmpty();
+      const photo = card.getByRole("img");
+      await expect(photo).toHaveAttribute("alt", /\S/);
+      await expect.poll(() => photo.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth)).toBeGreaterThan(0);
+    }
+  });
+
   test("HOME-01.4: a seção de marcas lista as marcas cadastradas", async ({ page }) => {
     await serviceClient().from("brands").insert({ name: "Ipiranga" });
     await refreshSite();
